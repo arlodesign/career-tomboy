@@ -10,8 +10,7 @@
         "build:scss": "node scripts/build-scss.js",
         "clean": "node scripts/clean.js",
         "start": "npm run build && node scripts/start.js",
-        "start:debug": "npm run build && node scripts/start-debug.js",
-        "deploy": "npm run build"
+        "start:debug": "npm run build && node scripts/start-debug.js"
     },
     "description": "Career Tomboy is a band.",
     "keywords": [
@@ -39,7 +38,6 @@
         "url": "https://github.com/StartBootstrap/startbootstrap-creative.git"
     },
     "dependencies": {
-        "@minify-html/node": "^0.15.0",
         "bootstrap": "^5.3.3"
     },
     "devDependencies": {
@@ -54,5 +52,8 @@
         "sass": "^1.60.0",
         "shelljs": "^0.8.5",
         "upath": "^2.0.1"
-    }
+    },
+    "browserslist": [
+        "defaults"
+    ]
 }
