@@ -1,5 +1,5 @@
 /*!
-* Start Bootstrap - Career Tomboy Website v1.0.0 (https://startbootstrap.com/theme/creative)
+* Start Bootstrap - Career Tomboy Website v1.0.0 (https://careertomboy.com/)
 * Copyright 2013-2024 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/career-tomboy-website/blob/master/LICENSE)
 */
