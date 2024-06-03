@@ -248,11 +248,6 @@ svg {
   height: auto;
 }
 
-[type=search] {
-  -webkit-appearance: textfield;
-  outline-offset: -2px;
-}
-
 /* rtl:raw:
 [type="tel"],
 [type="url"],
@@ -682,6 +677,10 @@ svg {
 
 .align-self-baseline {
   align-self: baseline !important;
+}
+
+.m-0 {
+  margin: 0 !important;
 }
 
 .mt-0 {
