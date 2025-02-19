@@ -44,7 +44,7 @@ html(lang='en')
         // Navigation
         .p-3.position-fixed.top-0.start-50.translate-middle-x.z-3
             nav#mainNav.btn-group.bg-primary.bg-opacity-75
-                a.btn.btn-primary-outline.text-light(href='#who') Who
+                //- a.btn.btn-primary-outline.text-light(href='#who') Who
                 a.btn.btn-primary-outline.text-light(href='#gigs') Gigs
                 //- a.btn.btn-primary-outline.text-light(href='#media') Media
                 a.btn.btn-primary-outline.text-light(href='#contact') Contact
@@ -63,21 +63,21 @@ html(lang='en')
                                 <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"/>
                             </svg>
 
-        // who
-        section#who.page-section.bg-who.bg-opacity-75
-            .container.px-4.px-lg-5
-                h2.text-white.mt-0.text-md-center Who is Career Tomboy?
-                hr.divider.divider-light.d-none.d-md-block
-                .row.gx-4.gx-lg-5.justify-content-center.align-items-center
-                    img.img-fluid.mb-4.col-md-7(src='../assets/img/band.jpg' alt='Jeremy, Tori, Arlo, and Becky, the members of Career Tomboy, standing in front of a brick wall and behind a chainlink fence' style='object-fit: cover; mix-blend-mode: luminosity;')
-                    .col-md-5
-                        p.text-white It’s not a midlife crisis. A crisis implies fear - a fear of not accomplishing what you want out of life. A fear that your best days are behind you.
-                        p.text-white F**k that noise.
-                        p.text-white Yes, we formed Career Tomboy later in life. But we didn’t form Career Tomboy because we were afraid. We formed Career Tomboy out of love.
-                hr.divider.divider-light.d-none.d-md-block
-                .text-md-center
-                    p.text-white.mb-4 The love of listening to music.<br />The love of watching other bands perform with fellow fans.<br />The love of creating music with people we care about.<br />The love of doing something hard with people who push you to improve.
-                    a.btn.btn-light.btn-xl(href='#gigs') See us live
+        //- // who
+        //- section#who.page-section.bg-who.bg-opacity-75
+        //-     .container.px-4.px-lg-5
+        //-         h2.text-white.mt-0.text-md-center Who is Career Tomboy?
+        //-         hr.divider.divider-light.d-none.d-md-block
+        //-         .row.gx-4.gx-lg-5.justify-content-center.align-items-center
+        //-             img.img-fluid.mb-4.col-md-7(src='../assets/img/band.jpg' alt='Jeremy, Tori, Arlo, and Becky, the members of Career Tomboy, standing in front of a brick wall and behind a chainlink fence' style='object-fit: cover; mix-blend-mode: luminosity;')
+        //-             .col-md-5
+        //-                 p.text-white It’s not a midlife crisis. A crisis implies fear - a fear of not accomplishing what you want out of life. A fear that your best days are behind you.
+        //-                 p.text-white F**k that noise.
+        //-                 p.text-white Yes, we formed Career Tomboy later in life. But we didn’t form Career Tomboy because we were afraid. We formed Career Tomboy out of love.
+        //-         hr.divider.divider-light.d-none.d-md-block
+        //-         .text-md-center
+        //-             p.text-white.mb-4 The love of listening to music.<br />The love of watching other bands perform with fellow fans.<br />The love of creating music with people we care about.<br />The love of doing something hard with people who push you to improve.
+        //-             a.btn.btn-light.btn-xl(href='#gigs') See us live
 
         // gigs
         section#gigs.page-section.bg-warning.bg-opacity-75
@@ -86,17 +86,34 @@ html(lang='en')
                 hr.divider.d-none.d-md-block
                 .row.event.pt-2.rounded
                     h3.col-sm-12.h5
-                        time(datetime='2024-11-20T19:00:00-06:00') November 20, 2024 • 7pm
+                        time(datetime='2024-11-20T19:00:00-06:00') March 9, 2025 • 6pm
                     .col-sm-8.col-md-9.col-lg-7
-                        p.m-0 American Legion Post 42, Evanston, IL
-                        p with DJRandpa
+                        p.m-0 Montrose Saloon, Chicago, IL
+                        p with The Other Woman, The Double Ts, and Hi Score
                     .col-sm-4.col-md-3.col-lg-5.text-sm-end.pb-2
-                        a.btn.btn-outline-primary(aria-label='View in Google Maps' href='https://maps.app.goo.gl/c8g54tbnJgUebADH7' target="_blank" title="Map")
+                        a.btn.btn-outline-primary(aria-label='View in Google Maps' href='https://maps.app.goo.gl/WFXk4fc4TAv7UzcMA' target="_blank" title="Map")
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                 <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
                             </svg>
                             .d-none.d-lg-inline-block Map
                         a.btn.btn-outline-primary(aria-label='Tickets and Info' href='https://calendar.google.com/calendar/u/0/r/week/2024/11/20?ctz=America/Chicago' target="_blank" title="Tickets and Info")
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-perforated-fill" viewBox="0 0 16 16">
+                                <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6zm4-1v1h1v-1zm1 3v-1H4v1zm7 0v-1h-1v1zm-1-2h1v-1h-1zm-6 3H4v1h1zm7 1v-1h-1v1zm-7 1H4v1h1zm7 1v-1h-1v1zm-8 1v1h1v-1zm7 1h1v-1h-1z"/>
+                            </svg>
+                            .d-none.d-lg-inline-block Tickets and Info
+                .row.event.pt-2.rounded
+                    h3.col-sm-12.h5
+                        time(datetime='2024-11-20T19:00:00-06:00') April 17, 2025 • 7pm
+                    .col-sm-8.col-md-9.col-lg-7
+                        p.m-0 Double Clutch Brewing Company, Evanston, IL
+                        p with The Neighborhood Kids
+                    .col-sm-4.col-md-3.col-lg-5.text-sm-end.pb-2
+                        a.btn.btn-outline-primary(aria-label='View in Google Maps' href='https://maps.app.goo.gl/WugFEWpvousxDFnf7' target="_blank" title="Map")
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                            </svg>
+                            .d-none.d-lg-inline-block Map
+                        a.btn.btn-outline-primary(aria-label='Tickets and Info' href='https://www.doubleclutchbrewing.com/live-shows' target="_blank" title="Tickets and Info")
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-perforated-fill" viewBox="0 0 16 16">
                                 <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6zm4-1v1h1v-1zm1 3v-1H4v1zm7 0v-1h-1v1zm-1-2h1v-1h-1zm-6 3H4v1h1zm7 1v-1h-1v1zm-7 1H4v1h1zm7 1v-1h-1v1zm-8 1v1h1v-1zm7 1h1v-1h-1z"/>
                             </svg>

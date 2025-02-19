@@ -1,6 +1,6 @@
 /*!
 * Start Bootstrap - Career Tomboy Website v1.0.0 (https://careertomboy.com/)
-* Copyright 2013-2024 Start Bootstrap
+* Copyright 2013-2025 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/career-tomboy-website/blob/master/LICENSE)
 */
 //
