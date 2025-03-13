@@ -11,7 +11,7 @@ const purgecss = require("@fullhuman/postcss-purgecss");
 const stylesPath = "../src/scss/styles.scss";
 const destPath = upath.resolve(
     upath.dirname(__filename),
-    "../dist/css/styles.css"
+    "../dist/css/styles.css",
 );
 
 module.exports = function renderSCSS() {
@@ -23,7 +23,7 @@ module.exports = function renderSCSS() {
             ],
             style: "expanded",
             sourceMap: true,
-        }
+        },
     );
 
     const destPathDirname = upath.dirname(destPath);

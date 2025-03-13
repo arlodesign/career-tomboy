@@ -1,24 +1,24 @@
 "use strict";
 const fs = require("fs").promises;
+const ejs = require("ejs");
 const upath = require("upath");
-const pug = require("pug");
 const sh = require("shelljs");
 const prettier = require("prettier");
 const loadGigs = require("./load-gigs");
 
-module.exports = async function renderPug(filePath) {
+module.exports = async function renderEJS(filePath) {
     try {
         const destPath = filePath
-            .replace(/src\/pug\//, "dist/")
-            .replace(/\.pug$/, ".html");
+            .replace(/src\/ejs\//, "dist/")
+            .replace(/\.ejs$/, ".html");
         const srcPath = upath.resolve(upath.dirname(__filename), "../src");
 
         console.log(`### INFO: Rendering ${filePath} to ${destPath}`);
-        const html = pug.renderFile(filePath, {
+
+        const html = await ejs.renderFile(filePath, {
             doctype: "html",
             filename: filePath,
-            basedir: srcPath,
-            gigs: loadGigs(), // Load gigs data
+            gigs: loadGigs(),
         });
 
         const destPathDirname = upath.dirname(destPath);

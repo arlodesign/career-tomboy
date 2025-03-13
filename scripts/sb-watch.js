@@ -3,7 +3,7 @@
 const chokidar = require("chokidar");
 const upath = require("upath");
 const renderAssets = require("./render-assets");
-const renderPug = require("./render-pug");
+const renderEJS = require("./render-ejs");
 const renderScripts = require("./render-scripts");
 const renderSCSS = require("./render-scss");
 
@@ -16,8 +16,8 @@ async function handleChange(filePath) {
     const relativeFilePath = upath.relative(src, filePath);
 
     try {
-        if (relativeFilePath.startsWith("pug/")) {
-            await renderPug(filePath);
+        if (relativeFilePath.startsWith("ejs/")) {
+            await renderEJS(filePath);
         } else if (relativeFilePath.startsWith("scss/")) {
             renderSCSS();
         } else if (relativeFilePath.startsWith("js/")) {

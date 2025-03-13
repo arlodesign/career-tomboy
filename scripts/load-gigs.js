@@ -6,7 +6,7 @@ const { parse } = require("csv-parse/sync");
 module.exports = function loadGigs() {
     const gigsPath = upath.resolve(
         upath.dirname(__filename),
-        "../src/data/gigs.csv"
+        "../src/data/gigs.csv",
     );
 
     try {

@@ -3,9 +3,9 @@
     "name": "career-tomboy-website",
     "version": "1.0.0",
     "scripts": {
-        "build": "NODE_ENV=production npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets && node scripts/minify.js",
+        "build": "NODE_ENV=production npm run clean && npm run build:ejs && npm run build:scss && npm run build:scripts && npm run build:assets && node scripts/minify.js",
         "build:assets": "node scripts/build-assets.js",
-        "build:pug": "node scripts/build-pug.js",
+        "build:ejs": "node scripts/build-ejs.js",
         "build:scripts": "node scripts/build-scripts.js",
         "build:scss": "node scripts/build-scss.js",
         "clean": "node scripts/clean.js",
@@ -51,10 +51,10 @@
         "html-minifier": "^4.0.0",
         "postcss": "^8.4.38",
         "prettier": "^3.2.5",
-        "pug": "^3.0.2",
         "sass": "^1.72.0",
         "shelljs": "^0.8.5",
         "terser": "^5.39.0",
-        "upath": "^2.0.1"
+        "upath": "^2.0.1",
+        "ejs": "^3.1.9"
     }
 }
