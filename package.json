@@ -3,7 +3,7 @@
     "name": "career-tomboy-website",
     "version": "1.0.0",
     "scripts": {
-        "build": "npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets",
+        "build": "NODE_ENV=production npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets && node scripts/minify.js",
         "build:assets": "node scripts/build-assets.js",
         "build:pug": "node scripts/build-pug.js",
         "build:scripts": "node scripts/build-scripts.js",
@@ -43,18 +43,18 @@
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "^6.0.0",
-        "autoprefixer": "^10.4.14",
-        "browser-sync": "^3.0.3",
-        "chokidar": "^3.5.3",
-        "concurrently": "^6.3.0",
-        "postcss": "^8.4.21",
-        "prettier": "^2.8.6",
+        "autoprefixer": "^10.4.19",
+        "browser-sync": "^3.0.2",
+        "chokidar": "^3.6.0",
+        "clean-css": "^5.3.3",
+        "concurrently": "^8.2.2",
+        "html-minifier": "^4.0.0",
+        "postcss": "^8.4.38",
+        "prettier": "^3.2.5",
         "pug": "^3.0.2",
-        "sass": "^1.60.0",
+        "sass": "^1.72.0",
         "shelljs": "^0.8.5",
+        "terser": "^5.39.0",
         "upath": "^2.0.1"
-    },
-    "browserslist": [
-        "defaults"
-    ]
+    }
 }

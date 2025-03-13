@@ -15,12 +15,16 @@ const destPath = upath.resolve(
 );
 
 module.exports = function renderSCSS() {
-    const results = sass.renderSync({
-        data: entryPoint,
-        includePaths: [
-            upath.resolve(upath.dirname(__filename), "../node_modules"),
-        ],
-    });
+    const results = sass.compile(
+        upath.resolve(upath.dirname(__filename), stylesPath),
+        {
+            loadPaths: [
+                upath.resolve(upath.dirname(__filename), "../node_modules"),
+            ],
+            style: "expanded",
+            sourceMap: true,
+        }
+    );
 
     const destPathDirname = upath.dirname(destPath);
     if (!sh.test("-e", destPathDirname)) {
@@ -29,14 +33,29 @@ module.exports = function renderSCSS() {
 
     postcss([
         autoprefixer,
-        purgecss({ content: ["./dist/**/*.html"], safelist: ["active"] }),
+        purgecss({
+            content: ["./dist/**/*.html"],
+            safelist: {
+                standard: ["active", "show", "collapse", "collapsing"],
+                deep: [/^bs-/, /^navbar-/],
+                greedy: [/^modal/, /^show$/],
+            },
+        }),
     ])
-        .process(results.css, { from: "styles.css", to: "styles.css" })
+        .process(results.css, {
+            from: "styles.css",
+            to: "styles.css",
+            map: { inline: false },
+        })
         .then((result) => {
             result.warnings().forEach((warn) => {
                 console.warn(warn.toString());
             });
-            fs.writeFileSync(destPath, result.css.toString());
+
+            fs.writeFileSync(destPath, result.css);
+            if (result.map) {
+                fs.writeFileSync(destPath + ".map", result.map.toString());
+            }
         });
 };
 

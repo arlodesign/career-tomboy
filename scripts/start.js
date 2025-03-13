@@ -1,24 +1,42 @@
-const concurrently = require('concurrently');
-const upath = require('upath');
+const concurrently = require("concurrently");
+const upath = require("upath");
 
-const browserSyncPath = upath.resolve(upath.dirname(__filename), '../node_modules/.bin/browser-sync');
+const browserSyncPath = upath.resolve(
+    upath.dirname(__filename),
+    "../node_modules/.bin/browser-sync",
+);
 
-concurrently([
-    { command: 'node scripts/sb-watch.js', name: 'SB_WATCH', prefixColor: 'bgBlue.bold' },
-    { 
-        command: `"${browserSyncPath}" --reload-delay 2000 --reload-debounce 2000 dist -w --no-online`,
-        name: 'SB_BROWSER_SYNC', 
-        prefixColor: 'bgGreen.bold',
-    }
-], {
-    prefix: 'name',
-    killOthers: ['failure', 'success'],
-}).then(success, failure);
+const browserSyncCommand =
+    process.platform === "win32"
+        ? `"${browserSyncPath}.cmd"`
+        : `"${browserSyncPath}"`;
 
-function success() {
-    console.log('Success');    
-}
+const { result } = concurrently(
+    [
+        {
+            command: "node scripts/sb-watch.js",
+            name: "SB_WATCH",
+            prefixColor: "bgBlue.bold",
+        },
+        {
+            command: `${browserSyncCommand} --reload-delay 2000 --reload-debounce 2000 dist -w --no-online`,
+            name: "SB_BROWSER_SYNC",
+            prefixColor: "bgGreen.bold",
+        },
+    ],
+    {
+        prefix: "name",
+        killOthers: ["failure", "success"],
+    },
+);
 
-function failure() {
-    console.log('Failure');
-}
+result.then(
+    () => {
+        console.log("Success");
+        process.exit(0);
+    },
+    (err) => {
+        console.error("Failure:", err);
+        process.exit(1);
+    },
+);
