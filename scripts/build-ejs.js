@@ -12,7 +12,8 @@ async function buildEJS() {
             (file) =>
                 file.match(/\.ejs$/) &&
                 !file.match(/include/) &&
-                !file.match(/layouts/),
+                !file.match(/layouts/) &&
+                !file.match(/partials/),
         );
 
         for (const file of ejsFiles) {

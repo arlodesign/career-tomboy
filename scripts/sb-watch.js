@@ -17,7 +17,17 @@ async function handleChange(filePath) {
 
     try {
         if (relativeFilePath.startsWith("ejs/")) {
-            await renderEJS(filePath);
+            // Skip partials and layouts
+            if (
+                !relativeFilePath.includes("/partials/") &&
+                !relativeFilePath.includes("/layouts/")
+            ) {
+                await renderEJS(filePath);
+            } else {
+                // If a partial or layout changes, render the main index.ejs
+                const indexPath = upath.resolve(src, "ejs/index.ejs");
+                await renderEJS(indexPath);
+            }
         } else if (relativeFilePath.startsWith("scss/")) {
             renderSCSS();
         } else if (relativeFilePath.startsWith("js/")) {
