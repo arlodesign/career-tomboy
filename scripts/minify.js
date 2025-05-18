@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const CleanCSS = require("clean-css");
-const htmlMinifier = require("html-minifier");
+const htmlMinifier = require("html-minifier-terser");
 
 function minifyCSS() {
     const cssFile = path.join(__dirname, "../dist/css/styles.css");
@@ -31,32 +31,43 @@ function minifyCSS() {
     console.log("CSS minified successfully");
 }
 
-function minifyHTML() {
+async function minifyHTML() {
     const distDir = path.join(__dirname, "../dist");
     const files = fs.readdirSync(distDir);
 
-    files.forEach((file) => {
+    for (const file of files) {
         if (file.endsWith(".html")) {
             const filePath = path.join(distDir, file);
             const html = fs.readFileSync(filePath, "utf8");
 
-            const minified = htmlMinifier.minify(html, {
-                collapseWhitespace: true,
-                removeComments: true,
-                removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                useShortDoctype: true,
-                minifyJS: true,
-                minifyCSS: true,
-            });
+            try {
+                const minified = await htmlMinifier.minify(html, {
+                    collapseWhitespace: true,
+                    removeComments: true,
+                    removeRedundantAttributes: true,
+                    removeScriptTypeAttributes: true,
+                    removeStyleLinkTypeAttributes: true,
+                    useShortDoctype: true,
+                    minifyJS: true,
+                    minifyCSS: true,
+                });
 
-            fs.writeFileSync(filePath, minified);
-            console.log(`HTML minified successfully: ${file}`);
+                fs.writeFileSync(filePath, minified);
+                console.log(`HTML minified successfully: ${file}`);
+            } catch (error) {
+                console.error(`Error minifying ${file}:`, error);
+            }
         }
-    });
+    }
 }
 
 // Run minification
-minifyCSS();
-minifyHTML();
+async function run() {
+    minifyCSS();
+    await minifyHTML();
+}
+
+run().catch((err) => {
+    console.error("Error during minification:", err);
+    process.exit(1);
+});
