@@ -5,13 +5,10 @@
         <hr class="divider d-none d-md-block">
         <% if (gigs && gigs.length > 0) { %>
             <% gigs.forEach(function(gig) { %>
-                <% const gigDate = new Date(`${gig.date}T${gig.time}`); %>
-                <% const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; %>
-                <% const timeOptions = { hour: 'numeric', minute: '2-digit' }; %>
                 <div class="row event pt-2 rounded">
                     <h3 class="col-sm-12 h5">
-                        <time datetime="<%= `${gig.date}T${gig.time}` %>">
-                            <%= gigDate.toLocaleDateString('en-US', dateOptions) %> • <%= gigDate.toLocaleTimeString('en-US', timeOptions) %>
+                        <time datetime="<%= gig.isoDateTime %>">
+                            <%= gig.formattedDate %> • <%= gig.formattedTime %>
                         </time>
                     </h3>
                     <div class="col-sm-8 col-md-9 col-lg-7">
