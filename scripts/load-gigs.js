@@ -22,34 +22,31 @@ module.exports = function loadGigs() {
         // Filter out past gigs and sort by date
         const filteredGigs = records.filter((gig) => {
             // Create a date object for the gig in its local timezone
-            const gigDateTime = new Date(`${gig.date}T${gig.time}`);
+            let gigDateTime;
 
-            // If timezone is specified, adjust the date
             if (gig.timezone) {
-                // Format the date with the specified timezone for comparison
-                const gigDateOptions = {
-                    timeZone: gig.timezone,
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                };
+                // Create the date in the specified timezone
+                // This ensures the time is interpreted correctly regardless of server timezone
+                const dateTimeString = `${gig.date}T${gig.time}`;
+                gigDateTime = new Date(dateTimeString);
 
-                // Get the date string in YYYY-MM-DD format in the gig's timezone
-                const gigLocalDate = gigDateTime.toLocaleDateString(
-                    "en-CA",
-                    gigDateOptions,
+                // Get the current date in the gig's timezone for comparison
+                const now = new Date();
+                const gigTimezoneDate = new Date(
+                    now.toLocaleString("en-US", { timeZone: gig.timezone }),
                 );
+                const gigLocalDateString = gigTimezoneDate
+                    .toISOString()
+                    .split("T")[0];
 
-                // Compare with today's date
-                const todayString = today.toISOString().split("T")[0];
-                const isIncluded = gigLocalDate >= todayString;
-
+                // Compare the gig date with today's date in the gig's timezone
+                const isIncluded = gig.date >= gigLocalDateString;
                 return isIncluded;
             } else {
                 // Fallback to simple date string comparison if no timezone
+                gigDateTime = new Date(`${gig.date}T${gig.time}`);
                 const isIncluded =
                     gig.date >= today.toISOString().split("T")[0];
-
                 return isIncluded;
             }
         });
@@ -61,13 +58,61 @@ module.exports = function loadGigs() {
 
         // Format dates and times for each gig
         return sortedGigs.map((gig) => {
-            // Create a date object for the gig
-            const gigDateTime = new Date(`${gig.date}T${gig.time}`);
+            // The key insight: the time in CSV (e.g., "19:00") represents the local time
+            // in the event's timezone. We need to create a Date object that, when formatted
+            // with the timezone option, will display that exact time.
 
-            // Set timezone options if available
+            // Parse the date and time components
+            const [year, month, day] = gig.date.split("-").map(Number);
+            const [hour, minute] = gig.time.split(":").map(Number);
+
+            let gigDateTime;
+            if (gig.timezone) {
+                // Create a date that represents the specified time in the target timezone
+                // We'll construct it in a way that accounts for timezone differences
+
+                // First, create the date/time as if it were UTC
+                const utcDateTime = new Date(
+                    Date.UTC(year, month - 1, day, hour, minute, 0, 0),
+                );
+
+                // Now we need to adjust this so that when formatted with the target timezone,
+                // it shows the correct local time. We do this by finding the offset difference.
+
+                // Get what time this UTC date would show in the target timezone
+                const targetTzTime = new Intl.DateTimeFormat("en-CA", {
+                    timeZone: gig.timezone,
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                }).format(utcDateTime);
+
+                // Parse the result to see what time it shows
+                const [targetDate, targetTime] = targetTzTime.split(", ");
+                const [targetHour, targetMinute] = targetTime
+                    .split(":")
+                    .map(Number);
+
+                // Calculate the difference between what we want and what we got
+                const wantedMinutes = hour * 60 + minute;
+                const gotMinutes = targetHour * 60 + targetMinute;
+                const offsetMinutes = wantedMinutes - gotMinutes;
+
+                // Adjust the UTC time by this offset
+                gigDateTime = new Date(
+                    utcDateTime.getTime() + offsetMinutes * 60 * 1000,
+                );
+            } else {
+                gigDateTime = new Date(`${gig.date}T${gig.time}`);
+            }
+
+            // Set timezone options for formatting
             const tzOptions = gig.timezone ? { timeZone: gig.timezone } : {};
 
-            // Format the date
+            // Format the date in the specified timezone
             const dateOptions = {
                 weekday: "long",
                 year: "numeric",
@@ -76,7 +121,7 @@ module.exports = function loadGigs() {
                 ...tzOptions,
             };
 
-            // Format the time
+            // Format the time in the specified timezone
             const timeOptions = {
                 hour: "numeric",
                 minute: "2-digit",
@@ -160,16 +205,22 @@ module.exports = function loadGigs() {
                 isoDateTime = `${isoDateTime}${tzOffset}`;
             }
 
+            // Format the date and time using the timezone-aware options
+            // This will display the time as specified in the CSV (e.g., 7:00 PM)
+            // in the correct timezone regardless of the server's timezone
+            const formattedDate = new Intl.DateTimeFormat(
+                "en-US",
+                dateOptions,
+            ).format(gigDateTime);
+            const formattedTime = new Intl.DateTimeFormat(
+                "en-US",
+                timeOptions,
+            ).format(gigDateTime);
+
             return {
                 ...gig,
-                formattedDate: gigDateTime.toLocaleDateString(
-                    "en-US",
-                    dateOptions,
-                ),
-                formattedTime: gigDateTime.toLocaleTimeString(
-                    "en-US",
-                    timeOptions,
-                ),
+                formattedDate: formattedDate,
+                formattedTime: formattedTime,
                 isoDateTime: isoDateTime,
             };
         });
