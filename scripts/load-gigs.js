@@ -64,7 +64,13 @@ module.exports = function loadGigs() {
 
             // Parse the date and time components
             const [year, month, day] = gig.date.split("-").map(Number);
-            const [hour, minute] = gig.time.split(":").map(Number);
+
+            // Handle empty time values for private events
+            let hour = 0,
+                minute = 0;
+            if (gig.time && gig.time.trim() !== "") {
+                [hour, minute] = gig.time.split(":").map(Number);
+            }
 
             let gigDateTime;
             if (gig.timezone) {
@@ -130,10 +136,16 @@ module.exports = function loadGigs() {
 
             // Add formatted date and time to the gig object
             // Create a proper ISO 8601 datetime string with timezone information
-            let isoDateTime = `${gig.date}T${gig.time}`;
+            let isoDateTime;
+            if (gig.time && gig.time.trim() !== "") {
+                isoDateTime = `${gig.date}T${gig.time}`;
+            } else {
+                // For events without time, just use the date
+                isoDateTime = gig.date;
+            }
 
             // Add timezone information if available
-            if (gig.timezone) {
+            if (gig.timezone && gig.time && gig.time.trim() !== "") {
                 // Use the Intl.DateTimeFormat API to get the timezone offset for the specific date
                 // This handles any timezone, not just America/Chicago
                 const gigDate = new Date(`${gig.date}T${gig.time}`);
@@ -212,10 +224,17 @@ module.exports = function loadGigs() {
                 "en-US",
                 dateOptions,
             ).format(gigDateTime);
-            const formattedTime = new Intl.DateTimeFormat(
-                "en-US",
-                timeOptions,
-            ).format(gigDateTime);
+
+            // Handle empty time values - don't show "12:00 AM" for private events
+            let formattedTime;
+            if (gig.time && gig.time.trim() !== "") {
+                formattedTime = new Intl.DateTimeFormat(
+                    "en-US",
+                    timeOptions,
+                ).format(gigDateTime);
+            } else {
+                formattedTime = ""; // Empty string for events without specified time
+            }
 
             return {
                 ...gig,
