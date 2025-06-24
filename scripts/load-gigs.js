@@ -66,10 +66,14 @@ module.exports = function loadGigs() {
             const [year, month, day] = gig.date.split("-").map(Number);
 
             // Handle empty time values for private events
-            let hour = 0,
+            let hour = 12,
                 minute = 0;
             if (gig.time && gig.time.trim() !== "") {
                 [hour, minute] = gig.time.split(":").map(Number);
+            } else {
+                // For private events without time, assume noon to avoid timezone date shifting
+                hour = 12;
+                minute = 0;
             }
 
             let gigDateTime;
