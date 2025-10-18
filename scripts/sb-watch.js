@@ -34,6 +34,13 @@ async function handleChange(filePath) {
             renderScripts();
         } else if (relativeFilePath.startsWith("assets/")) {
             renderAssets();
+        } else if (
+            relativeFilePath.startsWith("data/") &&
+            relativeFilePath.endsWith(".csv")
+        ) {
+            // When CSV data changes, re-render all EJS files to pick up new data
+            const indexPath = upath.resolve(src, "ejs/index.ejs");
+            await renderEJS(indexPath);
         }
     } catch (err) {
         console.error("Error processing file:", err);
