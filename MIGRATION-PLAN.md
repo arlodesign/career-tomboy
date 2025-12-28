@@ -648,6 +648,8 @@ export interface GoogleCalendarEvent {
     start: { dateTime?: string; date?: string; timeZone?: string };
     end: { dateTime?: string; date?: string; timeZone?: string };
     status?: "confirmed" | "tentative" | "cancelled";
+    /** Event visibility: "default", "public", "private", or "confidential" */
+    visibility?: "default" | "public" | "private" | "confidential";
     updated?: string;
 }
 
@@ -662,15 +664,12 @@ export interface GoogleCalendarListResponse {
 
 /**
  * Parsed fields from event description
+ * Note: Address/map URL come from the event's Location field, not description
  */
 export interface ParsedEventDescription {
-    address?: string;
-    mapUrl?: string;
     ticketUrl?: string;
     supporting?: string;
     notes?: string;
-    /** Whether this event should hide venue/address details */
-    isPrivate?: boolean;
 }
 ```
 
@@ -682,13 +681,21 @@ export interface ParsedEventDescription {
 import type { Gig, GoogleCalendarEvent, GoogleCalendarListResponse, ParsedEventDescription } from "./types";
 
 /**
+ * Generate a Google Maps search URL from an address
+ */
+export function generateMapsUrl(address: string): string {
+    const encoded = encodeURIComponent(address);
+    return `https://www.google.com/maps/search/?api=1&query=${encoded}`;
+}
+
+/**
  * Parse event description for structured data
  * Expected format:
- *   Private: yes (marks event as private - hides venue/address on website)
- *   Map: https://maps.google.com/...
  *   Tickets: https://ticketsite.com/...
  *   With: Opening Band Name
  *   Any other text becomes notes
+ *
+ * Note: Address/map comes from the event's Location field (auto-generates Maps link)
  */
 export function parseEventDescription(description?: string): ParsedEventDescription {
     if (!description) return {};
@@ -701,18 +708,10 @@ export function parseEventDescription(description?: string): ParsedEventDescript
         const trimmed = line.trim();
         const lowerLine = trimmed.toLowerCase();
 
-        if (lowerLine.startsWith("private:")) {
-            // Check for "Private: yes" or "Private: true" (case-insensitive)
-            const value = trimmed.substring(8).trim().toLowerCase();
-            result.isPrivate = value === "yes" || value === "true";
-        } else if (lowerLine.startsWith("map:")) {
-            result.mapUrl = trimmed.substring(4).trim();
-        } else if (lowerLine.startsWith("tickets:")) {
+        if (lowerLine.startsWith("tickets:")) {
             result.ticketUrl = trimmed.substring(8).trim();
         } else if (lowerLine.startsWith("with:")) {
             result.supporting = trimmed.substring(5).trim();
-        } else if (lowerLine.startsWith("address:")) {
-            result.address = trimmed.substring(8).trim();
         } else if (trimmed) {
             noteLines.push(trimmed);
         }
@@ -726,14 +725,24 @@ export function parseEventDescription(description?: string): ParsedEventDescript
 }
 
 /**
+ * Check if an event is marked as private in Google Calendar
+ * Uses the event's visibility property (set via "More options" → "Default visibility")
+ */
+function isEventPrivate(event: GoogleCalendarEvent): boolean {
+    // "private" or "confidential" visibility = hide details on website
+    return event.visibility === "private" || event.visibility === "confidential";
+}
+
+/**
  * Transform Google Calendar event to Gig format
- * For private events, sensitive details (address, mapUrl, ticketUrl) are hidden
+ * For private events (visibility = "private" or "confidential"),
+ * sensitive details (address, mapUrl, ticketUrl) are hidden
  */
 export function transformCalendarEvent(event: GoogleCalendarEvent): Gig {
     const parsed = parseEventDescription(event.description);
     const startDateTime = event.start.dateTime || event.start.date || "";
     const isAllDay = !event.start.dateTime;
-    const isPrivate = parsed.isPrivate ?? false;
+    const isPrivate = isEventPrivate(event);
 
     // For private events, hide sensitive location details
     // The venue (event title) is shown as-is - band can set it to "Private Event"
@@ -756,8 +765,9 @@ export function transformCalendarEvent(event: GoogleCalendarEvent): Gig {
         id: event.id,
         date: startDateTime,
         venue: event.summary || "TBA",
-        address: parsed.address || event.location,
-        mapUrl: parsed.mapUrl,
+        address: event.location,
+        // Auto-generate Google Maps link from Location field
+        mapUrl: event.location ? generateMapsUrl(event.location) : undefined,
         ticketUrl: parsed.ticketUrl,
         supporting: parsed.supporting,
         notes: parsed.notes,
@@ -1095,14 +1105,16 @@ const formattedTime = isAllDay
 
 **How Private Events Display:**
 
-| Event Type  | Title Shows                                | Address Shows | Map/Tickets Show | Badge           |
-| ----------- | ------------------------------------------ | ------------- | ---------------- | --------------- |
-| Public gig  | Venue name                                 | ✅ Yes        | ✅ Yes           | None            |
-| Private gig | Whatever band sets (e.g., "Private Event") | ❌ Hidden     | ❌ Hidden        | "Private Event" |
+| Visibility Setting | Title Shows                                | Address Shows | Map Link    | Tickets     | Badge           |
+| ------------------ | ------------------------------------------ | ------------- | ----------- | ----------- | --------------- |
+| Default / Public   | Venue name                                 | ✅ Yes        | ✅ Auto-gen | ✅ If added | None            |
+| Private            | Whatever band sets (e.g., "Private Event") | ❌ Hidden     | ❌ Hidden   | ❌ Hidden   | "Private Event" |
 
-> **Note:** The band controls what appears as the venue name. For corporate gigs,
+> **Note:** The Google Maps link is automatically generated from the Location field.
+> The band controls what appears as the venue name (event title). For corporate gigs,
 > they might use "Private Event", "Corporate Function", or even a generic title
-> like "Special Engagement".
+> like "Special Engagement". The visibility is set using Google Calendar's built-in
+> visibility dropdown (More options → Default visibility → Private).
 
 #### 3.1.7 Build & Error Handling Strategy
 
@@ -1248,38 +1260,63 @@ The previous approach used client-side JavaScript to refresh gigs:
 
 **For Non-Technical Band Members:**
 
-| Action             | How To Do It                                                                                     |
-| ------------------ | ------------------------------------------------------------------------------------------------ |
-| Add a public gig   | Create event in Google Calendar with venue as title, address in location, details in description |
-| Add a private gig  | Same as above, but add `Private: yes` to description (see below)                                 |
-| Edit a gig         | Edit the Google Calendar event                                                                   |
-| Cancel a gig       | Delete or mark as cancelled in Calendar                                                          |
-| Add ticket link    | Include `Tickets: https://...` in event description                                              |
-| Add map link       | Include `Map: https://...` in event description                                                  |
-| **Update website** | Trigger rebuild (see Section 3.1.9) or wait for daily scheduled rebuild                          |
+| Action             | How To Do It                                                             |
+| ------------------ | ------------------------------------------------------------------------ |
+| Add a public gig   | Create event in Google Calendar with venue as title, address in location |
+| Add a private gig  | Same as above, but set visibility to "Private" (see below)               |
+| Edit a gig         | Edit the Google Calendar event                                           |
+| Cancel a gig       | Delete or mark as cancelled in Calendar                                  |
+| Add ticket link    | Include `Tickets: https://...` in event description                      |
+| Add other bands    | Include `With: Band Name` in event description                           |
+| **Update website** | Trigger rebuild (see Section 3.1.9) or wait for daily scheduled rebuild  |
 
-#### Public Gig Description Format
+#### Creating a Gig Event
 
-For public shows where you want to display all venue details:
+Use the standard Google Calendar fields:
+
+| Google Calendar Field | Website Display                 | Example                          |
+| --------------------- | ------------------------------- | -------------------------------- |
+| **Title**             | Venue name                      | "Double Clutch Brewing"          |
+| **Date/Time**         | Date and time                   | Jan 15, 2025 at 8:00 PM          |
+| **Location**          | Address + auto Google Maps link | "2121 Ashland Ave, Evanston, IL" |
+| **Visibility**        | Private badge (if Private)      | Default or Private               |
+| **Description**       | Optional extras (see below)     | Ticket link, opening act, notes  |
+
+The **Google Maps link is generated automatically** from the Location field—no need to copy/paste map URLs!
+
+#### Optional Description Fields
+
+Add any of these to the event description for extra details:
 
 ```
-Address: 2121 Ashland Ave, Evanston, IL
-Map: https://maps.app.goo.gl/WugFEWpvousxDFnf7
 Tickets: https://www.doubleclutchbrewing.com/live-shows
 With: The Neighborhood Kids
 ```
 
-#### Private Event Description Format
+All other text in the description becomes notes (shown on the website).
 
-For corporate events, private parties, or gigs where you don't want to reveal venue/client details:
+#### Making an Event Private
 
-```
-Private: yes
-```
+For corporate events, private parties, or gigs where you don't want to reveal venue/client details,
+use Google Calendar's built-in **visibility setting**:
 
-**That's it!** Just add `Private: yes` anywhere in the description.
+**On Desktop (Google Calendar web):**
 
-When `Private: yes` is set:
+1. Create or edit the event
+2. Click **"More options"** to open the full editor
+3. Find **"Default visibility"** dropdown (usually says "Default")
+4. Change it to **"Private"**
+5. Save the event
+
+**On Mobile (Google Calendar app):**
+
+1. Create or edit the event
+2. Tap **"More options"** or scroll down
+3. Find **"Privacy"** or **"Visibility"**
+4. Select **"Private"**
+5. Save
+
+When an event is set to **Private** visibility:
 
 - The event **still appears** on the website's gig list
 - The **date and time** are shown normally
@@ -1289,15 +1326,16 @@ When `Private: yes` is set:
 
 **Example Calendar Events:**
 
-| Event Title   | Description                                    | What Website Shows                         |
-| ------------- | ---------------------------------------------- | ------------------------------------------ |
-| Double Clutch | `Address: 2121 Ashland...` `Tickets: https...` | Full details with map/ticket links         |
-| Private Event | `Private: yes`                                 | "Private Event" with badge, no details     |
-| Corporate Gig | `Private: yes`                                 | "Corporate Gig" with badge, no details     |
-| Smith Wedding | `Private: yes` (even with address in Calendar) | "Smith Wedding" with badge, address hidden |
+| Event Title   | Location Field      | Visibility | What Website Shows                      |
+| ------------- | ------------------- | ---------- | --------------------------------------- |
+| Double Clutch | 2121 Ashland Ave... | Default    | Full details with address and all links |
+| Private Event | (any or empty)      | Private    | "Private Event" with badge, no details  |
+| Corporate Gig | 123 Corporate Dr... | Private    | "Corporate Gig" with badge, no address  |
+| Smith Wedding | The Grand Ballroom  | Private    | "Smith Wedding" with badge, no address  |
 
-> **Tip:** You can still fill in the Location field in Google Calendar for your own reference.
-> The website will only hide this information from public display when `Private: yes` is set.
+> **Tip:** You can still fill in the Location field in Google Calendar for your own reference
+> (e.g., so you know where to go!). The website will hide this from public display when
+> visibility is set to Private.
 
 ---
 
