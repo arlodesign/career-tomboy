@@ -1407,16 +1407,53 @@ interface Member {
 
 ### 4.2 New Section: Media
 
+#### 4.2.1 Video Data File
+
+**File:** `src/data/videos.json`
+
+```json
+{
+    "featured": {
+        "youtubeId": "dQw4w9WgXcQ",
+        "title": "Career Tomboy - Live at Double Clutch",
+        "description": "Full set from our December 2024 show"
+    },
+    "videos": [
+        {
+            "youtubeId": "VIDEO_ID_1",
+            "title": "Glycerine (Bush cover)",
+            "description": "Live at Martyrs' - October 2024"
+        },
+        {
+            "youtubeId": "VIDEO_ID_2",
+            "title": "Say It Ain't So (Weezer cover)",
+            "description": "Rehearsal footage"
+        },
+        {
+            "youtubeId": "VIDEO_ID_3",
+            "title": "Zombie (Cranberries cover)",
+            "description": "Live at FitzGerald's - Summer 2024"
+        }
+    ]
+}
+```
+
+#### 4.2.2 Media Component
+
 **File:** `src/components/Media.astro`
 
 ```astro
 ---
-// Photo gallery data (could also be loaded from JSON)
-const photos = [
-    { thumbnail: "photo1-thumb.jpg", full: "photo1.jpg", alt: "Band performing at venue" },
-    { thumbnail: "photo2-thumb.jpg", full: "photo2.jpg", alt: "Stage setup" },
-    // ... more photos
-];
+import videoData from "../data/videos.json";
+
+interface Video {
+    youtubeId: string;
+    title: string;
+    description?: string;
+}
+
+const featured: Video = videoData.featured;
+const videos: Video[] = videoData.videos;
 ---
 
 <section id="media" class="page-section bg-brown text-white">
@@ -1427,71 +1464,54 @@ const photos = [
         <div class="mx-auto mb-12 max-w-4xl">
             <div class="aspect-video overflow-hidden rounded-lg shadow-xl">
                 <iframe
-                    src="https://www.youtube.com/embed/VIDEO_ID"
-                    title="Career Tomboy - Featured Video"
+                    src={`https://www.youtube.com/embed/${featured.youtubeId}`}
+                    title={featured.title}
                     class="h-full w-full"
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 ></iframe>
             </div>
+            <p class="mt-4 text-center text-lg">{featured.title}</p>
+            {featured.description && (
+                <p class="text-center text-white/70">{featured.description}</p>
+            )}
         </div>
 
-        <!-- Photo Gallery -->
-        <h3 class="mb-6 text-center font-serif text-2xl">Photos</h3>
-        <div id="gallery" class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {photos.map((photo, index) => (
-                <button
-                    type="button"
-                    class="group aspect-square cursor-pointer overflow-hidden rounded-lg"
-                    data-gallery-index={index}
-                    aria-label={`View photo ${index + 1}`}
-                >
-                    <img
-                        src={`/assets/img/gallery/${photo.thumbnail}`}
-                        alt={photo.alt}
-                        class="h-full w-full object-cover transition-transform group-hover:scale-105"
-                        loading="lazy"
-                    />
-                </button>
-            ))}
-        </div>
+        <!-- More Videos -->
+        {videos.length > 0 && (
+            <>
+                <h3 class="mb-6 text-center font-serif text-2xl">More Videos</h3>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {videos.map((video) => (
+                        <article class="overflow-hidden rounded-lg bg-white/10">
+                            <div class="aspect-video">
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                                    title={video.title}
+                                    class="h-full w-full"
+                                    loading="lazy"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-serif text-lg">{video.title}</h4>
+                                {video.description && (
+                                    <p class="text-sm text-white/70">{video.description}</p>
+                                )}
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </>
+        )}
     </div>
 </section>
-
-<!-- Lightbox Modal (accessible) -->
-<dialog id="lightbox" class="max-h-[90vh] max-w-[90vw] bg-transparent p-0 backdrop:bg-black/90">
-    <button
-        type="button"
-        class="absolute right-4 top-4 z-10 text-4xl text-white"
-        aria-label="Close gallery"
-        autofocus
-    >
-        &times;
-    </button>
-    <img id="lightbox-image" src="" alt="" class="max-h-[90vh] max-w-full object-contain" />
-</dialog>
-
-<script>
-    // Lightbox functionality
-    const gallery = document.getElementById("gallery");
-    const lightbox = document.getElementById("lightbox") as HTMLDialogElement;
-    const lightboxImage = document.getElementById("lightbox-image") as HTMLImageElement;
-
-    gallery?.addEventListener("click", (e) => {
-        const button = (e.target as HTMLElement).closest("button");
-        if (button) {
-            const index = button.dataset.galleryIndex;
-            // Load full image and show lightbox
-            lightbox?.showModal();
-        }
-    });
-
-    lightbox?.addEventListener("click", (e) => {
-        if (e.target === lightbox) lightbox.close();
-    });
-</script>
 ```
+
+> **Note:** Photo gallery functionality is planned for a future phase. See Phase 5 in
+> the timeline for details on the deferred photo gallery implementation.
 
 ### 4.3 Enhanced Section: Booking
 
@@ -1649,8 +1669,8 @@ const navItems = [
 | ---------------------------------------- | -------- | ----------------------- |
 | Create `About.astro` component           | High     | 1 day                   |
 | Create `members.json` data file          | High     | 0.5 day                 |
-| Create `Media.astro` component           | High     | 1 day                   |
-| Implement photo gallery with lightbox    | Medium   | 1 day                   |
+| Create `Media.astro` component           | High     | 0.5 day                 |
+| Create `videos.json` data file           | High     | 0.25 day                |
 | Create `Booking.astro` component         | High     | 1 day                   |
 | Update `Navigation.astro` with new links | High     | 0.25 day                |
 | Gather content and assets                | Critical | **Requires your input** |
@@ -1697,6 +1717,20 @@ const navItems = [
 | Final content review                    | Critical | **Requires your input** |
 | Deploy to production                    | Critical | 0.5 day                 |
 | Post-launch monitoring                  | Medium   | Ongoing                 |
+
+**Checkpoint:** Site is live with all core functionality
+
+### Phase 6: Future Enhancements (Post-Launch)
+
+These features are deferred to post-launch to keep the initial migration focused:
+
+| Task                                   | Priority | Notes                                      |
+| -------------------------------------- | -------- | ------------------------------------------ |
+| Photo gallery with lightbox            | Medium   | Consider Cloudinary or similar for hosting |
+| Additional video sources (Vimeo, etc.) | Low      | Extend `videos.json` schema                |
+| Band merchandise section               | Low      | If selling merch online                    |
+| Mailing list signup integration        | Medium   | Mailchimp, ConvertKit, etc.                |
+| Analytics integration                  | Medium   | Plausible, Fathom, or Google Analytics     |
 
 ---
 
