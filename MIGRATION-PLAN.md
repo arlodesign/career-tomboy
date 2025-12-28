@@ -401,9 +401,171 @@ This clean separation means:
 
 ---
 
-## 3. Dynamic Gigs Management Solution
+## 3. Gigs Management Solutions
 
-### 3.1 Google Calendar API Integration (Secure Build-Time Approach)
+This section covers two approaches to managing gigs:
+
+| Approach                | When to Use                              | Complexity |
+| ----------------------- | ---------------------------------------- | ---------- |
+| **3.1 JSON File (MVP)** | MVP launch, simple workflow              | Low        |
+| **3.2 Google Calendar** | Enhanced launch, easier for band members | Medium     |
+
+---
+
+### 3.1 JSON-Based Gigs (MVP Approach)
+
+For the MVP launch, gigs are managed via a simple JSON file. This follows the same pattern
+as `members.json` and `videos.json`, keeping the architecture consistent and simple.
+
+#### 3.1.1 Gigs Data File
+
+**File:** `src/data/gigs.json`
+
+```json
+{
+    "gigs": [
+        {
+            "id": "gig-2025-01-15",
+            "date": "2025-01-15T20:00:00",
+            "venue": "Double Clutch Brewing",
+            "address": "2121 Ashland Ave, Evanston, IL",
+            "ticketUrl": "https://www.doubleclutchbrewing.com/live-shows",
+            "supporting": "The Neighborhood Kids",
+            "notes": "21+ show",
+            "isPrivate": false
+        },
+        {
+            "id": "gig-2025-02-01",
+            "date": "2025-02-01T19:00:00",
+            "venue": "Private Event",
+            "address": null,
+            "ticketUrl": null,
+            "supporting": null,
+            "notes": null,
+            "isPrivate": true
+        }
+    ]
+}
+```
+
+#### 3.1.2 TypeScript Types (MVP)
+
+**File:** `src/lib/types.ts`
+
+```typescript
+/**
+ * A gig/show entry
+ */
+export interface Gig {
+    id: string;
+    date: string;
+    venue: string;
+    address?: string | null;
+    ticketUrl?: string | null;
+    supporting?: string | null;
+    notes?: string | null;
+    isPrivate: boolean;
+}
+
+export interface GigsData {
+    gigs: Gig[];
+}
+```
+
+#### 3.1.3 Gigs Utility Functions (MVP)
+
+**File:** `src/lib/gigs.ts`
+
+```typescript
+import type { Gig, GigsData } from "./types";
+import gigsData from "../data/gigs.json";
+
+/**
+ * Generate a Google Maps search URL from an address
+ */
+export function generateMapsUrl(address: string): string {
+    const encoded = encodeURIComponent(address);
+    return `https://www.google.com/maps/search/?api=1&query=${encoded}`;
+}
+
+/**
+ * Get all gigs, sorted by date (upcoming first)
+ */
+export function getGigs(): Gig[] {
+    const data = gigsData as GigsData;
+    return data.gigs.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+}
+
+/**
+ * Get only upcoming gigs (today or later)
+ */
+export function getUpcomingGigs(): Gig[] {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    return getGigs().filter((gig) => new Date(gig.date) >= now);
+}
+
+/**
+ * Get only past gigs
+ */
+export function getPastGigs(): Gig[] {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    return getGigs()
+        .filter((gig) => new Date(gig.date) < now)
+        .reverse(); // Most recent first
+}
+```
+
+#### 3.1.4 GigsList Component (MVP)
+
+**File:** `src/components/GigsList.astro`
+
+```astro
+---
+import Gig from "./Gig.astro";
+import { getUpcomingGigs } from "../lib/gigs";
+
+const upcomingGigs = getUpcomingGigs();
+---
+
+<section id="gigs" class="page-section">
+    <div class="container mx-auto px-4 lg:px-5">
+        <h2 class="mb-8 text-center font-serif text-4xl">Upcoming Shows</h2>
+
+        {upcomingGigs.length > 0 ? (
+            <div class="space-y-6">
+                {upcomingGigs.map((gig) => (
+                    <Gig gig={gig} />
+                ))}
+            </div>
+        ) : (
+            <p class="text-center text-lg text-gray-600">
+                No upcoming shows scheduled. Check back soon!
+            </p>
+        )}
+    </div>
+</section>
+```
+
+#### 3.1.5 MVP Workflow
+
+**For Band Members (MVP):**
+
+| Action          | How To Do It                                      |
+| --------------- | ------------------------------------------------- |
+| Add a gig       | Edit `src/data/gigs.json`, add new entry to array |
+| Edit a gig      | Edit the corresponding entry in `gigs.json`       |
+| Cancel a gig    | Remove the entry from `gigs.json`                 |
+| Mark as private | Set `"isPrivate": true` in the gig entry          |
+| **Publish**     | Commit changes and push (triggers deploy)         |
+
+> **Note:** This approach requires git commits to update gigs. For easier management
+> by non-technical band members, see Section 3.2 (Google Calendar integration).
+
+---
+
+### 3.2 Google Calendar API Integration (Enhanced Approach)
 
 This implementation uses a **private Google Calendar** with **Service Account authentication**
 for maximum security. All data fetching happens at build time—no API credentials are ever
@@ -477,7 +639,7 @@ Since this is a build-time-only approach, gig updates require a site rebuild:
 > **Note:** For a band website where gigs are booked days/weeks in advance, daily scheduled
 > rebuilds are typically sufficient. Real-time updates are not necessary.
 
-#### 3.1.1 Google Cloud Console Setup
+#### 3.2.1 Google Cloud Console Setup
 
 **Step 1: Create Google Cloud Project**
 
@@ -544,7 +706,7 @@ It can access the calendar without user interaction.
 | Band member 5 email              | Make changes to events | Add/edit/delete gigs       |
 | `gigs-reader@...gserviceaccount` | See all event details  | API read access for builds |
 
-#### 3.1.2 Environment Variables Configuration
+#### 3.2.2 Environment Variables Configuration
 
 **File: `.env.example`**
 
@@ -603,10 +765,10 @@ GOOGLE_CALENDAR_TIMEZONE=America/Chicago
 
 **Setting Up Scheduled Rebuilds:**
 
-See Section 3.1.9 for detailed instructions on creating deploy hooks and
+See Section 3.2.9 for detailed instructions on creating deploy hooks and
 setting up GitHub Actions for scheduled rebuilds with Vercel or Netlify.
 
-#### 3.1.3 TypeScript Interfaces
+#### 3.2.3 TypeScript Interfaces
 
 **File: `src/lib/types.ts`**
 
@@ -673,7 +835,7 @@ export interface ParsedEventDescription {
 }
 ```
 
-#### 3.1.4 Calendar Utility Functions
+#### 3.2.4 Calendar Utility Functions
 
 **File: `src/lib/calendar.ts`**
 
@@ -908,7 +1070,7 @@ export async function fetchGigsFromCalendar(config: FetchGigsConfig): Promise<{ 
 > and all modern build environments (Netlify, Vercel, Cloudflare). For older Node.js
 > versions, you may need to use the `jsonwebtoken` package instead.
 
-#### 3.1.5 Astro GigsList Component (Build-Time Only)
+#### 3.2.5 Astro GigsList Component (Build-Time Only)
 
 **File: `src/components/GigsList.astro`**
 
@@ -1003,7 +1165,7 @@ const buildTimestamp = new Date().toISOString();
 | Update latency      | ~5 minutes                     | Requires rebuild      |
 | Security            | Calendar ID visible in source  | Nothing exposed       |
 
-#### 3.1.6 Updated Gig Component with Private Event Support
+#### 3.2.6 Updated Gig Component with Private Event Support
 
 **File: `src/components/Gig.astro`**
 
@@ -1116,7 +1278,7 @@ const formattedTime = isAllDay
 > like "Special Engagement". The visibility is set using Google Calendar's built-in
 > visibility dropdown (More options → Default visibility → Private).
 
-#### 3.1.7 Build & Error Handling Strategy
+#### 3.2.7 Build & Error Handling Strategy
 
 Since this is a build-time-only approach, there's no client-side caching or runtime API calls.
 
@@ -1136,7 +1298,7 @@ Since this is a build-time-only approach, there's no client-side caching or runt
 | `API error: 404`             | Wrong calendar ID                        | Copy correct ID from calendar settings      |
 | `Missing ... credentials`    | Environment variables not set            | Check Netlify/Vercel env var configuration  |
 
-#### 3.1.8 Rate Limiting Considerations
+#### 3.2.8 Rate Limiting Considerations
 
 Google Calendar API free tier: **1,000,000 requests/day**
 
@@ -1151,7 +1313,7 @@ With build-time-only approach, API usage is minimal:
 
 This is well within the free tier. No additional rate limiting needed.
 
-#### 3.1.9 Triggering Rebuilds
+#### 3.2.9 Triggering Rebuilds
 
 **Option A: Manual Deploy (Simplest)**
 
@@ -1228,9 +1390,9 @@ npm i -g vercel
 vercel --prod
 ```
 
-### 3.2 Alternative Approaches (Not Recommended)
+### 3.3 Alternative Approaches (Not Recommended)
 
-#### 3.2.1 Google Calendar Embed
+#### 3.3.1 Google Calendar Embed
 
 A styled embed is simpler but has significant drawbacks:
 
@@ -1245,7 +1407,7 @@ A styled embed is simpler but has significant drawbacks:
 - Doesn't match site design
 - Can't filter private events
 
-#### 3.2.2 Hybrid with Client-Side Hydration
+#### 3.3.2 Hybrid with Client-Side Hydration
 
 The previous approach used client-side JavaScript to refresh gigs:
 
@@ -1256,7 +1418,7 @@ The previous approach used client-side JavaScript to refresh gigs:
 - More JavaScript shipped to users
 - More complex implementation
 
-### 3.3 Gigs Management Workflow
+### 3.4 Gigs Management Workflow (Google Calendar)
 
 **For Non-Technical Band Members:**
 
@@ -1268,7 +1430,7 @@ The previous approach used client-side JavaScript to refresh gigs:
 | Cancel a gig       | Delete or mark as cancelled in Calendar                                  |
 | Add ticket link    | Include `Tickets: https://...` in event description                      |
 | Add other bands    | Include `With: Band Name` in event description                           |
-| **Update website** | Trigger rebuild (see Section 3.1.9) or wait for daily scheduled rebuild  |
+| **Update website** | Trigger rebuild (see Section 3.2.9) or wait for daily scheduled rebuild  |
 
 #### Creating a Gig Event
 
@@ -1653,6 +1815,8 @@ const navItems = [
 | Convert `head.ejs` → `Head.astro` component                    | Critical | 0.5 day  |
 | Convert `navigation.ejs` → `Navigation.astro`                  | Critical | 0.5 day  |
 | Convert `masthead.ejs` → `Masthead.astro`                      | Critical | 0.5 day  |
+| Convert `gigs.csv` → `gigs.json` (see Section 3.1)             | Critical | 0.25 day |
+| Create `src/lib/gigs.ts` utility functions                     | Critical | 0.25 day |
 | Convert `gigs.ejs` → `Gig.astro` + `GigsList.astro`            | Critical | 1 day    |
 | Convert `contact.ejs` → `Contact.astro`                        | Critical | 0.5 day  |
 | Convert `footer.ejs` → `Footer.astro`                          | Critical | 0.5 day  |
@@ -1663,7 +1827,7 @@ const navItems = [
 
 **Checkpoint:** Site looks identical to current version, running on Astro
 
-### Phase 3: New Sections (Week 3)
+### Phase 3: New Sections + MVP Launch (Week 3)
 
 | Task                                     | Priority | Effort                  |
 | ---------------------------------------- | -------- | ----------------------- |
@@ -1675,50 +1839,70 @@ const navItems = [
 | Update `Navigation.astro` with new links | High     | 0.25 day                |
 | Gather content and assets                | Critical | **Requires your input** |
 | Responsive testing for all sections      | High     | 0.5 day                 |
+| Accessibility audit (WCAG 2.2 AA)        | Critical | 1 day                   |
+| Cross-browser testing                    | High     | 0.5 day                 |
+| **MVP Launch deploy**                    | Critical | 0.5 day                 |
 
-**Checkpoint:** All new sections in place with placeholder content
+**🚀 MVP LAUNCH CHECKPOINT**
 
-### Phase 4: Google Calendar API Integration (Week 4)
+At this point, the site is fully functional with:
 
-> **Note:** This phase implements the comprehensive Google Calendar API integration
-> described in Section 3.1 for both build-time and runtime gig data fetching.
+- ✅ Modern Astro + Tailwind architecture
+- ✅ All new sections (About, Media, Booking)
+- ✅ Gigs managed via `gigs.json` file
+- ✅ Accessibility compliant (WCAG 2.2 AA)
 
-| Task                                                 | Priority | Effort   |
-| ---------------------------------------------------- | -------- | -------- |
-| Create Google Cloud project and enable Calendar API  | Critical | 0.5 day  |
-| Create server API key (unrestricted)                 | Critical | 0.25 day |
-| Create client API key (referrer-restricted)          | Critical | 0.25 day |
-| Set up public Google Calendar for gigs               | Critical | 0.5 day  |
-| Create `src/lib/types.ts` with TypeScript interfaces | Critical | 0.25 day |
-| Create `src/lib/calendar.ts` with API functions      | Critical | 0.5 day  |
-| Update `GigsList.astro` with API integration         | Critical | 0.5 day  |
-| Update `Gig.astro` with `id` and `isAllDay` props    | Critical | 0.25 day |
-| Add client-side hydration script                     | High     | 0.5 day  |
-| Create `.env.example` and configure env vars         | Critical | 0.25 day |
-| Test build-time fetching (`astro build`)             | Critical | 0.25 day |
-| Test runtime hydration (browser)                     | Critical | 0.25 day |
-| Migrate existing gigs from CSV to Google Calendar    | High     | 0.5 day  |
-| Document event description format for band           | Medium   | 0.25 day |
+**MVP Gig Management:** Band members update gigs by editing `src/data/gigs.json`
+and committing changes (or requesting updates from a technical member).
 
-**Checkpoint:** Gigs fetch from Google Calendar at build time and update dynamically in browser
+---
 
-### Phase 5: Cleanup & Launch (Week 5)
+### Phase 4: Google Calendar API Integration (Post-MVP Enhancement)
 
-| Task                                    | Priority | Effort                  |
-| --------------------------------------- | -------- | ----------------------- |
-| Delete old EJS files (`src/ejs/`)       | Critical | 0.25 day                |
-| Delete old SCSS files (`src/scss/`)     | Critical | 0.25 day                |
-| Delete old scripts (`scripts/`)         | Critical | 0.25 day                |
-| Remove unused dependencies              | Critical | 0.25 day                |
-| Accessibility audit (WCAG 2.2 AA)       | Critical | 1 day                   |
-| Performance optimization (Astro images) | High     | 0.5 day                 |
-| SEO meta tags and Open Graph            | Medium   | 0.5 day                 |
-| Cross-browser testing                   | High     | 0.5 day                 |
-| Final content review                    | Critical | **Requires your input** |
-| Deploy to production                    | Critical | 0.5 day                 |
-| Post-launch monitoring                  | Medium   | Ongoing                 |
+> **Note:** This phase is **optional** and can be done after MVP launch.
+> It implements the comprehensive Google Calendar API integration described in Section 3.2
+> to enable non-technical band members to update gigs without git commits.
 
-**Checkpoint:** Site is live with all core functionality
+| Task                                                | Priority | Effort   |
+| --------------------------------------------------- | -------- | -------- |
+| Create Google Cloud project and enable Calendar API | High     | 0.5 day  |
+| Create Service Account and download JSON key        | High     | 0.25 day |
+| Create private Google Calendar for gigs             | High     | 0.5 day  |
+| Share calendar with band members + service account  | High     | 0.25 day |
+| Create `src/lib/calendar.ts` with API functions     | High     | 0.5 day  |
+| Update `GigsList.astro` to use calendar API         | High     | 0.5 day  |
+| Create `.env.example` and configure env vars        | High     | 0.25 day |
+| Test build-time fetching (`astro build`)            | High     | 0.25 day |
+| Migrate existing gigs from `gigs.json` to Calendar  | High     | 0.5 day  |
+| Set up scheduled rebuilds (daily cron via host)     | Medium   | 0.25 day |
+| Document event description format for band          | Medium   | 0.25 day |
+
+**🚀 ENHANCED LAUNCH CHECKPOINT**
+
+At this point, gig management is streamlined:
+
+- ✅ Band members update gigs in Google Calendar (no git needed)
+- ✅ Website rebuilds daily or on-demand
+- ✅ Private events supported
+- ✅ Calendar remains private (not publicly accessible)
+
+---
+
+### Phase 5: Cleanup (Post-Launch)
+
+| Task                                    | Priority | Effort   |
+| --------------------------------------- | -------- | -------- |
+| Delete old EJS files (`src/ejs/`)       | Medium   | 0.25 day |
+| Delete old SCSS files (`src/scss/`)     | Medium   | 0.25 day |
+| Delete old scripts (`scripts/`)         | Medium   | 0.25 day |
+| Remove unused dependencies              | Medium   | 0.25 day |
+| Performance optimization (Astro images) | High     | 0.5 day  |
+| SEO meta tags and Open Graph            | Medium   | 0.5 day  |
+| Post-launch monitoring                  | Medium   | Ongoing  |
+
+**Checkpoint:** Codebase is clean and optimized
+
+---
 
 ### Phase 6: Future Enhancements (Post-Launch)
 
