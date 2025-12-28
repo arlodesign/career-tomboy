@@ -1,0 +1,32 @@
+---
+import Gig from "./Gig.astro";
+import { getUpcomingGigs } from "../lib/gigs";
+
+const upcomingGigs = getUpcomingGigs();
+---
+
+<section id="gigs" class="page-section bg-yellow/75 text-slate-900">
+    <div class="container mx-auto max-w-3xl px-4 lg:px-5">
+        <h2 class="mb-4 mt-0 text-center font-serif text-4xl">See us live!</h2>
+        <hr class="divider hidden md:block" aria-hidden="true" />
+
+        <div
+            id="gigs-list"
+            role="feed"
+            aria-label="Upcoming shows"
+            class="mt-4 space-y-4"
+        >
+            {upcomingGigs.length > 0 ? (
+                <>
+                    {upcomingGigs.map((gig) => (
+                        <Gig gig={gig} />
+                    ))}
+                </>
+            ) : (
+                <p class="py-8 text-center text-lg text-slate-700">
+                    No upcoming shows scheduled. Check back soon!
+                </p>
+            )}
+        </div>
+    </div>
+</section>

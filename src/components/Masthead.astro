@@ -1,0 +1,47 @@
+---
+import logo from "../assets/img/logo.svg";
+---
+
+<header
+    class="relative flex min-h-screen items-center justify-center bg-cover bg-center text-center text-white"
+    style={{ backgroundImage: "url('/assets/img/bg-masthead.jpg')" }}
+>
+    <div class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
+
+    <div class="relative z-10 container mx-auto px-4 lg:px-5">
+        <h1 class="sr-only">Career Tomboy</h1>
+
+        <div class="mx-auto max-w-xl">
+            <img
+                src={logo}
+                alt="Career Tomboy logo"
+                class="mx-auto max-w-xs sm:max-w-sm"
+            />
+
+            <p class="text-white-75 mt-6 text-lg">
+                Alternative rock hits and deep cuts from the 1990s and 2000s... and
+                more.
+            </p>
+
+            <a
+                href="#gigs"
+                class="btn-xl mt-8 inline-flex items-center justify-center bg-primary text-white shadow-lg transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+            >
+                <span class="sr-only">Skip to upcoming shows</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67"
+                    />
+                </svg>
+            </a>
+        </div>
+    </div>
+</header>

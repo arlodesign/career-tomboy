@@ -1,0 +1,25 @@
+---
+const navItems = [
+    { href: "#gigs", label: "Gigs" },
+    { href: "#contact", label: "Contact" },
+];
+---
+
+<nav
+    id="mainNav"
+    class="fixed left-1/2 top-3 z-50 -translate-x-1/2"
+    aria-label="Main navigation"
+>
+    <ul class="flex gap-1 rounded-full bg-primary/75 px-2 py-1 text-sm backdrop-blur">
+        {navItems.map((item) => (
+            <li>
+                <a
+                    href={item.href}
+                    class="rounded-full px-3 py-2 text-white transition-colors hover:text-white/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                >
+                    {item.label}
+                </a>
+            </li>
+        ))}
+    </ul>
+</nav>
