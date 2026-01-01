@@ -38,6 +38,7 @@
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.1.18",
+        "ase-util": "^1.0.3",
         "clean-css": "^5.3.3",
         "html-minifier-terser": "^7.2.0",
         "postcss": "^8.4.38",

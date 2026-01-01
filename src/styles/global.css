@@ -16,12 +16,29 @@ body {
 
 @theme {
     /* Brand Colors */
-    --color-primary: #314a8b;
-    --color-orange: #f4623a;
-    --color-brown: #5c4d42;
-    --color-yellow: #e5e4a3;
-    --color-green: #0f8073;
-    --color-pink: #c5638c;
+    --color-ct-black: #1f0760;
+    --color-ct-white: #fef1db;
+    --color-ct-blue: #3f3bda;
+    --color-ct-papaya: #fe9f90;
+    --color-ct-papaya-tint: #ffd6c6;
+    --color-ct-papaya-overprint: #1f0540;
+    --color-ct-lime: #9fd96f;
+    --color-ct-lime-tint: #e2e9bb;
+    --color-ct-lime-overprint: #140531;
+    --color-ct-plum: #da89c8;
+    --color-ct-plum-tint: #f4d1d5;
+    --color-ct-plum-overprint: #1b0458;
+    --color-ct-strawberry: #ff4959;
+    --color-ct-strawberry-tint: #ffbeb4;
+    --color-ct-strawberry-overprint: #1e0228;
+
+    /* DEPRECATED: Previous brand colors */
+    --color-primary: var(--color-ct-blue);
+    --color-orange: var(--color-ct-strawberry-tint);
+    --color-brown: var(--color-ct-plum);
+    --color-yellow: var(--color-ct-papaya-tint);
+    --color-green: var(--color-ct-lime);
+    --color-pink: var(--color-ct-strawberry);
 
     /* Typography */
     --font-sans: Poppins, ui-sans-serif, system-ui, -apple-system,
