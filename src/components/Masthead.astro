@@ -24,39 +24,40 @@ import Navigation from "./Navigation.astro";
                 Alternative rock hits and deep cuts from the 1990s and 2000s... and
                 more.
             </p>
+
+            <!-- Navigation positioned below tagline, becomes sticky on scroll -->
+            <div id="navWrapper" class="mt-8">
+                <Navigation />
+            </div>
         </div>
     </div>
-
-    <!-- Navigation positioned at bottom of masthead, becomes sticky on scroll -->
-    <Navigation />
 </header>
 
 <script>
-    const masthead = document.getElementById('masthead');
     const nav = document.getElementById('mainNav');
+    const navWrapper = document.getElementById('navWrapper');
 
-    if (masthead && nav) {
+    if (nav && navWrapper) {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        // Masthead is visible - position nav at bottom of masthead
-                        nav.classList.remove('fixed', 'top-3');
-                        nav.classList.add('absolute', 'bottom-8');
+                        // Nav wrapper is visible - nav in normal flow below tagline
+                        nav.classList.remove('fixed', 'top-3', 'left-1/2', '-translate-x-1/2');
                     } else {
-                        // Masthead is out of view - fix nav at top
-                        nav.classList.remove('absolute', 'bottom-8');
-                        nav.classList.add('fixed', 'top-3');
+                        // Nav wrapper has scrolled out of view - fix nav at top
+                        nav.classList.add('fixed', 'top-3', 'left-1/2', '-translate-x-1/2');
                     }
                 });
             },
             {
-                // Trigger when masthead is about to leave the viewport
+                // Trigger when nav wrapper reaches the top of the viewport
+                // The negative top margin accounts for the fixed position offset (top-3 = 0.75rem = 12px)
                 threshold: 0,
-                rootMargin: '-60px 0px 0px 0px',
+                rootMargin: '-12px 0px 0px 0px',
             }
         );
 
-        observer.observe(masthead);
+        observer.observe(navWrapper);
     }
 </script>
