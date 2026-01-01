@@ -40,11 +40,10 @@ body {
     --color-green: var(--color-ct-lime);
     --color-pink: var(--color-ct-strawberry);
 
-    /* Typography */
-    --font-sans: Poppins, ui-sans-serif, system-ui, -apple-system,
-        BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-        sans-serif;
-    --font-serif: Rokkitt, ui-serif, Georgia, serif;
+    /* Typography: Input Serif from Type Network */
+    --font-serif: InputSerif, "Input Serif Reg", Georgia, ui-serif, serif;
+    --font-heading: InputSerifCompressed-BlackItalic, "Input Serif Comp Bla It", Georgia, ui-serif, serif;
+    --font-bold: InputSerif-Bold, "Input Serif Bd", Georgia, ui-serif, serif;
 
     /* Spacing */
     --spacing-navbar: 4.5rem;

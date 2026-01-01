@@ -18,7 +18,7 @@ const videos: Video[] = videoData.videos;
   role="region"
 >
   <div class="container mx-auto px-4 lg:px-5">
-	    <h2 id="media-heading" class="mb-8 text-center font-serif text-4xl">Watch &amp; Listen</h2>
+	    <h2 id="media-heading" class="mb-8 text-center font-heading text-4xl italic">Watch &amp; Listen</h2>
 
     <!-- Featured Video -->
     <div class="mx-auto mb-12 max-w-4xl">
@@ -41,7 +41,7 @@ const videos: Video[] = videoData.videos;
 	    <!-- More Videos -->
 	    {videos.length > 0 && (
 	      <>
-	        <h3 class="mb-6 text-center font-serif text-2xl">More Videos</h3>
+	        <h3 class="mb-6 text-center font-heading text-2xl italic">More Videos</h3>
 	        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 	          {videos.map((video) => (
             <article class="overflow-hidden rounded-lg bg-white/10">
@@ -56,7 +56,7 @@ const videos: Video[] = videoData.videos;
                 ></iframe>
               </div>
               <div class="p-4">
-                <h4 class="font-serif text-lg">{video.title}</h4>
+                <h4 class="font-heading text-lg italic">{video.title}</h4>
                 {video.description && (
                   <p class="text-sm text-white/70">{video.description}</p>
                 )}

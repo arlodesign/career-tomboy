@@ -32,7 +32,7 @@ const mapUrl = !isPrivate && gig.address ? generateMapsUrl(gig.address) : null;
     data-gig-id={gig.id}
     data-private={isPrivate ? "true" : undefined}
 >
-    <h3 class="font-serif text-xl font-semibold text-slate-900">
+    <h3 class="font-heading text-xl italic text-slate-900">
         <time datetime={gig.date}>
             {formattedDate}
             {formattedTime && <span class="font-normal"> - {formattedTime}</span>}
