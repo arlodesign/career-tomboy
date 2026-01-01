@@ -1,0 +1,51 @@
+---
+// Load member data
+import members from "../data/members.json";
+import defaultMemberPhoto from "../assets/img/band.jpg";
+
+interface Member {
+  name: string;
+  role: string;
+  photo: string;
+  bio?: string;
+}
+---
+
+<section
+  id="about"
+  class="page-section bg-primary text-white"
+  aria-labelledby="about-heading"
+  role="region"
+>
+  <div class="container mx-auto max-w-5xl px-4 lg:px-5">
+	    <h2 id="about-heading" class="mb-8 text-center font-serif text-4xl">About the Band</h2>
+
+    <!-- Band Bio -->
+    <div class="prose prose-invert mx-auto mb-12 max-w-3xl text-center">
+      <p class="text-xl text-white-75">
+        [Band biography - 2-3 paragraphs about formation, style, mission]
+      </p>
+    </div>
+
+    <!-- Member Cards -->
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {members.map((member: Member) => (
+        <article class="group text-center">
+	          <div class="mx-auto mb-4 aspect-square w-48 overflow-hidden rounded-full">
+	            <img
+	              src={defaultMemberPhoto}
+	              alt={member.name}
+	              class="h-full w-full object-cover transition-transform group-hover:scale-105"
+	              loading="lazy"
+	              width="192"
+	              height="192"
+	            />
+	          </div>
+          <h3 class="font-serif text-xl">{member.name}</h3>
+          <p class="text-white-75">{member.role}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+

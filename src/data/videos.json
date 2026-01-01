@@ -1,0 +1,25 @@
+{
+  "featured": {
+    "youtubeId": "dQw4w9WgXcQ",
+    "title": "Career Tomboy - Live at Double Clutch",
+    "description": "Full set from our December 2024 show"
+  },
+  "videos": [
+    {
+      "youtubeId": "VIDEO_ID_1",
+      "title": "Glycerine (Bush cover)",
+      "description": "Live at Martyrs' - October 2024"
+    },
+    {
+      "youtubeId": "VIDEO_ID_2",
+      "title": "Say It Ain't So (Weezer cover)",
+      "description": "Rehearsal footage"
+    },
+    {
+      "youtubeId": "VIDEO_ID_3",
+      "title": "Zombie (Cranberries cover)",
+      "description": "Live at FitzGerald's - Summer 2024"
+    }
+  ]
+}
+
