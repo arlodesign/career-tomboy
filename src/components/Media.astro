@@ -1,10 +1,11 @@
 ---
 import videoData from "../data/videos.json";
+import Bg from "./Bg.astro";
 
 interface Video {
-  youtubeId: string;
-  title: string;
-  description?: string;
+    youtubeId: string;
+    title: string;
+    description?: string;
 }
 
 const featured: Video = videoData.featured;
@@ -12,60 +13,76 @@ const videos: Video[] = videoData.videos;
 ---
 
 <section
-  id="media"
-  class="page-section bg-brown text-white"
-  aria-labelledby="media-heading"
-  role="region"
+    id="media"
+    class="relative min-h-screen"
+    aria-labelledby="media-heading"
+    role="region"
 >
-  <div class="container mx-auto px-4 lg:px-5">
-	    <h2 id="media-heading" class="mb-8 text-center font-heading text-4xl italic">Watch &amp; Listen</h2>
+    <Bg colorVar="--color-ct-papaya" />
+    <div class="container mx-auto px-4 lg:px-5">
+        <h2
+            id="media-heading"
+            class="mb-8 text-center font-heading text-4xl italic"
+        >
+            Watch &amp; Listen
+        </h2>
 
-    <!-- Featured Video -->
-    <div class="mx-auto mb-12 max-w-4xl">
-      <div class="aspect-video overflow-hidden rounded-lg shadow-xl">
-        <iframe
-          src={`https://www.youtube.com/embed/${featured.youtubeId}`}
-          title={featured.title}
-          class="h-full w-full"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </div>
-      <p class="mt-4 text-center text-lg">{featured.title}</p>
-      {featured.description && (
-        <p class="text-center text-white/70">{featured.description}</p>
-      )}
-    </div>
-
-	    <!-- More Videos -->
-	    {videos.length > 0 && (
-	      <>
-	        <h3 class="mb-6 text-center font-heading text-2xl italic">More Videos</h3>
-	        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-	          {videos.map((video) => (
-            <article class="overflow-hidden rounded-lg bg-white/10">
-              <div class="aspect-video">
+        <!-- Featured Video -->
+        <div class="mx-auto mb-12 max-w-4xl">
+            <div class="aspect-video overflow-hidden rounded-lg shadow-xl">
                 <iframe
-                  src={`https://www.youtube.com/embed/${video.youtubeId}`}
-                  title={video.title}
-                  class="h-full w-full"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <div class="p-4">
-                <h4 class="font-heading text-lg italic">{video.title}</h4>
-                {video.description && (
-                  <p class="text-sm text-white/70">{video.description}</p>
-                )}
-              </div>
-            </article>
-          ))}
+                    src={`https://www.youtube.com/embed/${featured.youtubeId}`}
+                    title={featured.title}
+                    class="h-full w-full"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <p class="mt-4 text-center text-lg">{featured.title}</p>
+            {
+                featured.description && (
+                    <p class="text-center text-white/70">
+                        {featured.description}
+                    </p>
+                )
+            }
         </div>
-      </>
-    )}
-  </div>
-</section>
 
+        <!-- More Videos -->
+        {
+            videos.length > 0 && (
+                <>
+                    <h3 class="mb-6 text-center font-heading text-2xl italic">
+                        More Videos
+                    </h3>
+                    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {videos.map((video) => (
+                            <article class="overflow-hidden rounded-lg bg-white/10">
+                                <div class="aspect-video">
+                                    <iframe
+                                        src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                                        title={video.title}
+                                        class="h-full w-full"
+                                        loading="lazy"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                    />
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="font-heading text-lg italic">
+                                        {video.title}
+                                    </h4>
+                                    {video.description && (
+                                        <p class="text-sm text-white/70">
+                                            {video.description}
+                                        </p>
+                                    )}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </>
+            )
+        }
+    </div>
+</section>

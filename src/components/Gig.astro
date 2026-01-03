@@ -35,62 +35,78 @@ const mapUrl = !isPrivate && gig.address ? generateMapsUrl(gig.address) : null;
     <h3 class="font-heading text-xl italic text-slate-900">
         <time datetime={gig.date}>
             {formattedDate}
-            {formattedTime && <span class="font-normal"> - {formattedTime}</span>}
+            {
+                formattedTime && (
+                    <span class="font-normal"> - {formattedTime}</span>
+                )
+            }
         </time>
     </h3>
 
-    <div class="mt-1 flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+    <div
+        class="mt-1 flex flex-col gap-2 md:flex-row md:items-start md:justify-between"
+    >
         <div class="space-y-1">
             <div class="flex items-center gap-2">
                 <p class="font-medium text-slate-900">{gig.venue}</p>
-                {isPrivate && (
-                    <span
-                        class="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
-                        aria-label="Private event - venue details not disclosed"
-                    >
-                        Private Event
-                    </span>
-                )}
+                {
+                    isPrivate && (
+                        <span
+                            class="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+                            aria-label="Private event - venue details not disclosed"
+                        >
+                            Private Event
+                        </span>
+                    )
+                }
             </div>
 
-            {!isPrivate && gig.address && (
-                <p class="text-sm text-slate-800">{gig.address}</p>
-            )}
+            {
+                !isPrivate && gig.address && (
+                    <p class="text-sm text-slate-800">{gig.address}</p>
+                )
+            }
 
-            {gig.supporting && !isPrivate && (
-                <p class="text-sm text-slate-800">With {gig.supporting}</p>
-            )}
+            {
+                gig.supporting && !isPrivate && (
+                    <p class="text-sm text-slate-800">With {gig.supporting}</p>
+                )
+            }
 
-            {gig.notes && !isPrivate && (
-                <p class="text-sm text-slate-800">{gig.notes}</p>
-            )}
+            {
+                gig.notes && !isPrivate && (
+                    <p class="text-sm text-slate-800">{gig.notes}</p>
+                )
+            }
         </div>
 
-        {!isPrivate && (mapUrl || gig.ticketUrl) && (
-            <div class="mt-3 flex flex-wrap gap-2 md:mt-0 md:justify-end">
-                {mapUrl && (
-                    <a
-                        href={mapUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-1 rounded border border-primary px-3 py-1 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                        aria-label={`View map for ${gig.venue}`}
-                    >
-                        Map
-                    </a>
-                )}
-                {gig.ticketUrl && (
-                    <a
-                        href={gig.ticketUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-1 rounded border border-primary px-3 py-1 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                        aria-label={`Get tickets for ${gig.venue}`}
-                    >
-                        Tickets
-                    </a>
-                )}
-            </div>
-        )}
+        {
+            !isPrivate && (mapUrl || gig.ticketUrl) && (
+                <div class="mt-3 flex flex-wrap gap-2 md:mt-0 md:justify-end">
+                    {mapUrl && (
+                        <a
+                            href={mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1 rounded border border-primary px-3 py-1 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                            aria-label={`View map for ${gig.venue}`}
+                        >
+                            Map
+                        </a>
+                    )}
+                    {gig.ticketUrl && (
+                        <a
+                            href={gig.ticketUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1 rounded border border-primary px-3 py-1 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                            aria-label={`Get tickets for ${gig.venue}`}
+                        >
+                            Tickets
+                        </a>
+                    )}
+                </div>
+            )
+        }
     </div>
 </article>

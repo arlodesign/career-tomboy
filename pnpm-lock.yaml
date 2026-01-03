@@ -14,6 +14,9 @@ importers:
       csv-parse:
         specifier: ^5.6.0
         version: 5.6.0
+      sharp:
+        specifier: ^0.34.5
+        version: 0.34.5
     devDependencies:
       '@tailwindcss/vite':
         specifier: ^4.1.18
@@ -2110,8 +2113,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.12':
     optional: true
 
-  '@img/colour@1.0.0':
-    optional: true
+  '@img/colour@1.0.0': {}
 
   '@img/sharp-darwin-arm64@0.34.5':
     optionalDependencies:
@@ -3752,7 +3754,6 @@ snapshots:
       '@img/sharp-win32-arm64': 0.34.5
       '@img/sharp-win32-ia32': 0.34.5
       '@img/sharp-win32-x64': 0.34.5
-    optional: true
 
   shelljs@0.8.5:
     dependencies:
