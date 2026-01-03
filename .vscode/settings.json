@@ -1,5 +1,9 @@
 {
-    "cSpell.words": [
-        "careertomboy"
-    ]
+    "cSpell.words": ["careertomboy"],
+    "tailwindCSS.includeLanguages": {
+        "astro": "html"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    }
 }

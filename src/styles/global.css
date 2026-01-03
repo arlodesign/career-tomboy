@@ -9,15 +9,14 @@ html {
 body {
     width: 100%;
     height: 100%;
-    background-image: url("/img/bg.svg");
-    background-position: center;
-    background-attachment: fixed;
 }
 
 @theme {
     /* Brand Colors */
     --color-ct-black: #1f0760;
+    --color-black: var(--color-ct-black);
     --color-ct-white: #fef1db;
+    --color-white: var(--color-ct-white);
     --color-ct-blue: #3f3bda;
     --color-ct-papaya: #fe9f90;
     --color-ct-papaya-tint: #ffd6c6;
