@@ -99,6 +99,26 @@
             "supporting": "Dad or Alive",
             "notes": null,
             "isPrivate": false
+        },
+        {
+            "id": "gig-2026-03-21",
+            "date": "2026-03-21T19:00:00",
+            "venue": "Evanston Post 42",
+            "address": "1030 Central St, Evanston, IL",
+            "ticketUrl": null,
+            "supporting": "Dad or Alive",
+            "notes": null,
+            "isPrivate": false
+        },
+        {
+            "id": "gig-2026-04-24",
+            "date": "2026-04-24T19:00:00",
+            "venue": "The Atlantic Bar & Grill",
+            "address": "5062 N Lincoln Ave, Chicago, IL",
+            "ticketUrl": "https://www.theatlanticbarandgrill.com/chicago-the-atlantic-bar-and-grill-events",
+            "supporting": null,
+            "notes": null,
+            "isPrivate": false
         }
     ]
 }

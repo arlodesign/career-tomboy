@@ -1,24 +1,19 @@
 {
   "featured": {
-    "youtubeId": "dQw4w9WgXcQ",
+    "youtubeId": "1HnjDS0fBRk",
     "title": "Career Tomboy - Live at Double Clutch",
-    "description": "Full set from our December 2024 show"
+    "description": "Full set from February 19, 2026"
   },
   "videos": [
     {
-      "youtubeId": "VIDEO_ID_1",
-      "title": "Glycerine (Bush cover)",
-      "description": "Live at Martyrs' - October 2024"
+      "youtubeId": "1mipFkq9dg8",
+      "title": "Career Tomboy - Live at The Atlantic Bar and Grill",
+      "description": "Chicago, IL — June 21, 2025"
     },
     {
-      "youtubeId": "VIDEO_ID_2",
-      "title": "Say It Ain't So (Weezer cover)",
-      "description": "Rehearsal footage"
-    },
-    {
-      "youtubeId": "VIDEO_ID_3",
-      "title": "Zombie (Cranberries cover)",
-      "description": "Live at FitzGerald's - Summer 2024"
+      "youtubeId": "-skLszJFo1o",
+      "title": "Career Tomboy - Live at American Legion Post 42",
+      "description": "With Dad or Alive! — October 29, 2025"
     }
   ]
 }

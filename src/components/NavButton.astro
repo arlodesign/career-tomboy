@@ -11,7 +11,7 @@ const { label, href, current = false } = Astro.props as Props;
 <li>
     <a
         href={href}
-        class="px-3 py-2 text-ct-white inline-block relative font-bold"
+        class="px-3 py-2 text-ct-white inline-block relative font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-white focus-visible:ring-offset-2 focus-visible:ring-offset-ct-black focus-visible:rounded"
         aria-current={current ? "page" : undefined}
     >
         <span

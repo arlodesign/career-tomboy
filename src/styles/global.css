@@ -51,6 +51,7 @@ html {
 
 	.page-section {
 	    @apply relative flex min-h-screen items-center justify-center;
+	    scroll-margin-top: var(--spacing-navbar);
 	}
 
 	/*
