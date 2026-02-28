@@ -44,44 +44,39 @@ html {
     scroll-behavior: smooth;
 }
 
-	body {
-	    width: 100%;
-	    height: 100%;
-	}
+body {
+    width: 100%;
+    height: 100%;
+}
 
-	.page-section {
-	    @apply relative flex min-h-screen items-center justify-center;
-	    scroll-margin-top: var(--spacing-navbar);
-	}
+/*
+    * Global pattern settings
+    * The actual image URL is provided per-section via --ct-pattern-url.
+    */
 
-	/*
-	 * Global pattern settings
-	 * The actual image URL is provided per-section via --ct-pattern-url.
-	 */
+:root {
+    --ct-pattern-size: 100vw 100vw;
+}
 
-    :root {
-        --ct-pattern-size: 100vw 100vw;
-    }
+/* Container used by Bg.astro for the masked pattern background */
+.ct-pattern-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
 
-	/* Container used by Bg.astro for the masked pattern background */
-	.ct-pattern-bg {
-	    position: absolute;
-	    inset: 0;
-	    pointer-events: none;
-	    z-index: -1;
-	}
-
-	.ct-pattern-bg::before {
-	    content: "";
-	    position: absolute;
-	    inset: 0;
-	    background-color: var(--section-color, var(--color-ct-lime));
-	    -webkit-mask-image: url("../assets/bg.svg");
-	    mask-image: url("../assets/bg.svg");
-	    -webkit-mask-repeat: repeat;
-	    mask-repeat: repeat;
-	    -webkit-mask-size: var(--ct-pattern-size);
-	    mask-size: var(--ct-pattern-size);
-	    -webkit-mask-position: 0 calc(-1 * var(--pattern-offset, 0px));
-	    mask-position: 0 calc(-1 * var(--pattern-offset, 0px));
-	}
+.ct-pattern-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--section-color, var(--color-ct-lime));
+    -webkit-mask-image: url("../assets/bg.svg");
+    mask-image: url("../assets/bg.svg");
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    -webkit-mask-size: var(--ct-pattern-size);
+    mask-size: var(--ct-pattern-size);
+    -webkit-mask-position: 0 calc(-1 * var(--pattern-offset, 0px));
+    mask-position: 0 calc(-1 * var(--pattern-offset, 0px));
+}

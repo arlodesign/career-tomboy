@@ -1,147 +1,138 @@
 ---
-import Bg from "./Bg.astro";
+import Section from "./Section.astro";
 import songs from "../data/songs.json";
 ---
 
-<section
-    id="booking"
-    class="page-section"
-    aria-labelledby="booking-heading"
-    role="region"
->
-    <Bg colorVar="--color-ct-lime" />
-    <div class="container mx-auto max-w-4xl px-4 lg:px-5">
-        <h2
-            id="booking-heading"
-            class="mb-8 text-center font-heading text-4xl italic"
-        >
-            Book Us
-        </h2>
+<Section id="booking" headline="Book Us" color="lime">
+	<div class="mx-auto max-w-4xl">
+		<div class="grid gap-12 lg:grid-cols-2">
+			<!-- Booking Info -->
+			<div>
+				<h3 class="mb-4 font-heading text-2xl italic">
+					Why Book Career Tomboy?
+				</h3>
+				<ul class="space-y-2">
+					<li class="flex gap-2">
+						<span class="text-primary" aria-hidden="true">✓</span>
+						90s/2000s alternative rock crowd favorites
+					</li>
+					<li class="flex gap-2">
+						<span class="text-primary" aria-hidden="true">✓</span>
+						Professional, reliable, easy to work with
+					</li>
+					<li class="flex gap-2">
+						<span class="text-primary" aria-hidden="true">✓</span>
+						Full production or minimal setup available
+					</li>
+				</ul>
 
-        <div class="grid gap-12 lg:grid-cols-2">
-            <!-- Booking Info -->
-            <div>
-                <h3 class="mb-4 font-heading text-2xl italic">
-                    Why Book Career Tomboy?
-                </h3>
-                <ul class="space-y-2">
-                    <li class="flex gap-2">
-                        <span class="text-primary" aria-hidden="true">✓</span>
-                        90s/2000s alternative rock crowd favorites
-                    </li>
-                    <li class="flex gap-2">
-                        <span class="text-primary" aria-hidden="true">✓</span>
-                        Professional, reliable, easy to work with
-                    </li>
-                    <li class="flex gap-2">
-                        <span class="text-primary" aria-hidden="true">✓</span>
-                        Full production or minimal setup available
-                    </li>
-                </ul>
+				<h3 class="mb-4 mt-8 font-heading text-2xl italic">
+					Technical Requirements
+				</h3>
+				<ul class="space-y-1 text-sm">
+					<li>Minimum stage size: 12' x 10'</li>
+					<li>4-piece band (drums, bass, 2 guitars, vocals)</li>
+					<li>Standard backline or full PA available</li>
+				</ul>
 
-                <h3 class="mb-4 mt-8 font-heading text-2xl italic">
-                    Technical Requirements
-                </h3>
-                <ul class="space-y-1 text-sm">
-                    <li>Minimum stage size: 12' x 10'</li>
-                    <li>4-piece band (drums, bass, 2 guitars, vocals)</li>
-                    <li>Standard backline or full PA available</li>
-                </ul>
+				<h3 class="mb-4 mt-8 font-heading text-2xl italic">
+					Setlist Options
+				</h3>
+				<p>1-hour, 2-hour, or 3-set evening packages available</p>
+				<button
+					id="open-setlist"
+					class="mt-2 inline-block cursor-pointer underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-black focus-visible:ring-offset-2 focus-visible:rounded px-2 py-1"
+				>
+					View Songs We've Played
+				</button>
+			</div>
 
-                <h3 class="mb-4 mt-8 font-heading text-2xl italic">
-                    Setlist Options
-                </h3>
-                <p>1-hour, 2-hour, or 3-set evening packages available</p>
-                <button
-                    id="open-setlist"
-                    class="mt-2 inline-block cursor-pointer underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-black focus-visible:ring-offset-2 focus-visible:rounded px-2 py-1"
-                >
-                    View Songs We've Played
-                </button>
-            </div>
+			<!-- Contact CTA -->
+			<div class="rounded-lg bg-white/20 p-6">
+				<h3 class="mb-4 font-heading text-2xl italic">Get a Quote</h3>
+				<p class="mb-6">
+					Interested in booking Career Tomboy for your venue, event,
+					or private party?
+				</p>
 
-            <!-- Contact CTA -->
-            <div class="rounded-lg bg-white/20 p-6">
-                <h3 class="mb-4 font-heading text-2xl italic">Get a Quote</h3>
-                <p class="mb-6">
-                    Interested in booking Career Tomboy for your venue, event,
-                    or private party?
-                </p>
+				<a
+					href="mailto:booking@careertomboy.com?subject=Booking%20Inquiry"
+					class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-lg text-white transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-black focus-visible:ring-offset-2"
+				>
+					<svg
+						class="h-5 w-5"
+						fill="currentColor"
+						viewBox="0 0 16 16"
+						aria-hidden="true"
+					>
+						<path
+							d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4z"
+						></path>
+					</svg>
+					Email for Booking
+				</a>
 
-                <a
-                    href="mailto:booking@careertomboy.com?subject=Booking%20Inquiry"
-                    class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-lg text-white transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-black focus-visible:ring-offset-2"
-                >
-                    <svg
-                        class="h-5 w-5"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                    >
-                        <path
-                            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4z"
-                        ></path>
-                    </svg>
-                    Email for Booking
-                </a>
-
-            </div>
-        </div>
-    </div>
-</section>
+			</div>
+		</div>
+	</div>
+</Section>
 
 <dialog
-    id="setlist-modal"
-    aria-labelledby="setlist-modal-heading"
-    class="w-full max-w-lg rounded-lg p-0 backdrop:bg-black/60"
+	id="setlist-modal"
+	aria-labelledby="setlist-modal-heading"
+	class="w-full max-w-lg rounded-lg p-0 backdrop:bg-black/60"
 >
-    <div class="bg-white text-black">
-        <div class="flex items-center justify-between border-b px-6 py-4">
-            <h2 id="setlist-modal-heading" class="font-heading text-2xl italic">Songs We've Played</h2>
-            <button
-                id="close-setlist"
-                aria-label="Close"
-                class="text-2xl leading-none text-gray-500 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-black focus-visible:rounded px-1"
-            >&times;</button>
-        </div>
-        <div class="max-h-[60vh] overflow-y-auto px-6 py-4">
-            <table class="w-full text-sm" aria-label="Songs We've Played">
-                <thead>
-                    <tr class="border-b text-left">
-                        <th class="pb-2 pr-4 font-bold">Song</th>
-                        <th class="pb-2 font-bold">Artist</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {songs.map((song) => (
-                        <tr class="border-b last:border-0">
-                            <td class="py-2 pr-4">{song.title}</td>
-                            <td class="py-2 text-gray-600">{song.artist}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    </div>
+	<div class="bg-white text-black">
+		<div class="flex items-center justify-between border-b px-6 py-4">
+			<h2 id="setlist-modal-heading" class="font-heading text-2xl italic">
+				Songs We've Played
+			</h2>
+			<button
+				id="close-setlist"
+				aria-label="Close"
+				class="text-2xl leading-none text-gray-500 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-black focus-visible:rounded px-1"
+			>
+				&times;
+			</button>
+		</div>
+		<div class="max-h-[60vh] overflow-y-auto px-6 py-4">
+			<table class="w-full text-sm" aria-label="Songs We've Played">
+				<thead>
+					<tr class="border-b text-left">
+						<th class="pb-2 pr-4 font-bold">Song</th>
+						<th class="pb-2 font-bold">Artist</th>
+					</tr>
+				</thead>
+				<tbody>
+					{songs.map((song) => (
+						<tr class="border-b last:border-0">
+							<td class="py-2 pr-4">{song.title}</td>
+							<td class="py-2 text-gray-600">{song.artist}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </dialog>
 
 <script>
-    const modal = document.getElementById("setlist-modal") as HTMLDialogElement;
-    const openBtn = document.getElementById("open-setlist");
-    const closeBtn = document.getElementById("close-setlist");
+	const modal = document.getElementById("setlist-modal") as HTMLDialogElement;
+	const openBtn = document.getElementById("open-setlist");
+	const closeBtn = document.getElementById("close-setlist");
 
-    openBtn?.addEventListener("click", () => {
-        modal.showModal();
-        closeBtn?.focus();
-    });
+	openBtn?.addEventListener("click", () => {
+		modal.showModal();
+		closeBtn?.focus();
+	});
 
-    const closeModal = () => {
-        modal.close();
-        openBtn?.focus();
-    };
+	const closeModal = () => {
+		modal.close();
+		openBtn?.focus();
+	};
 
-    closeBtn?.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-    });
+	closeBtn?.addEventListener("click", closeModal);
+	modal.addEventListener("click", (e) => {
+		if (e.target === modal) closeModal();
+	});
 </script>

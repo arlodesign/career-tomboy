@@ -1,18 +1,13 @@
 ---
 import Gig from "./Gig.astro";
 import { getUpcomingGigs } from "../lib/gigs";
-import Bg from "./Bg.astro";
+import Section from "./Section.astro";
 
 const upcomingGigs = getUpcomingGigs();
 ---
 
-<section id="gigs" class="page-section">
-    <Bg colorVar="--color-ct-strawberry" />
-    <div class="container mx-auto max-w-3xl px-4 lg:px-5">
-        <h2 class="mb-8 mt-0 text-center font-heading text-4xl italic">
-            See us live!
-        </h2>
-
+<Section id="gigs" headline="See us live!" color="strawberry">
+    <div class="mx-auto max-w-3xl">
         <div
             id="gigs-list"
             role="feed"
@@ -34,4 +29,4 @@ const upcomingGigs = getUpcomingGigs();
             }
         </div>
     </div>
-</section>
+</Section>
