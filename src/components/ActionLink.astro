@@ -1,0 +1,25 @@
+---
+interface Props {
+    href: string;
+    label: string;
+    ariaLabel?: string;
+    /** Defaults to "_blank" for external links */
+    target?: string;
+}
+
+const { href, label, ariaLabel, target = "_blank" } = Astro.props as Props;
+
+// Only apply rel for new-tab links to avoid unnecessary attributes
+const rel = target === "_blank" ? "noopener noreferrer" : undefined;
+---
+
+<a
+    href={href}
+    target={target}
+    rel={rel}
+    class="inline-flex items-center gap-1 border border-black px-3 py-1 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer"
+    aria-label={ariaLabel}
+>
+    <slot name="icon" />
+    <span>{label}</span>
+</a>
