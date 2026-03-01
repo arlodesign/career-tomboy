@@ -1,0 +1,73 @@
+---
+import videoData from "../data/videos.json";
+import Section from "./Section.astro";
+
+interface Video {
+    youtubeId: string;
+    title: string;
+    description?: string;
+}
+
+const featured: Video = videoData.featured;
+const videos: Video[] = videoData.videos;
+---
+
+<Section id="media" headline="Watch & Listen" color="papaya">
+    <!-- Featured Video -->
+    <div class="mx-auto mb-12 max-w-4xl">
+        <div class="aspect-video overflow-hidden">
+            <iframe
+                src={`https://www.youtube.com/embed/${featured.youtubeId}`}
+                title={featured.title}
+                class="h-full w-full"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+        <p class="mt-4 font-heading text-lg italic text-center">
+            {featured.title}
+        </p>
+        {
+            featured.description && (
+                <p class="text-center text-black">{featured.description}</p>
+            )
+        }
+    </div>
+
+    <!-- More Videos -->
+    {
+        videos.length > 0 && (
+            <>
+                <h3 class="mb-6 text-center font-heading text-2xl italic">
+                    More Videos
+                </h3>
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {videos.map((video) => (
+                        <article class="overflow-hidden">
+                            <div class="aspect-video">
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                                    title={video.title}
+                                    class="h-full w-full"
+                                    loading="lazy"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                />
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-heading text-lg italic text-center">
+                                    {video.title}
+                                </h4>
+                                {video.description && (
+                                    <p class="text-sm text-center text-black">
+                                        {video.description}
+                                    </p>
+                                )}
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </>
+        )
+    }
+</Section>

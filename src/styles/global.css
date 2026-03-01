@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+    /* Brand Colors */
+    --color-ct-black: #1f0760;
+    --color-black: var(--color-ct-black);
+    --color-ct-white: #fef1db;
+    --color-white: var(--color-ct-white);
+    --color-ct-blue: #3f3bda;
+    --color-ct-papaya: #fe9f90;
+    --color-ct-papaya-tint: #ffd6c6;
+    --color-ct-papaya-overprint: #1f0540;
+    --color-ct-lime: #9fd96f;
+    --color-ct-lime-tint: #e2e9bb;
+    --color-ct-lime-overprint: #140531;
+    --color-ct-plum: #da89c8;
+    --color-ct-plum-tint: #f4d1d5;
+    --color-ct-plum-overprint: #1b0458;
+    --color-ct-strawberry: #ff4959;
+    --color-ct-strawberry-tint: #ffbeb4;
+    --color-ct-strawberry-overprint: #1e0228;
+
+    /* DEPRECATED: Previous brand colors */
+    --color-primary: var(--color-ct-blue);
+    --color-orange: var(--color-ct-strawberry-tint);
+    --color-brown: var(--color-ct-plum);
+    --color-yellow: var(--color-ct-papaya-tint);
+    --color-green: var(--color-ct-lime);
+    --color-pink: var(--color-ct-strawberry);
+
+    /* Typography: Input Serif from Type Network */
+    --font-serif: InputSerif, "Input Serif Reg", Georgia, ui-serif, serif;
+    --font-heading: InputSerifCompressed-BlackItalic, "Input Serif Comp Bla It", Georgia, ui-serif, serif;
+    --font-bold: InputSerif-Bold, "Input Serif Bd", Georgia, ui-serif, serif;
+
+    /* Spacing */
+    --spacing-navbar: 4.5rem;
+}
+
+
+/* Global defaults */
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+/*
+    * Global pattern settings
+    * The actual image URL is provided per-section via --ct-pattern-url.
+    */
+
+:root {
+    --ct-pattern-size: 100vw 100vw;
+}
+
+/* Container used by Bg.astro for the masked pattern background */
+.ct-pattern-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ct-pattern-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--section-color, var(--color-ct-lime));
+    -webkit-mask-image: url("../assets/bg.svg");
+    mask-image: url("../assets/bg.svg");
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    -webkit-mask-size: var(--ct-pattern-size);
+    mask-size: var(--ct-pattern-size);
+    -webkit-mask-position: 0 calc(-1 * var(--pattern-offset, 0px));
+    mask-position: 0 calc(-1 * var(--pattern-offset, 0px));
+}

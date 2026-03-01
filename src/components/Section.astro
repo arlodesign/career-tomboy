@@ -1,0 +1,62 @@
+---
+import Bg from "./Bg.astro";
+import { randomSkewClass } from "../lib/variants";
+
+export type SectionColor = "papaya" | "lime" | "plum" | "strawberry";
+
+interface Props {
+    /** Section id used for hash navigation (e.g. "gigs", "media"). */
+    id: string;
+    /** Visible heading text. */
+    headline: string;
+    /** Named color token for the patterned background. */
+    color: SectionColor;
+    /** Optional accessible label for the section. If omitted, the headline is used via aria-labelledby. */
+    ariaLabel?: string;
+    /** Heading level, defaults to <h2>. */
+    level?: 2 | 3;
+}
+
+const { id, headline, color, ariaLabel, level = 2 } = Astro.props as Props;
+
+const COLOR_MAP: Record<SectionColor, string> = {
+    papaya: "--color-ct-papaya",
+    lime: "--color-ct-lime",
+    plum: "--color-ct-plum",
+    strawberry: "--color-ct-strawberry",
+};
+
+const colorVar = COLOR_MAP[color];
+
+const headingId = `${id}-heading`;
+
+// If ariaLabel is provided, use aria-label. Otherwise, reference the visible heading.
+const sectionAriaLabel = ariaLabel ?? undefined;
+const sectionAriaLabelledby = sectionAriaLabel ? undefined : headingId;
+
+const HeadingTag = `h${level}` as "h2" | "h3";
+
+const skewClass = randomSkewClass();
+---
+
+<section
+    id={id}
+    class="scroll-mt-(--spacing-navbar) relative flex min-h-screen items-center justify-center"
+    aria-label={sectionAriaLabel}
+    aria-labelledby={sectionAriaLabelledby}
+>
+    <Bg colorVar={colorVar} />
+    <div class="container mx-auto px-4 py-16 lg:px-5">
+        <HeadingTag
+            id={headingId}
+            class="mb-12 mt-0 text-center font-heading text-5xl italic text-black"
+        >
+            <span
+                class={`relative before:absolute before:-inset-4 before:block before:bg-white ${skewClass}`}
+            >
+                <span class="relative">{headline}</span>
+            </span>
+        </HeadingTag>
+        <slot />
+    </div>
+</section>

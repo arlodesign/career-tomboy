@@ -1,0 +1,16 @@
+---
+import Bg from "./Bg.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="relative py-5">
+    <Bg
+        class="pointer-events-none absolute inset-0 w-screen"
+        colorVar="--color-ct-strawberry"
+    />
+    <div class="container mx-auto px-4 lg:px-5">
+        <p class="text-center text-sm text-black">
+            Copyright &copy; {year} - Career Tomboy | All Rights Reserved
+        </p>
+    </div>
+</footer>

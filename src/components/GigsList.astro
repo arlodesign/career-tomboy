@@ -1,0 +1,32 @@
+---
+import Gig from "./Gig.astro";
+import { getUpcomingGigs } from "../lib/gigs";
+import Section from "./Section.astro";
+
+const upcomingGigs = getUpcomingGigs();
+---
+
+<Section id="gigs" headline="See us live!" color="strawberry">
+    <div class="mx-auto max-w-3xl">
+        <div
+            id="gigs-list"
+            role="feed"
+            aria-label="Upcoming shows"
+            class="mt-4 flex flex-col gap-4"
+        >
+            {
+                upcomingGigs.length > 0 ? (
+                    <>
+                        {upcomingGigs.map((gig) => (
+                            <Gig gig={gig} />
+                        ))}
+                    </>
+                ) : (
+                    <p class="py-8 text-center text-lg text-slate-700">
+                        No upcoming shows scheduled. Check back soon!
+                    </p>
+                )
+            }
+        </div>
+    </div>
+</Section>

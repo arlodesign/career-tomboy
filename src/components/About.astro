@@ -1,0 +1,26 @@
+---
+// Load member data
+import members from "../data/members.json";
+import Section from "./Section.astro";
+
+interface Member {
+    name: string;
+    role: string;
+    photo: string;
+    bio?: string;
+}
+---
+
+<Section id="about" headline="About the Band" color="plum">
+    <div class="mx-auto max-w-5xl">
+        <!-- Band Bio -->
+        <p class="mx-auto mb-12 max-w-3xl text-left text-xl">
+            [Band biography - 2-3 paragraphs about formation, style, mission]
+        </p>
+
+        <!-- Member Cards -->
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <p>TBD</p>
+        </div>
+    </div>
+</Section>

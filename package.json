@@ -3,14 +3,10 @@
     "name": "career-tomboy-website",
     "version": "1.0.0",
     "scripts": {
-        "build": "NODE_ENV=production npm run clean && npm run build:ejs && npm run build:scss && npm run build:scripts && npm run build:assets && node scripts/minify.js",
-        "build:assets": "node scripts/build-assets.js",
-        "build:ejs": "node scripts/build-ejs.js",
-        "build:scripts": "node scripts/build-scripts.js",
-        "build:scss": "node scripts/build-scss.js",
-        "clean": "node scripts/clean.js",
-        "start": "npm run build && node scripts/start.js",
-        "start:debug": "npm run build && node scripts/start-debug.js"
+        "dev": "astro dev",
+        "prebuild": "node scripts/generate-favicons.mjs",
+        "build": "astro build",
+        "preview": "astro preview"
     },
     "description": "Career Tomboy is a band.",
     "keywords": [
@@ -38,23 +34,20 @@
         "url": "https://github.com/StartBootstrap/startbootstrap-creative.git"
     },
     "dependencies": {
-        "bootstrap": "^5.3.3",
-        "csv-parse": "^5.6.0"
+        "astro": "^5.18.0",
+        "csv-parse": "^5.6.0",
+        "sharp": "^0.34.5"
     },
     "devDependencies": {
-        "@fullhuman/postcss-purgecss": "^6.0.0",
-        "autoprefixer": "^10.4.19",
-        "browser-sync": "^3.0.2",
-        "chokidar": "^3.6.0",
+        "@tailwindcss/vite": "^4.1.18",
+        "ase-util": "^1.0.3",
         "clean-css": "^5.3.3",
-        "concurrently": "^8.2.2",
-        "ejs": "^3.1.9",
+        "favicons": "^7.2.0",
         "html-minifier-terser": "^7.2.0",
         "postcss": "^8.4.38",
-        "prettier": "^3.2.5",
-        "sass": "^1.72.0",
         "shelljs": "^0.8.5",
-        "terser": "^5.39.0",
-        "upath": "^2.0.1"
-    }
+        "tailwindcss": "^4.1.18",
+        "terser": "^5.39.0"
+    },
+    "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a"
 }

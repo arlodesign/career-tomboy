@@ -1,0 +1,9 @@
+packages:
+  - .
+
+ignoredBuiltDependencies:
+  - fsevents
+  - sharp
+
+onlyBuiltDependencies:
+  - esbuild

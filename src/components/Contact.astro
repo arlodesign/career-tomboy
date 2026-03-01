@@ -1,0 +1,71 @@
+---
+import Section from "./Section.astro";
+import { randomSkewClass } from "../lib/variants";
+
+const SOCIALS = [
+    {
+        url: "mailto:booking@careertomboy.com",
+        label: "Email us",
+        d: "M0 3.5h48v41H0V3.5Zm5 12.41454V39.5h38V15.91454l-18.0422 9.84126 -0.9578 0.5224 -0.9578 -0.5224L5 15.91454Z",
+    },
+    {
+        url: "https://www.instagram.com/careertomboyband/",
+        label: "Instagram",
+        d: "M2.5 3.5H0v41h48V3.5H2.5Zm2.5 36V8.5h38v31h-38Zm11.48828 -4.7078V13.2085l18.50032 10.7919 -18.50032 10.7918Z",
+    },
+    {
+        url: "https://www.youtube.com/@CareerTomboy",
+        label: "YouTube",
+        d: "M1.5 1.5h45v45H1.5V1.5Zm5 5v35h35V6.5H6.5ZM34 24c0 5.5228 -4.4772 10 -10 10 -5.52284 0 -10 -4.4772 -10 -10 0 -5.52284 4.47716 -10 10 -10 5.5228 0 10 4.47716 10 10Zm3.5 -14.5h-6v6h6v-6Z",
+    },
+    {
+        url: "https://www.facebook.com/careertomboy",
+        label: "Facebook",
+        d: "M1.5 1.5h45v45H1.5V1.5Zm5 5v35h16v-10H19v-7h3.5V20c0 -4.14214 3.3578 -7.5 7.5 -7.5h6v7h-6c-0.2762 0 -0.5 0.22386 -0.5 0.5v4.5h3.5v7h-3.5v10h12V6.5H6.5Z",
+    },
+];
+
+const skewClass = randomSkewClass();
+---
+
+<Section id="contact" headline="Let's Get In Touch!" color="strawberry">
+    <div class="flex justify-center">
+        <div class="max-w-xl text-center">
+            <ul class="mt-6 flex justify-center gap-4">
+                {
+                    SOCIALS.map(({ url: href, label, d }) => (
+                        <li>
+                            <a
+                                href={href}
+                                class="px-3 py-2 text-ct-white inline-block relative font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-white focus-visible:ring-offset-2 focus-visible:ring-offset-ct-black focus-visible:rounded cursor-pointer"
+                                aria-label={label}
+                            >
+                                <span
+                                    class={`relative inline-block before:absolute before:-inset-2 before:block before:bg-ct-black ${skewClass}`}
+                                >
+                                    <span class="relative">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 48 48"
+                                            height="48"
+                                            width="48"
+                                        >
+                                            <path
+                                                fill="currentColor"
+                                                fill-rule="evenodd"
+                                                d={d}
+                                                clip-rule="evenodd"
+                                                stroke-width="2"
+                                            />
+                                        </svg>
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </div>
+</Section>

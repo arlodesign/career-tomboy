@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+import Head from "../components/Head.astro";
+
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const {
+    title,
+    description = "Chicago's favorite 90s/2000s alternative cover band",
+} = Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <Head title={title} description={description} />
+    </head>
+    <body class="font-serif bg-slate-950 text-black bg-white">
+        <a
+            href="#main-content"
+            class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-ct-black focus:px-4 focus:py-2 focus:text-ct-white"
+        >
+            Skip to main content
+        </a>
+        <slot />
+        <script>
+            const updatePatternOffsets = () => {
+                document
+                    .querySelectorAll("[data-pattern-section]")
+                    .forEach((el) => {
+                        const rect = el.getBoundingClientRect();
+                        const offset = window.scrollY + rect.top;
+                        el.style.setProperty("--pattern-offset", `${offset}px`);
+                    });
+            };
+
+            window.addEventListener("load", updatePatternOffsets);
+            window.addEventListener("resize", updatePatternOffsets);
+        </script>
+    </body>
+</html>

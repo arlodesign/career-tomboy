@@ -1,0 +1,24 @@
+{
+    "featured": {
+        "youtubeId": "1HnjDS0fBRk",
+        "title": "Live at Double Clutch",
+        "description": "Full set from February 19, 2026"
+    },
+    "videos": [
+        {
+            "youtubeId": "UzNNTmiCLic",
+            "title": "“Panic Switch” by Silversun Pickups",
+            "description": "Double Clutch, April 17, 2025"
+        },
+        {
+            "youtubeId": "-qIvspmNIyE",
+            "title": "“Bang a Gong” by T. Rex",
+            "description": "American Legion Post 42, October 29, 2025"
+        },
+        {
+            "youtubeId": "eWlsymLwU4w?",
+            "title": "“Possum Kingdom” by Toadies",
+            "description": "Double Clutch, April 17, 2025"
+        }
+    ]
+}

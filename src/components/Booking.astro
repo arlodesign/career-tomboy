@@ -1,0 +1,78 @@
+---
+import Section from "./Section.astro";
+import songs from "../data/songs.json";
+---
+
+<Section id="booking" headline="Book Us" color="lime">
+    <iframe
+        class="mx-auto w-full max-w-4xl h-screen"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSdxeGcmSU8EvM2Vf48TR-MINphuPrhIaSk-to8nH_JfADP9KQ/viewform?embedded=true"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0">Loading…</iframe
+    >
+</Section>
+
+<dialog
+    id="setlist-modal"
+    aria-labelledby="setlist-modal-heading"
+    class="w-full max-w-lg rounded-lg p-0 backdrop:bg-black/60"
+>
+    <div class="bg-white text-black">
+        <div class="flex items-center justify-between border-b px-6 py-4">
+            <h2 id="setlist-modal-heading" class="font-heading text-2xl italic">
+                Songs We've Played
+            </h2>
+            <button
+                id="close-setlist"
+                aria-label="Close"
+                class="text-2xl leading-none text-gray-500 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-black focus-visible:rounded px-1"
+            >
+                &times;
+            </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto px-6 py-4">
+            <table class="w-full text-sm" aria-label="Songs We've Played">
+                <thead>
+                    <tr class="border-b text-left">
+                        <th class="pb-2 pr-4 font-bold">Song</th>
+                        <th class="pb-2 font-bold">Artist</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        songs.map((song) => (
+                            <tr class="border-b last:border-0">
+                                <td class="py-2 pr-4">{song.title}</td>
+                                <td class="py-2 text-gray-600">
+                                    {song.artist}
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    const modal = document.getElementById("setlist-modal") as HTMLDialogElement;
+    const openBtn = document.getElementById("open-setlist");
+    const closeBtn = document.getElementById("close-setlist");
+
+    openBtn?.addEventListener("click", () => {
+        modal.showModal();
+        closeBtn?.focus();
+    });
+
+    const closeModal = () => {
+        modal.close();
+        openBtn?.focus();
+    };
+
+    closeBtn?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+    });
+</script>
