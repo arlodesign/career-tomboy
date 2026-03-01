@@ -25,16 +25,18 @@ const sortedSongs = [...songs].sort((a, b) => {
 <Section id="booking" headline="Book Us" color="lime">
     <div class="mx-auto max-w-3xl">
         <h3 class="mt-4 font-heading text-xl italic pb-4">
-            Career Tomboy plays “alternative classics and deep cuts"
+            Career Tomboy plays “alternative classics and deep cuts”
         </h3>
         <p class="mb-4">That means we play…</p>
         <ul class="mb-4 pl-2 flex flex-col gap-2">
-            <li>…classics from the alternative era (1990s, 2000s)</li>
-            <li>
-                …alternative picks from the classic era (1960s, 1970s, 1980s)
+            <li class="before:content-['…']">
+                classics from the alternative era (1990s, 2000s)
             </li>
-            <li>
-                …deep cuts from any era, including current bands you aren’t
+            <li class="before:content-['…']">
+                alternative picks from the classic era (1960s, 1970s, 1980s)
+            </li>
+            <li class="before:content-['…']">
+                deep cuts from any era, including current bands you aren’t
                 listening to… <em>yet</em>
             </li>
         </ul>
