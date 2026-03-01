@@ -6,7 +6,8 @@
         "dev": "astro dev",
         "prebuild": "node scripts/generate-favicons.mjs",
         "build": "astro build",
-        "preview": "astro preview"
+        "preview": "astro preview",
+        "cms": "node cms/server.js"
     },
     "description": "Career Tomboy is a band.",
     "keywords": [
@@ -39,6 +40,7 @@
         "sharp": "^0.34.5"
     },
     "devDependencies": {
+        "express": "^5.1.0",
         "@tailwindcss/vite": "^4.1.18",
         "ase-util": "^1.0.3",
         "clean-css": "^5.3.3",

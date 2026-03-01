@@ -68,6 +68,14 @@ pnpm preview
 
 This serves the contents of `dist/` locally so you can smoke-test the production build.
 
+### 5. Run the local CMS (optional)
+
+```bash
+pnpm cms
+```
+
+Opens a browser UI at `http://localhost:4322` for editing gigs, videos, songs, and members without touching JSON by hand. Use the **Publish** tab to commit and push changes — Vercel will auto-deploy.
+
 ## Project structure
 
 Only the most relevant pieces are listed here:
@@ -91,7 +99,7 @@ Only the most relevant pieces are listed here:
 
 ## Editing content
 
-Most band-specific content lives in JSON files under `src/data/`.
+Most band-specific content lives in JSON files under `src/data/`. The easiest way to edit them is via the local CMS (`pnpm cms`). You can also edit the JSON directly — both approaches are described below.
 
 ### Gigs
 
@@ -152,6 +160,19 @@ A minimal example (the `id` will be generated automatically from the date if you
 Any structured band member data or additional bios can live in `src/data/members.json` and be consumed by components as needed.
 
 For static text (e.g., headings, intro copy), edit the relevant `.astro` components in `src/components/`.
+
+## Local CMS
+
+`cms/server.js` is a small Express 5 server that exposes a REST API over `src/data/` and serves a self-contained browser UI (`cms/index.html`). Start it with `pnpm cms`.
+
+**Tabs:** Gigs · Videos · Songs · Members · Publish
+
+**Publish tab** runs `git add src/data && git commit -m "<message>" && git push` and streams the output live. Requires that the working directory has a git remote configured and the shell has push access (e.g., SSH key or credential helper).
+
+**CMS files:**
+- `cms/server.js` — Express server (port 4322)
+- `cms/index.html` — single-file UI, vanilla JS, no build step
+- `cms/package.json` — `{"type":"module"}` so ESM imports work
 
 ## Accessibility
 
