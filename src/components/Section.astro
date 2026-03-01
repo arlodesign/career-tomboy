@@ -15,9 +15,22 @@ interface Props {
     ariaLabel?: string;
     /** Heading level, defaults to <h2>. */
     level?: 2 | 3;
+    /**
+     * When true, make the heading's background box span the full container
+     * width on small screens. Useful for long, wrapped headlines like the
+     * contact section.
+     */
+    headlineFullWidthOnMobile?: boolean;
 }
 
-const { id, headline, color, ariaLabel, level = 2 } = Astro.props as Props;
+const {
+    id,
+    headline,
+    color,
+    ariaLabel,
+    level = 2,
+    headlineFullWidthOnMobile = false,
+} = Astro.props as Props;
 
 const COLOR_MAP: Record<SectionColor, string> = {
     papaya: "--color-ct-papaya",
@@ -52,7 +65,11 @@ const skewClass = randomSkewClass();
             class="mb-12 mt-0 text-center font-heading text-5xl italic text-black"
         >
             <span
-                class={`relative before:absolute before:-inset-4 before:block before:bg-white ${skewClass}`}
+                class={`relative before:absolute before:-inset-4 before:block before:bg-white ${
+                    headlineFullWidthOnMobile
+                        ? "block w-full sm:w-fit sm:mx-auto"
+                        : ""
+                } ${skewClass}`}
             >
                 <span class="relative">{headline}</span>
             </span>
