@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import favicons from 'favicons';
+import { SITE_DESCRIPTION } from '../src/config/site.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -12,7 +13,7 @@ const config = {
     path: '/',
     appName: 'Career Tomboy',
     appShortName: 'Career Tomboy',
-    appDescription: "Chicago's favorite 90s/2000s alternative cover band",
+    appDescription: SITE_DESCRIPTION,
     // Colors taken from src/styles/global.css:
     // --color-ct-white: #fef1db;
     // --color-ct-lime: #9fd96f;
