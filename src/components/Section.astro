@@ -1,8 +1,8 @@
 ---
-import Bg from "./Bg.astro";
-import { randomSkewClass } from "../lib/variants";
+import Bg from './Bg.astro';
+import { randomSkewClass } from '../lib/variants';
 
-export type SectionColor = "papaya" | "lime" | "plum" | "strawberry";
+export type SectionColor = 'papaya' | 'lime' | 'plum' | 'strawberry';
 
 interface Props {
     /** Section id used for hash navigation (e.g. "gigs", "media"). */
@@ -33,10 +33,10 @@ const {
 } = Astro.props as Props;
 
 const COLOR_MAP: Record<SectionColor, string> = {
-    papaya: "--color-ct-papaya",
-    lime: "--color-ct-lime",
-    plum: "--color-ct-plum",
-    strawberry: "--color-ct-strawberry",
+    papaya: '--color-ct-papaya',
+    lime: '--color-ct-lime',
+    plum: '--color-ct-plum',
+    strawberry: '--color-ct-strawberry',
 };
 
 const colorVar = COLOR_MAP[color];
@@ -47,7 +47,7 @@ const headingId = `${id}-heading`;
 const sectionAriaLabel = ariaLabel ?? undefined;
 const sectionAriaLabelledby = sectionAriaLabel ? undefined : headingId;
 
-const HeadingTag = `h${level}` as "h2" | "h3";
+const HeadingTag = `h${level}` as 'h2' | 'h3';
 
 const skewClass = randomSkewClass();
 ---
@@ -66,9 +66,7 @@ const skewClass = randomSkewClass();
         >
             <span
                 class={`relative before:absolute before:-inset-4 before:block before:bg-white ${
-                    headlineFullWidthOnMobile
-                        ? "block w-full sm:w-fit sm:mx-auto"
-                        : ""
+                    headlineFullWidthOnMobile ? 'block w-full sm:w-fit sm:mx-auto' : ''
                 } ${skewClass}`}
             >
                 <span class="relative">{headline}</span>

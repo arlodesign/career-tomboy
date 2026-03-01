@@ -6,7 +6,17 @@
         "dev": "astro dev",
         "prebuild": "node scripts/generate-favicons.mjs",
         "build": "astro build",
-        "preview": "astro preview"
+        "preview": "astro preview",
+        "cms": "node cms/server.js",
+        "prepare": "husky",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "lint": "eslint .",
+        "typecheck": "astro check"
+    },
+    "lint-staged": {
+        "*.{astro,ts,js,mjs,cjs,json,css,html}": "prettier --write",
+        "*.{astro,ts,js,mjs}": "eslint --fix"
     },
     "description": "Career Tomboy is a band.",
     "keywords": [
@@ -39,15 +49,27 @@
         "sharp": "^0.34.5"
     },
     "devDependencies": {
+        "@astrojs/check": "^0.9.6",
+        "@eslint/js": "^10.0.1",
         "@tailwindcss/vite": "^4.1.18",
         "ase-util": "^1.0.3",
         "clean-css": "^5.3.3",
+        "eslint": "^10.0.2",
+        "eslint-plugin-astro": "^1.6.0",
+        "express": "^5.1.0",
         "favicons": "^7.2.0",
+        "globals": "^17.4.0",
         "html-minifier-terser": "^7.2.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.3.1",
         "postcss": "^8.4.38",
+        "prettier": "^3.8.1",
+        "prettier-plugin-astro": "^0.14.1",
         "shelljs": "^0.8.5",
         "tailwindcss": "^4.1.18",
-        "terser": "^5.39.0"
+        "terser": "^5.39.0",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.56.1"
     },
     "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a"
 }

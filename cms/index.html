@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Career Tomboy CMS</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Career Tomboy CMS</h1>
+            <span>localhost:4322</span>
+        </header>
+
+        <nav>
+            <button class="active" onclick="showTab('gigs', event)">Gigs</button>
+            <button onclick="showTab('videos', event)">Videos</button>
+            <button onclick="showTab('songs', event)">Songs</button>
+            <button onclick="showTab('members', event)">Members</button>
+            <button onclick="showTab('publish', event)">Publish</button>
+        </nav>
+
+        <!-- GIGS TAB -->
+        <div id="tab-gigs" class="tab active">
+            <div class="toolbar">
+                <h2>Gigs</h2>
+                <button class="btn btn-primary" onclick="openGigModal()">+ Add Gig</button>
+            </div>
+            <div class="table-wrap">
+                <table id="gigs-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Venue</th>
+                            <th>Supporting</th>
+                            <th>Private</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gigs-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- VIDEOS TAB -->
+        <div id="tab-videos" class="tab">
+            <h2>Videos</h2>
+            <p class="section-title">Featured Video</p>
+            <div class="card" id="featured-card">
+                <div class="card-header">
+                    <div>
+                        <strong id="featured-title">—</strong>
+                        <div class="card-meta" id="featured-desc"></div>
+                        <div class="card-meta" id="featured-id" style="margin-top: 2px"></div>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="openFeaturedModal()">
+                        Edit
+                    </button>
+                </div>
+            </div>
+
+            <div class="toolbar" style="margin-top: 1.5rem">
+                <p class="section-title" style="margin: 0">Additional Videos</p>
+                <button class="btn btn-primary" onclick="openVideoModal()">+ Add Video</button>
+            </div>
+            <div class="table-wrap">
+                <table id="videos-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>YouTube ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videos-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SONGS TAB -->
+        <div id="tab-songs" class="tab">
+            <div class="toolbar">
+                <h2>
+                    Songs
+                    <span
+                        id="song-count"
+                        style="color: var(--muted); font-weight: 400; font-size: 0.9rem"
+                    ></span>
+                </h2>
+                <div style="display: flex; gap: 0.5rem; align-items: center">
+                    <input
+                        class="search-input"
+                        id="song-search"
+                        placeholder="Search…"
+                        oninput="renderSongs()"
+                    />
+                    <button class="btn btn-primary" onclick="openSongModal()">+ Add Song</button>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table id="songs-table">
+                    <thead>
+                        <tr>
+                            <th>Artist</th>
+                            <th>Title</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="songs-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MEMBERS TAB -->
+        <div id="tab-members" class="tab">
+            <div class="toolbar">
+                <h2>Members</h2>
+                <button class="btn btn-primary" onclick="openMemberModal()">+ Add Member</button>
+            </div>
+            <div class="table-wrap">
+                <table id="members-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Photo</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="members-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PUBLISH TAB -->
+        <div id="tab-publish" class="tab">
+            <h2>Publish to GitHub</h2>
+            <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem">
+                Commits all changes in <code>src/data/</code> and pushes to the remote. Vercel will
+                auto-deploy.
+            </p>
+            <div class="publish-form">
+                <div class="field">
+                    <label for="commit-msg">Commit message</label>
+                    <input id="commit-msg" type="text" value="chore: update content" />
+                </div>
+                <button class="btn btn-primary" onclick="publish()" id="publish-btn">
+                    Publish
+                </button>
+            </div>
+            <div style="display: flex; align-items: center; margin-top: 1rem; font-size: 0.85rem">
+                <span class="status-dot dot-idle" id="status-dot"></span>
+                <span id="status-text">Idle</span>
+            </div>
+            <div class="output-box" id="output-box"></div>
+        </div>
+
+        <!-- MODAL: Gig -->
+        <div class="modal-overlay" id="gig-modal">
+            <div class="modal">
+                <form onsubmit="saveGig(event)">
+                    <h2 id="gig-modal-title">Add Gig</h2>
+                    <div class="field">
+                        <label for="g-date">Date/Time</label>
+                        <input type="datetime-local" id="g-date" required />
+                    </div>
+                    <div class="field">
+                        <label for="g-venue">Venue</label>
+                        <input type="text" id="g-venue" placeholder="Venue name" required />
+                    </div>
+                    <div class="field">
+                        <label for="g-address"
+                            >Address
+                            <span style="font-weight: 400; text-transform: none"
+                                >(leave blank for private)</span
+                            ></label
+                        >
+                        <input
+                            type="text"
+                            id="g-address"
+                            placeholder="Full address or leave blank"
+                        />
+                    </div>
+                    <div class="field">
+                        <label for="g-ticketUrl">Ticket URL</label>
+                        <input type="url" id="g-ticketUrl" placeholder="https://…" />
+                    </div>
+                    <div class="field">
+                        <label for="g-supporting">Supporting Act(s)</label>
+                        <input type="text" id="g-supporting" placeholder="Band name(s)" />
+                    </div>
+                    <div class="field">
+                        <label for="g-notes">Notes</label>
+                        <input type="text" id="g-notes" placeholder="Extra info" />
+                    </div>
+                    <div class="field">
+                        <div class="checkbox-row">
+                            <input type="checkbox" id="g-isPrivate" />
+                            <label for="g-isPrivate"
+                                >Private event (hide address &amp; details)</label
+                            >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('gig-modal')"
+                        >
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL: Featured Video -->
+        <div class="modal-overlay" id="featured-modal">
+            <div class="modal">
+                <form onsubmit="saveFeatured(event)">
+                    <h2>Edit Featured Video</h2>
+                    <div class="field">
+                        <label for="fv-id">YouTube ID</label>
+                        <input
+                            type="text"
+                            id="fv-id"
+                            placeholder="e.g. 1HnjDS0fBRk"
+                            required
+                            pattern="[A-Za-z0-9_-]{11}"
+                            title="11-character YouTube video ID (letters, numbers, _ and -)"
+                        />
+                    </div>
+                    <div class="field">
+                        <label for="fv-title">Title</label>
+                        <input type="text" id="fv-title" required />
+                    </div>
+                    <div class="field">
+                        <label for="fv-desc">Description</label>
+                        <input type="text" id="fv-desc" />
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('featured-modal')"
+                        >
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL: Video -->
+        <div class="modal-overlay" id="video-modal">
+            <div class="modal">
+                <form onsubmit="saveVideo(event)">
+                    <h2 id="video-modal-title">Add Video</h2>
+                    <div class="field">
+                        <label for="v-id">YouTube ID</label>
+                        <input
+                            type="text"
+                            id="v-id"
+                            placeholder="e.g. UzNNTmiCLic"
+                            required
+                            pattern="[A-Za-z0-9_-]{11}"
+                            title="11-character YouTube video ID (letters, numbers, _ and -)"
+                        />
+                    </div>
+                    <div class="field">
+                        <label for="v-title">Title</label>
+                        <input type="text" id="v-title" required />
+                    </div>
+                    <div class="field">
+                        <label for="v-desc">Description</label>
+                        <input type="text" id="v-desc" />
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('video-modal')"
+                        >
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL: Song -->
+        <div class="modal-overlay" id="song-modal">
+            <div class="modal">
+                <form onsubmit="saveSong(event)">
+                    <h2 id="song-modal-title">Add Song</h2>
+                    <div class="field">
+                        <label for="s-artist">Artist</label>
+                        <input type="text" id="s-artist" placeholder="Artist name" required />
+                    </div>
+                    <div class="field">
+                        <label for="s-title">Title</label>
+                        <input type="text" id="s-title" placeholder="Song title" required />
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('song-modal')"
+                        >
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL: Member -->
+        <div class="modal-overlay" id="member-modal">
+            <div class="modal">
+                <form onsubmit="saveMember(event)">
+                    <h2 id="member-modal-title">Add Member</h2>
+                    <div class="field">
+                        <label for="m-name">Name</label>
+                        <input type="text" id="m-name" placeholder="Full name" required />
+                    </div>
+                    <div class="field">
+                        <label for="m-role">Role</label>
+                        <input type="text" id="m-role" placeholder="e.g. Vocals/Guitar" />
+                    </div>
+                    <div class="field">
+                        <label for="m-photo">Photo filename</label>
+                        <input type="text" id="m-photo" placeholder="e.g. member1.jpg" />
+                    </div>
+                    <div class="field">
+                        <label for="m-bio">Bio</label>
+                        <textarea id="m-bio" placeholder="Short bio…"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('member-modal')"
+                        >
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="error-toast" class="toast" role="alert" aria-live="assertive"></div>
+
+        <script src="app.js"></script>
+    </body>
+</html>

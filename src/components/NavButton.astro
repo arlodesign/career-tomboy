@@ -1,5 +1,5 @@
 ---
-import { randomSkewClass } from "../lib/variants";
+import { randomSkewClass } from '../lib/variants';
 
 interface Props {
     label: string;
@@ -15,7 +15,7 @@ const skewClass = randomSkewClass();
     <a
         href={href}
         class="px-3 py-2 text-ct-white inline-block relative font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-white focus-visible:ring-offset-2 focus-visible:ring-offset-ct-black focus-visible:rounded cursor-pointer"
-        aria-current={current ? "page" : undefined}
+        aria-current={current ? 'page' : undefined}
     >
         <span
             class={`relative inline-block before:absolute before:-inset-2 before:block before:bg-ct-black ${skewClass}`}

@@ -1,7 +1,6 @@
 {
     "gigs": [
         {
-            "id": "gig-2025-04-17",
             "date": "2025-04-17T19:00:00",
             "venue": "Double Clutch Brewing Company",
             "address": "2121 Ashland Ave, Evanston, IL",
@@ -11,7 +10,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2025-06-21",
             "date": "2025-06-21T19:00:00",
             "venue": "The Atlantic Bar & Grill",
             "address": "5062 N Lincoln Ave, Chicago, IL",
@@ -21,7 +19,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2025-07-26",
             "date": "2025-07-26T19:00:00",
             "venue": "Cary's Lounge",
             "address": "2251 W. Devon Ave, Chicago, IL",
@@ -31,7 +28,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2025-08-28",
             "date": "2025-08-28T18:00:00",
             "venue": "Montrose Saloon",
             "address": "2933 W Montrose Ave, Chicago, IL",
@@ -41,7 +37,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2025-08-10",
             "date": "2025-08-10T16:00:00",
             "venue": "Custer Oasis",
             "address": "Custer Avenue between Main and Washington, Evanston, IL",
@@ -51,7 +46,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2025-09-20",
             "date": "2025-09-20",
             "venue": "Private Event",
             "address": null,
@@ -61,7 +55,6 @@
             "isPrivate": true
         },
         {
-            "id": "gig-2025-08-23",
             "date": "2025-08-23",
             "venue": "Private Event",
             "address": null,
@@ -71,7 +64,6 @@
             "isPrivate": true
         },
         {
-            "id": "gig-2026-02-19",
             "date": "2026-02-19T19:00:00",
             "venue": "Double Clutch Brewing Company",
             "address": "2121 Ashland Ave, Evanston, IL",
@@ -81,7 +73,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2025-10-29",
             "date": "2025-10-29T19:00:00",
             "venue": "Evanston Post 42",
             "address": "1030 Central St, Evanston, IL",
@@ -91,7 +82,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2025-11-15",
             "date": "2025-11-15T19:00:00",
             "venue": "The Atlantic Bar & Grill",
             "address": "5062 N. Lincoln Ave, Chicago, IL",
@@ -101,7 +91,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2026-03-21",
             "date": "2026-03-21T19:00:00",
             "venue": "Evanston Post 42",
             "address": "1030 Central St, Evanston, IL",
@@ -111,7 +100,6 @@
             "isPrivate": false
         },
         {
-            "id": "gig-2026-04-24",
             "date": "2026-04-24T19:00:00",
             "venue": "The Atlantic Bar & Grill",
             "address": "5062 N Lincoln Ave, Chicago, IL",

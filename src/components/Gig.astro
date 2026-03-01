@@ -1,8 +1,8 @@
 ---
-import type { Gig as GigType } from "../lib/types";
-import { generateMapsUrl } from "../lib/gigs";
-import { randomSkewClass } from "../lib/variants";
-import ActionLink from "./ActionLink.astro";
+import type { Gig as GigType } from '../lib/types';
+import { generateMapsUrl } from '../lib/gigs';
+import { randomSkewClass } from '../lib/variants';
+import ActionLink from './ActionLink.astro';
 
 interface Props {
     gig: GigType;
@@ -11,17 +11,17 @@ interface Props {
 const { gig } = Astro.props as Props;
 
 const dateObj = new Date(gig.date);
-const formattedDate = dateObj.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+const formattedDate = dateObj.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
 });
 
-const formattedTime = gig.date.includes("T")
-    ? dateObj.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
+const formattedTime = gig.date.includes('T')
+    ? dateObj.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
       })
     : null;
 
@@ -33,7 +33,7 @@ const skewClass = randomSkewClass();
 <article
     class="group p-4 text-left text-white md:text-base relative"
     data-gig-id={gig.id}
-    data-private={isPrivate ? "true" : undefined}
+    data-private={isPrivate ? 'true' : undefined}
 >
     <span
         class={`relative block before:absolute before:-inset-4 before:block before:bg-black ${skewClass}`}
@@ -41,11 +41,7 @@ const skewClass = randomSkewClass();
         <h3 class="relative font-heading text-xl italic text-white">
             <time datetime={gig.date}>
                 {formattedDate}
-                {
-                    formattedTime && (
-                        <span class="font-normal"> - {formattedTime}</span>
-                    )
-                }
+                {formattedTime && <span class="font-normal"> - {formattedTime}</span>}
             </time>
         </h3>
         <div
@@ -65,21 +61,13 @@ const skewClass = randomSkewClass();
                         )
                     }
                 </div>
-                {
-                    !isPrivate && gig.address && (
-                        <p class="text-sm text-white">{gig.address}</p>
-                    )
-                }
+                {!isPrivate && gig.address && <p class="text-sm text-white">{gig.address}</p>}
                 {
                     gig.supporting && !isPrivate && (
                         <p class="text-sm text-white">With {gig.supporting}</p>
                     )
                 }
-                {
-                    gig.notes && !isPrivate && (
-                        <p class="text-sm text-white">{gig.notes}</p>
-                    )
-                }
+                {gig.notes && !isPrivate && <p class="text-sm text-white">{gig.notes}</p>}
             </div>
             {
                 !isPrivate && (mapUrl || gig.ticketUrl) && (

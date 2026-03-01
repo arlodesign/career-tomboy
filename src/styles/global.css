@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
     /* Brand Colors */
@@ -29,14 +29,14 @@
     --color-pink: var(--color-ct-strawberry);
 
     /* Typography: Input Serif from Type Network */
-    --font-serif: InputSerif, "Input Serif Reg", Georgia, ui-serif, serif;
-    --font-heading: InputSerifCompressed-BlackItalic, "Input Serif Comp Bla It", Georgia, ui-serif, serif;
-    --font-bold: InputSerif-Bold, "Input Serif Bd", Georgia, ui-serif, serif;
+    --font-serif: InputSerif, 'Input Serif Reg', Georgia, ui-serif, serif;
+    --font-heading:
+        InputSerifCompressed-BlackItalic, 'Input Serif Comp Bla It', Georgia, ui-serif, serif;
+    --font-bold: InputSerif-Bold, 'Input Serif Bd', Georgia, ui-serif, serif;
 
     /* Spacing */
     --spacing-navbar: 4.5rem;
 }
-
 
 /* Global defaults */
 html {
@@ -67,12 +67,12 @@ body {
 }
 
 .ct-pattern-bg::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background-color: var(--section-color, var(--color-ct-lime));
-    -webkit-mask-image: url("../assets/bg.svg");
-    mask-image: url("../assets/bg.svg");
+    -webkit-mask-image: url('../assets/bg.svg');
+    mask-image: url('../assets/bg.svg');
     -webkit-mask-repeat: repeat;
     mask-repeat: repeat;
     -webkit-mask-size: var(--ct-pattern-size);

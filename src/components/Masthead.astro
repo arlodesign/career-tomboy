@@ -1,14 +1,11 @@
 ---
-import Navigation from "./Navigation.astro";
-import Bg from "./Bg.astro";
-import mastheadImage from "../assets/masthead.png";
-import { Image } from "astro:assets";
+import Navigation from './Navigation.astro';
+import Bg from './Bg.astro';
+import mastheadImage from '../assets/masthead.png';
+import { Image } from 'astro:assets';
 ---
 
-<header
-    id="masthead"
-    class="relative flex min-h-screen items-center justify-center text-center"
->
+<header id="masthead" class="relative flex min-h-screen items-center justify-center text-center">
     <Bg colorVar="--color-ct-lime" />
     <Image
         src={mastheadImage}
@@ -43,9 +40,7 @@ import { Image } from "astro:assets";
             <p class="text-ct-black mt-6 text-lg md:text-xl font-heading">
                 <span
                     class="relative inline-block before:absolute before:-inset-1 before:block before:skew-y-1 before:bg-ct-lime"
-                    ><span class="relative"
-                        >Alternative classics and deep cuts</span
-                    ></span
+                    ><span class="relative">Alternative classics and deep cuts</span></span
                 >
             </p>
 
@@ -58,8 +53,8 @@ import { Image } from "astro:assets";
 </header>
 
 <script>
-    const nav = document.getElementById("mainNav");
-    const navWrapper = document.getElementById("navWrapper");
+    const nav = document.getElementById('mainNav');
+    const navWrapper = document.getElementById('navWrapper');
 
     if (nav && navWrapper) {
         const observer = new IntersectionObserver(
@@ -67,20 +62,10 @@ import { Image } from "astro:assets";
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         // Nav wrapper is visible - nav in normal flow below tagline
-                        nav.classList.remove(
-                            "fixed",
-                            "top-3",
-                            "left-1/2",
-                            "-translate-x-1/2"
-                        );
+                        nav.classList.remove('fixed', 'top-3', 'left-1/2', '-translate-x-1/2');
                     } else {
                         // Nav wrapper has scrolled out of view - fix nav at top
-                        nav.classList.add(
-                            "fixed",
-                            "top-3",
-                            "left-1/2",
-                            "-translate-x-1/2"
-                        );
+                        nav.classList.add('fixed', 'top-3', 'left-1/2', '-translate-x-1/2');
                     }
                 });
             },
@@ -88,8 +73,8 @@ import { Image } from "astro:assets";
                 // Trigger when nav wrapper reaches the top of the viewport
                 // The negative top margin accounts for the fixed position offset (top-3 = 0.75rem = 12px)
                 threshold: 0,
-                rootMargin: "-12px 0px 0px 0px",
-            }
+                rootMargin: '-12px 0px 0px 0px',
+            },
         );
 
         observer.observe(navWrapper);
