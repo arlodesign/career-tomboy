@@ -1,9 +1,85 @@
 ---
 import Section from "./Section.astro";
 import songs from "../data/songs.json";
+
+function normalizeArtistForSort(artist?: string | null): string {
+    const raw = (artist ?? "").trim();
+    const lower = raw.toLowerCase();
+    if (lower.startsWith("the ")) {
+        // Ignore leading article "The" when sorting (e.g., "The Cure" → "Cure")
+        return lower.slice(4);
+    }
+    return lower;
+}
+
+const sortedSongs = [...songs].sort((a, b) => {
+    const artistA = normalizeArtistForSort(a.artist);
+    const artistB = normalizeArtistForSort(b.artist);
+    if (artistA !== artistB) return artistA.localeCompare(artistB);
+    const titleA = (a.title ?? "").toLowerCase();
+    const titleB = (b.title ?? "").toLowerCase();
+    return titleA.localeCompare(titleB);
+});
 ---
 
 <Section id="booking" headline="Book Us" color="lime">
+    <div class="mx-auto max-w-3xl">
+        <h3 class="mt-4 font-heading text-xl italic pb-4">
+            Career Tomboy plays “alternative classics and deep cuts"
+        </h3>
+        <p class="mb-4">That means we play…</p>
+        <ul class="mb-4 pl-2 flex flex-col gap-2">
+            <li>…classics from the alternative era (1990s, 2000s)</li>
+            <li>
+                …alternative picks from the classic era (1960s, 1970s, 1980s)
+            </li>
+            <li>
+                …deep cuts from any era, including current bands you aren’t
+                listening to… <em>yet</em>
+            </li>
+        </ul>
+        <p class="mb-4">
+            Our sets are ecclectic, meaning everyone will hear something they
+            love and something they will love as soon as they hear it for the
+            first time.
+        </p>
+        <details class="my-8 border-2 border-black open:bg-white">
+            <summary
+                class="font-bold text-center px-3 py-2 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer"
+                >Here’s every song we've ever played…</summary
+            >
+            <div class="overflow-x-auto mt-4 p-4">
+                <dl
+                    class="text-sm grid grid-cols-2 gap-3"
+                    aria-label="Songs We've Played"
+                >
+                    {
+                        sortedSongs.map((song) => (
+                            <>
+                                <dt class="font-bold text-right">
+                                    {song.title}
+                                </dt>
+                                <dd class="">{song.artist}</dd>
+                            </>
+                        ))
+                    }
+                </dl>
+            </div>
+        </details>
+
+        <h3 class="mt-4 font-heading text-xl italic pb-4">
+            Career Tomboy is not your typical cover band
+        </h3>
+        <p class="mb-4">
+            When you need something a little different for your next live-music
+            night at the bar, outdoor festival, second or third wedding,
+            corporate event, 45th+ birthday, or very unconventional bris,
+            contact us!
+        </p><p class="mb-4">
+            <strong>Fill out the form below.</strong> We take requests! We bring our
+            own gear! We work for beer! (But we also take Venmo and Zelle.)
+        </p>
+    </div>
     <iframe
         class="mx-auto w-full max-w-4xl h-screen"
         src="https://docs.google.com/forms/d/e/1FAIpQLSdxeGcmSU8EvM2Vf48TR-MINphuPrhIaSk-to8nH_JfADP9KQ/viewform?embedded=true"
@@ -12,49 +88,6 @@ import songs from "../data/songs.json";
         marginwidth="0">Loading…</iframe
     >
 </Section>
-
-<dialog
-    id="setlist-modal"
-    aria-labelledby="setlist-modal-heading"
-    class="w-full max-w-lg rounded-lg p-0 backdrop:bg-black/60"
->
-    <div class="bg-white text-black">
-        <div class="flex items-center justify-between border-b px-6 py-4">
-            <h2 id="setlist-modal-heading" class="font-heading text-2xl italic">
-                Songs We've Played
-            </h2>
-            <button
-                id="close-setlist"
-                aria-label="Close"
-                class="text-2xl leading-none text-gray-500 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ct-black focus-visible:rounded px-1"
-            >
-                &times;
-            </button>
-        </div>
-        <div class="max-h-[60vh] overflow-y-auto px-6 py-4">
-            <table class="w-full text-sm" aria-label="Songs We've Played">
-                <thead>
-                    <tr class="border-b text-left">
-                        <th class="pb-2 pr-4 font-bold">Song</th>
-                        <th class="pb-2 font-bold">Artist</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        songs.map((song) => (
-                            <tr class="border-b last:border-0">
-                                <td class="py-2 pr-4">{song.title}</td>
-                                <td class="py-2 text-gray-600">
-                                    {song.artist}
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-</dialog>
 
 <script>
     const modal = document.getElementById("setlist-modal") as HTMLDialogElement;
