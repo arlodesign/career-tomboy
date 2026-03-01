@@ -4,6 +4,7 @@
     "version": "1.0.0",
     "scripts": {
         "dev": "astro dev",
+        "prebuild": "node scripts/generate-favicons.mjs",
         "build": "astro build",
         "preview": "astro preview"
     },
@@ -41,6 +42,7 @@
         "@tailwindcss/vite": "^4.1.18",
         "ase-util": "^1.0.3",
         "clean-css": "^5.3.3",
+        "favicons": "^7.2.0",
         "html-minifier-terser": "^7.2.0",
         "postcss": "^8.4.38",
         "shelljs": "^0.8.5",
