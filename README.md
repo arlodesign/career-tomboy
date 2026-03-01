@@ -97,13 +97,12 @@ Most band-specific content lives in JSON files under `src/data/`.
 
 Upcoming and past shows are stored in `src/data/gigs.json` and typed via `src/lib/types.ts`.
 
-A minimal example:
+A minimal example (the `id` will be generated automatically from the date if you omit it):
 
 ```json
 {
     "gigs": [
         {
-            "id": "2026-03-21-evanston-post-42",
             "date": "2026-03-21T19:00:00-05:00",
             "venue": "Evanston Post 42",
             "address": "1030 Central St, Evanston, IL",
