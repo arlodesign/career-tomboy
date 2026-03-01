@@ -1,82 +1,184 @@
-# [Start Bootstrap - Creative](https://startbootstrap.com/theme/creative/)
+# Career Tomboy Website
 
-[Creative](https://startbootstrap.com/theme/creative/) is a one page, creative website theme built with [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
+Career Tomboy is a Chicago cover band playing what they call "alternative classics and deep cuts". This repo contains the source for **careertomboy.com**, a single-page marketing site built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com).
 
-## Preview
+## Features
 
-[![Creative Preview](https://assets.startbootstrap.com/img/screenshots/themes/creative.png)](https://startbootstrap.github.io/startbootstrap-creative/)
+- **One-page layout** with sections for:
+    - Hero / masthead
+    - Upcoming gigs
+    - Media (featured video + gallery)
+    - Booking (Google Form embed + songs dialog)
+    - Contact & social links
+- **Upcoming gigs** are read from JSON and automatically split into upcoming vs. past based on date.
+- **YouTube embeds** for videos with lazy loading.
+- **Accessible booking dialog** listing songs the band has played.
+- **Patterned background system** powered by CSS masks and color tokens.
+- Static HTML export suitable for any CDN or static host.
 
-**[View Live Preview](https://startbootstrap.github.io/startbootstrap-creative/)**
+## Tech stack
 
-## Status
+- [Astro 5](https://docs.astro.build/) with static output
+- [Tailwind CSS 4](https://tailwindcss.com/) via `@tailwindcss/vite`
+- Node.js (see Astro docs for supported versions; Node 18+ is recommended)
+- Package manager: [`pnpm`](https://pnpm.io/) (examples below use `pnpm`, but `npm`/`yarn` also work)
+- Auxiliary tooling:
+    - `sharp` for image processing
+    - favicon generation script in `scripts/generate-favicons.mjs`
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-creative/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-creative.svg)](https://www.npmjs.com/package/startbootstrap-creative)
+## Getting started
 
-## Download and Installation
+### 1. Clone and install
 
-To begin using this template, choose one of the following options to get started:
+```bash
+git clone <repo-url>
+cd career-tomboy-website
 
-- [Download the latest release on Start Bootstrap](https://startbootstrap.com/theme/creative/)
-- Install using npm: `npm i startbootstrap-creative`
-- Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-creative.git`
-- [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-creative)
+# using pnpm (recommended)
+pnpm install
 
-## Usage
+# or with npm
+# npm install
+```
 
-### Basic Usage
+### 2. Run the development server
 
-After downloading, simply edit the HTML and CSS files included with `dist` directory. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+```bash
+pnpm dev
+# or: npm run dev
+```
 
-### Advanced Usage
+Astro will start a dev server (by default at `http://localhost:4321`) with hot reload.
 
-Clone the source files of the theme and navigate into the theme's root directory. Run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `package.json` file to see which scripts are included.
+### 3. Build for production
 
-#### npm Scripts
+```bash
+pnpm build
+# or: npm run build
+```
 
-- `npm run build` builds the project - this builds assets, HTML, JS, and CSS into `dist`
-- `npm run build:assets` copies the files in the `src/assets/` directory into `dist`
-- `npm run build:pug` compiles the Pug located in the `src/pug/` directory into `dist`
-- `npm run build:scripts` brings the `src/js/scripts.js` file into `dist`
-- `npm run build:scss` compiles the SCSS files located in the `src/scss/` directory into `dist`
-- `npm run clean` deletes the `dist` directory to prepare for rebuilding the project
-- `npm run start:debug` runs the project in debug mode
-- `npm start` or `npm run start` runs the project, launches a live preview in your default browser, and watches for changes made to files in `src`
+This runs the favicon prebuild step and outputs a static site to `dist/`.
 
-You must have npm installed in order to use this build environment.
+### 4. Preview the production build
 
-### Contact Form
+```bash
+pnpm preview
+# or: npm run preview
+```
 
-The contact form available with this theme is prebuilt to use [SB Forms](https://startbootstrap.com/solution/contact-forms).
-SB Forms is a simple form solution for adding functional forms to your theme. Since this theme is prebuilt using our
-SB Forms markup, all you need to do is sign up for [SB Forms on Start Bootstrap](https://startbootstrap.com/solution/contact-forms).
+This serves the contents of `dist/` locally so you can smoke-test the production build.
 
-After signing up you will need to set the domain name your form will be used on, and you will then see your
-access key. Copy this and paste it into the `data-sb-form-api-token='API_TOKEN'` data attribute in place of
-`API_TOKEN`. That's it! Your forms will be up and running!
+## Project structure
 
-If you aren't using SB Forms, simply delete the custom data attributes from the form, and remove the link above the
-closing `</body>` tag to SB Forms.
+Only the most relevant pieces are listed here:
 
-## Bugs and Issues
+- `astro.config.mjs` – Astro configuration (static output, Tailwind/Vite plugin, site URL).
+- `src/pages/index.astro` – main page that assembles all sections.
+- `src/layouts/Main.astro` – base layout, shared head, navigation, and footer.
+- `src/components/` – UI components such as:
+    - `Masthead.astro` – hero section
+    - `GigsList.astro` + `Gig.astro` – upcoming gigs feed
+    - `Media.astro` – featured + additional videos
+    - `Booking.astro` – booking form embed and songs dialog
+    - `Contact.astro` – email + social links
+    - `Section.astro` / `Bg.astro` – colored, patterned background sections
+- `src/data/` – JSON data sources:
+    - `gigs.json`
+    - `videos.json`
+    - `songs.json`
+    - `members.json`
+- `src/styles/` – global styles and the patterned background CSS.
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-creative/issues) here on GitHub or leave a comment on the [theme overview page at Start Bootstrap](https://startbootstrap.com/theme/creative/).
+## Editing content
 
-## About
+Most band-specific content lives in JSON files under `src/data/`.
 
-Start Bootstrap is an open source library of free Bootstrap themes and templates. All of the free themes and templates on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
+### Gigs
 
-- <https://startbootstrap.com>
-- <https://twitter.com/SBootstrap>
+Upcoming and past shows are stored in `src/data/gigs.json` and typed via `src/lib/types.ts`.
 
-Start Bootstrap was created by and is maintained by **[David Miller](https://davidmiller.io/)**.
+A minimal example:
 
-- <https://davidmiller.io>
-- <https://twitter.com/davidmillerhere>
-- <https://github.com/davidtmiller>
+```json
+{
+    "gigs": [
+        {
+            "id": "2026-03-21-evanston-post-42",
+            "date": "2026-03-21T19:00:00-05:00",
+            "venue": "Evanston Post 42",
+            "address": "1030 Central St, Evanston, IL",
+            "ticketUrl": null,
+            "supporting": "With Dad or Alive",
+            "notes": null,
+            "isPrivate": false
+        }
+    ]
+}
+```
 
-Start Bootstrap is based on the [Bootstrap](https://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+- `date` should be an ISO-8601 string; the site uses it to sort gigs and to decide what counts as "upcoming".
+- Set `isPrivate` to `true` for shows where the exact location shouldn’t be displayed.
 
-## Copyright and License
+### Videos
 
-Copyright 2013-2023 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-creative/blob/master/LICENSE) license.
+`src/data/videos.json` drives the media section. It contains a single featured video and an array of additional videos:
+
+```json
+{
+    "featured": {
+        "youtubeId": "XXXXXXXXXXX",
+        "title": "Featured video title",
+        "description": "Short description (optional)"
+    },
+    "videos": [
+        {
+            "youtubeId": "YYYYYYYYYYY",
+            "title": "Another video",
+            "description": "Optional description"
+        }
+    ]
+}
+```
+
+### Songs (setlist)
+
+`src/data/songs.json` powers the “Songs We've Played” dialog opened from the booking section:
+
+```json
+[{ "title": "Song Title", "artist": "Artist Name" }]
+```
+
+### Members / other copy
+
+Any structured band member data or additional bios can live in `src/data/members.json` and be consumed by components as needed.
+
+For static text (e.g., headings, intro copy), edit the relevant `.astro` components in `src/components/`.
+
+## Accessibility
+
+The site is built with accessibility in mind:
+
+- Semantic headings and landmarks (header, main, footer, sections)
+- Visible focus states for interactive elements
+- Color choices intended to meet WCAG 2.2 AA contrast where text is involved
+- Dialog controls that remain keyboard-accessible
+
+When adding or changing UI, aim to preserve these guarantees:
+
+- Don’t remove focus outlines without providing an equally visible replacement.
+- Ensure text has sufficient contrast against its background.
+- Keep interactions accessible by keyboard and screen readers.
+
+## Deployment
+
+The project builds to static HTML, CSS, and JS in `dist/`. You can deploy it to any static host or CDN. Currently, this site is hosted with Vercel.
+
+Typical workflow:
+
+1. `pnpm install`
+2. `pnpm build`
+3. Upload or point your host at the `dist/` directory. (Vercel does this automatically.)
+
+## License
+
+This project is published under the MIT license (see the `license` field in `package.json`). If you add a top-level `LICENSE` file, it should match the MIT terms.
