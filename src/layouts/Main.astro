@@ -37,6 +37,10 @@ const {
                     });
             };
 
+            // Expose for other components (e.g., Booking details) to call when
+            // layout shifts, such as expanding/collapsing content.
+            window.updatePatternOffsets = updatePatternOffsets;
+
             window.addEventListener("load", updatePatternOffsets);
             window.addEventListener("resize", updatePatternOffsets);
         </script>

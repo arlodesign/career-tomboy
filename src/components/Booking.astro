@@ -92,22 +92,12 @@ const sortedSongs = [...songs].sort((a, b) => {
 </Section>
 
 <script>
-    const modal = document.getElementById("setlist-modal") as HTMLDialogElement;
-    const openBtn = document.getElementById("open-setlist");
-    const closeBtn = document.getElementById("close-setlist");
+    const songsDetails = document.querySelector(
+        "#booking details",
+    ) as HTMLDetailsElement | null;
 
-    openBtn?.addEventListener("click", () => {
-        modal.showModal();
-        closeBtn?.focus();
-    });
-
-    const closeModal = () => {
-        modal.close();
-        openBtn?.focus();
-    };
-
-    closeBtn?.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
+    songsDetails?.addEventListener("toggle", () => {
+        const fn = (window as any).updatePatternOffsets;
+        if (typeof fn === "function") fn();
     });
 </script>
