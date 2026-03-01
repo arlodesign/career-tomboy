@@ -82,7 +82,9 @@ nav button {
     cursor: pointer;
     font-size: 0.9rem;
     border-bottom: 2px solid transparent;
-    transition: color 0.15s, border-color 0.15s;
+    transition:
+        color 0.15s,
+        border-color 0.15s;
     font-family: var(--font);
 }
 
@@ -316,7 +318,7 @@ tr:hover td {
     gap: 0.5rem;
 }
 
-.checkbox-row input[type="checkbox"] {
+.checkbox-row input[type='checkbox'] {
     width: auto;
     accent-color: var(--accent);
 }
@@ -388,14 +390,28 @@ tr:hover td {
     margin-right: 6px;
 }
 
-.dot-idle { background: var(--muted); }
-.dot-running { background: var(--text); animation: pulse 1s infinite; }
-.dot-ok { background: var(--text); }
-.dot-err { background: var(--danger); }
+.dot-idle {
+    background: var(--muted);
+}
+.dot-running {
+    background: var(--text);
+    animation: pulse 1s infinite;
+}
+.dot-ok {
+    background: var(--text);
+}
+.dot-err {
+    background: var(--danger);
+}
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
 }
 
 /* Misc */
@@ -424,9 +440,15 @@ tr:hover td {
     line-height: 1;
 }
 
-.drag-handle:active { cursor: grabbing; }
-tr.dragging { opacity: 0.35; }
-tr.drag-over td { background: var(--surface2); }
+.drag-handle:active {
+    cursor: grabbing;
+}
+tr.dragging {
+    opacity: 0.35;
+}
+tr.drag-over td {
+    background: var(--surface2);
+}
 
 /* Error toast */
 .toast {
@@ -443,4 +465,6 @@ tr.drag-over td { background: var(--surface2); }
     display: none;
 }
 
-.toast.show { display: block; }
+.toast.show {
+    display: block;
+}

@@ -16,7 +16,7 @@ export interface GigInput {
 /**
  * Normalized gig used throughout the UI – always has a concrete `id`.
  */
-export interface Gig extends Omit<GigInput, "id"> {
+export interface Gig extends Omit<GigInput, 'id'> {
     id: string;
 }
 

@@ -170,6 +170,7 @@ For static text (e.g., headings, intro copy), edit the relevant `.astro` compone
 **Publish tab** runs `git add src/data && git commit -m "<message>" && git push` and streams the output live. Requires that the working directory has a git remote configured and the shell has push access (e.g., SSH key or credential helper).
 
 **CMS files:**
+
 - `cms/server.js` — Express server (port 4322)
 - `cms/index.html` — single-file UI, vanilla JS, no build step
 - `cms/package.json` — `{"type":"module"}` so ESM imports work

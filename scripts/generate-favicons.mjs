@@ -1,23 +1,23 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import favicons from "favicons";
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import favicons from 'favicons';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, "..");
-const srcIcon = path.join(root, "src", "assets", "favicon.svg");
-const outDir = path.join(root, "public");
+const root = path.resolve(__dirname, '..');
+const srcIcon = path.join(root, 'src', 'assets', 'favicon.svg');
+const outDir = path.join(root, 'public');
 
 const config = {
-    path: "/",
-    appName: "Career Tomboy",
-    appShortName: "Career Tomboy",
+    path: '/',
+    appName: 'Career Tomboy',
+    appShortName: 'Career Tomboy',
     appDescription: "Chicago's favorite 90s/2000s alternative cover band",
     // Colors taken from src/styles/global.css:
     // --color-ct-white: #fef1db;
     // --color-ct-lime: #9fd96f;
-    background: "#fef1db",
-    theme_color: "#9fd96f",
+    background: '#fef1db',
+    theme_color: '#9fd96f',
     icons: {
         android: true,
         appleIcon: true,
@@ -32,7 +32,7 @@ async function main() {
     try {
         await fs.access(srcIcon);
     } catch {
-        console.warn("[favicons] No src/assets/favicon.svg found; skipping.");
+        console.warn('[favicons] No src/assets/favicon.svg found; skipping.');
         return;
     }
 
@@ -45,10 +45,10 @@ async function main() {
     }
 
     // Also expose the original SVG as /favicon.svg for modern browsers
-    await fs.copyFile(srcIcon, path.join(outDir, "favicon.svg"));
+    await fs.copyFile(srcIcon, path.join(outDir, 'favicon.svg'));
 }
 
 main().catch((err) => {
-    console.error("[favicons] generation failed:", err);
+    console.error('[favicons] generation failed:', err);
     process.exit(1);
 });

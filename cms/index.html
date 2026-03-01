@@ -53,7 +53,9 @@
                         <div class="card-meta" id="featured-desc"></div>
                         <div class="card-meta" id="featured-id" style="margin-top: 2px"></div>
                     </div>
-                    <button class="btn btn-secondary btn-sm" onclick="openFeaturedModal()">Edit</button>
+                    <button class="btn btn-secondary btn-sm" onclick="openFeaturedModal()">
+                        Edit
+                    </button>
                 </div>
             </div>
 
@@ -82,10 +84,18 @@
             <div class="toolbar">
                 <h2>
                     Songs
-                    <span id="song-count" style="color: var(--muted); font-weight: 400; font-size: 0.9rem"></span>
+                    <span
+                        id="song-count"
+                        style="color: var(--muted); font-weight: 400; font-size: 0.9rem"
+                    ></span>
                 </h2>
                 <div style="display: flex; gap: 0.5rem; align-items: center">
-                    <input class="search-input" id="song-search" placeholder="Search…" oninput="renderSongs()" />
+                    <input
+                        class="search-input"
+                        id="song-search"
+                        placeholder="Search…"
+                        oninput="renderSongs()"
+                    />
                     <button class="btn btn-primary" onclick="openSongModal()">+ Add Song</button>
                 </div>
             </div>
@@ -128,14 +138,17 @@
         <div id="tab-publish" class="tab">
             <h2>Publish to GitHub</h2>
             <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem">
-                Commits all changes in <code>src/data/</code> and pushes to the remote. Vercel will auto-deploy.
+                Commits all changes in <code>src/data/</code> and pushes to the remote. Vercel will
+                auto-deploy.
             </p>
             <div class="publish-form">
                 <div class="field">
                     <label for="commit-msg">Commit message</label>
                     <input id="commit-msg" type="text" value="chore: update content" />
                 </div>
-                <button class="btn btn-primary" onclick="publish()" id="publish-btn">Publish</button>
+                <button class="btn btn-primary" onclick="publish()" id="publish-btn">
+                    Publish
+                </button>
             </div>
             <div style="display: flex; align-items: center; margin-top: 1rem; font-size: 0.85rem">
                 <span class="status-dot dot-idle" id="status-dot"></span>
@@ -158,8 +171,17 @@
                         <input type="text" id="g-venue" placeholder="Venue name" required />
                     </div>
                     <div class="field">
-                        <label for="g-address">Address <span style="font-weight: 400; text-transform: none">(leave blank for private)</span></label>
-                        <input type="text" id="g-address" placeholder="Full address or leave blank" />
+                        <label for="g-address"
+                            >Address
+                            <span style="font-weight: 400; text-transform: none"
+                                >(leave blank for private)</span
+                            ></label
+                        >
+                        <input
+                            type="text"
+                            id="g-address"
+                            placeholder="Full address or leave blank"
+                        />
                     </div>
                     <div class="field">
                         <label for="g-ticketUrl">Ticket URL</label>
@@ -176,11 +198,19 @@
                     <div class="field">
                         <div class="checkbox-row">
                             <input type="checkbox" id="g-isPrivate" />
-                            <label for="g-isPrivate">Private event (hide address &amp; details)</label>
+                            <label for="g-isPrivate"
+                                >Private event (hide address &amp; details)</label
+                            >
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('gig-modal')">Cancel</button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('gig-modal')"
+                        >
+                            Cancel
+                        </button>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -194,8 +224,14 @@
                     <h2>Edit Featured Video</h2>
                     <div class="field">
                         <label for="fv-id">YouTube ID</label>
-                        <input type="text" id="fv-id" placeholder="e.g. 1HnjDS0fBRk"
-                            required pattern="[A-Za-z0-9_-]{11}" title="11-character YouTube video ID (letters, numbers, _ and -)" />
+                        <input
+                            type="text"
+                            id="fv-id"
+                            placeholder="e.g. 1HnjDS0fBRk"
+                            required
+                            pattern="[A-Za-z0-9_-]{11}"
+                            title="11-character YouTube video ID (letters, numbers, _ and -)"
+                        />
                     </div>
                     <div class="field">
                         <label for="fv-title">Title</label>
@@ -206,7 +242,13 @@
                         <input type="text" id="fv-desc" />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('featured-modal')">Cancel</button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('featured-modal')"
+                        >
+                            Cancel
+                        </button>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -220,8 +262,14 @@
                     <h2 id="video-modal-title">Add Video</h2>
                     <div class="field">
                         <label for="v-id">YouTube ID</label>
-                        <input type="text" id="v-id" placeholder="e.g. UzNNTmiCLic"
-                            required pattern="[A-Za-z0-9_-]{11}" title="11-character YouTube video ID (letters, numbers, _ and -)" />
+                        <input
+                            type="text"
+                            id="v-id"
+                            placeholder="e.g. UzNNTmiCLic"
+                            required
+                            pattern="[A-Za-z0-9_-]{11}"
+                            title="11-character YouTube video ID (letters, numbers, _ and -)"
+                        />
                     </div>
                     <div class="field">
                         <label for="v-title">Title</label>
@@ -232,7 +280,13 @@
                         <input type="text" id="v-desc" />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('video-modal')">Cancel</button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('video-modal')"
+                        >
+                            Cancel
+                        </button>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -253,7 +307,13 @@
                         <input type="text" id="s-title" placeholder="Song title" required />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('song-modal')">Cancel</button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('song-modal')"
+                        >
+                            Cancel
+                        </button>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -282,7 +342,13 @@
                         <textarea id="m-bio" placeholder="Short bio…"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('member-modal')">Cancel</button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="closeModal('member-modal')"
+                        >
+                            Cancel
+                        </button>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

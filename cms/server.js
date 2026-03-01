@@ -76,7 +76,11 @@ app.post('/api/publish', (req, res) => {
         const [cmd, args] = steps[i];
         send(`> ${cmd} ${args.join(' ')}`);
         const child = spawn(cmd, args);
-        const pipe = (d) => d.toString().split('\n').forEach((line) => line && send(line));
+        const pipe = (d) =>
+            d
+                .toString()
+                .split('\n')
+                .forEach((line) => line && send(line));
         child.stdout.on('data', pipe);
         child.stderr.on('data', pipe);
         child.on('close', (code) => {

@@ -7,10 +7,10 @@ interface Props {
     target?: string;
 }
 
-const { href, label, ariaLabel, target = "_blank" } = Astro.props as Props;
+const { href, label, ariaLabel, target = '_blank' } = Astro.props as Props;
 
 // Only apply rel for new-tab links to avoid unnecessary attributes
-const rel = target === "_blank" ? "noopener noreferrer" : undefined;
+const rel = target === '_blank' ? 'noopener noreferrer' : undefined;
 ---
 
 <a

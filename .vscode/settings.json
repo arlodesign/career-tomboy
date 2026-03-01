@@ -5,5 +5,16 @@
     },
     "editor.quickSuggestions": {
         "strings": true
+    },
+    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "astro"],
+    "editor.formatOnSave": true,
+    "[astro]": {
+        "editor.defaultFormatter": "astro-build.astro-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }

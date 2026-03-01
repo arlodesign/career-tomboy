@@ -32,6 +32,7 @@ No test suite exists. The prebuild step (`scripts/generate-favicons.mjs`) runs a
 Single-page site (`src/pages/index.astro`) composed of sequential sections. All data is JSON-driven from `src/data/`.
 
 **Data flow:**
+
 - `src/data/gigs.json` → processed by `src/lib/gigs.ts` (sort, filter upcoming/past, auto-generate IDs, build Maps URLs) → `GigsList.astro` / `Gig.astro`
 - `src/data/videos.json` → `Media.astro`
 - `src/data/songs.json` → sorted by artist (ignoring "The" prefix) then title → shown in `Booking.astro`
@@ -43,6 +44,7 @@ Single-page site (`src/pages/index.astro`) composed of sequential sections. All 
 **Patterned backgrounds:** CSS mask technique using repeating SVG. The pattern offset is updated dynamically via `window.updatePatternOffsets()` to account for scroll position and layout shifts (e.g., when the songs dialog opens in `Booking.astro`).
 
 **Client-side JS:** Minimal and inline. Key behaviors:
+
 - Sticky nav via `IntersectionObserver`
 - Pattern offset recalculation on scroll/resize
 - `<details>` toggle in Booking section calls `updatePatternOffsets()`
@@ -50,6 +52,7 @@ Single-page site (`src/pages/index.astro`) composed of sequential sections. All 
 ## Styling
 
 Tailwind CSS v4 via `@tailwindcss/vite` plugin (no `tailwind.config.js`). Brand colors defined as CSS custom properties in `src/styles/global.css`:
+
 - `ct-black` (#1f0760), `ct-white` (#fef1db)
 - Section accent colors: `ct-papaya`, `ct-lime`, `ct-plum`, `ct-strawberry`
 
@@ -59,12 +62,12 @@ Custom font: Input Serif (Type Network), loaded via `<link>` in `Head.astro`.
 
 ```json
 {
-  "date": "2026-03-21T19:00:00",   // ISO date string; time optional
-  "venue": "Venue Name",
-  "address": "Full address or null for private",
-  "ticketUrl": "https://... or null",
-  "supporting": "Other band name or null",
-  "notes": "Extra info or null",
-  "isPrivate": false               // Hides address/details when true
+    "date": "2026-03-21T19:00:00", // ISO date string; time optional
+    "venue": "Venue Name",
+    "address": "Full address or null for private",
+    "ticketUrl": "https://... or null",
+    "supporting": "Other band name or null",
+    "notes": "Extra info or null",
+    "isPrivate": false // Hides address/details when true
 }
 ```

@@ -1,5 +1,5 @@
-import type { Gig, GigInput, GigsData } from "./types";
-import gigsData from "../data/gigs.json";
+import type { Gig, GigInput, GigsData } from './types';
+import gigsData from '../data/gigs.json';
 
 /**
  * Generate a Google Maps search URL from an address
@@ -16,9 +16,7 @@ export function getGigs(): Gig[] {
     const data = gigsData as GigsData;
     return data.gigs
         .map(normalizeGig)
-        .sort(
-            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-        );
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
 
 /**
@@ -31,13 +29,13 @@ function buildGigId(input: GigInput): string {
     const date = new Date(input.date);
     if (!Number.isNaN(date.getTime())) {
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
         return `gig-${year}-${month}-${day}`;
     }
 
     // Fallback: sanitize the raw date string so we still get a stable ID.
-    const safe = input.date.replace(/[^0-9a-z]+/gi, "-").toLowerCase();
+    const safe = input.date.replace(/[^0-9a-z]+/gi, '-').toLowerCase();
     return `gig-${safe}`;
 }
 

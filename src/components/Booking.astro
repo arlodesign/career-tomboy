@@ -1,11 +1,11 @@
 ---
-import Section from "./Section.astro";
-import songs from "../data/songs.json";
+import Section from './Section.astro';
+import songs from '../data/songs.json';
 
 function normalizeArtistForSort(artist?: string | null): string {
-    const raw = (artist ?? "").trim();
+    const raw = (artist ?? '').trim();
     const lower = raw.toLowerCase();
-    if (lower.startsWith("the ")) {
+    if (lower.startsWith('the ')) {
         // Ignore leading article "The" when sorting (e.g., "The Cure" → "Cure")
         return lower.slice(4);
     }
@@ -16,8 +16,8 @@ const sortedSongs = [...songs].sort((a, b) => {
     const artistA = normalizeArtistForSort(a.artist);
     const artistB = normalizeArtistForSort(b.artist);
     if (artistA !== artistB) return artistA.localeCompare(artistB);
-    const titleA = (a.title ?? "").toLowerCase();
-    const titleB = (b.title ?? "").toLowerCase();
+    const titleA = (a.title ?? '').toLowerCase();
+    const titleB = (b.title ?? '').toLowerCase();
     return titleA.localeCompare(titleB);
 });
 ---
@@ -29,21 +29,18 @@ const sortedSongs = [...songs].sort((a, b) => {
         </h3>
         <p class="mb-4">That means we play…</p>
         <ul class="mb-4 pl-2 flex flex-col gap-2">
-            <li class="before:content-['…']">
-                classics from the alternative era (1990s, 2000s)
-            </li>
+            <li class="before:content-['…']">classics from the alternative era (1990s, 2000s)</li>
             <li class="before:content-['…']">
                 alternative picks from the classic era (1960s, 1970s, 1980s)
             </li>
             <li class="before:content-['…']">
-                deep cuts from any era, including current bands you aren’t
-                listening to… <em>yet</em>
+                deep cuts from any era, including current bands you aren’t listening to… <em>yet</em
+                >
             </li>
         </ul>
         <p class="mb-4">
-            Our sets are ecclectic, meaning everyone will hear something they
-            love and something they will love as soon as they hear it for the
-            first time.
+            Our sets are ecclectic, meaning everyone will hear something they love and something
+            they will love as soon as they hear it for the first time.
         </p>
         <details class="my-8 border-2 border-black open:bg-white">
             <summary
@@ -51,16 +48,11 @@ const sortedSongs = [...songs].sort((a, b) => {
                 >Here’s every song we’ve ever played…</summary
             >
             <div class="overflow-x-auto mt-4 p-4">
-                <dl
-                    class="text-sm grid grid-cols-2 gap-3"
-                    aria-label="Songs We've Played"
-                >
+                <dl class="text-sm grid grid-cols-2 gap-3" aria-label="Songs We've Played">
                     {
                         sortedSongs.map((song) => (
                             <>
-                                <dt class="font-bold text-right">
-                                    {song.title}
-                                </dt>
+                                <dt class="font-bold text-right">{song.title}</dt>
                                 <dd class="">{song.artist}</dd>
                             </>
                         ))
@@ -73,13 +65,12 @@ const sortedSongs = [...songs].sort((a, b) => {
             Career Tomboy is not your typical cover band
         </h3>
         <p class="mb-4">
-            When you need something a little different for your next live-music
-            night at the bar, outdoor festival, second or third wedding,
-            corporate event, 45th+ birthday, or very unconventional bris,
-            contact us!
+            When you need something a little different for your next live-music night at the bar,
+            outdoor festival, second or third wedding, corporate event, 45th+ birthday, or very
+            unconventional bris, contact us!
         </p><p class="mb-4">
-            <strong>Fill out the form below.</strong> We take requests! We bring our
-            own gear! We work for beer! (But we also take Venmo and Zelle.)
+            <strong>Fill out the form below.</strong> We take requests! We bring our own gear! We work
+            for beer! (But we also take Venmo and Zelle.)
         </p>
     </div>
     <iframe
@@ -92,12 +83,10 @@ const sortedSongs = [...songs].sort((a, b) => {
 </Section>
 
 <script>
-    const songsDetails = document.querySelector(
-        "#booking details",
-    ) as HTMLDetailsElement | null;
+    const songsDetails = document.querySelector('#booking details') as HTMLDetailsElement | null;
 
-    songsDetails?.addEventListener("toggle", () => {
-        const fn = (window as any).updatePatternOffsets;
-        if (typeof fn === "function") fn();
+    songsDetails?.addEventListener('toggle', () => {
+        const fn = (window as Window & { updatePatternOffsets?: () => void }).updatePatternOffsets;
+        if (typeof fn === 'function') fn();
     });
 </script>
