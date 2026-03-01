@@ -31,14 +31,14 @@ const skewClass = randomSkewClass();
 ---
 
 <article
-    class="group p-4 text-left text-slate-900 md:text-base relative"
+    class="group p-4 text-left text-white md:text-base relative"
     data-gig-id={gig.id}
     data-private={isPrivate ? "true" : undefined}
 >
     <span
-        class={`relative before:absolute before:-inset-4 before:block before:bg-white ${skewClass}`}
+        class={`relative before:absolute before:-inset-4 before:block before:bg-black ${skewClass}`}
     >
-        <h3 class="relative font-heading text-xl italic text-slate-900">
+        <h3 class="relative font-heading text-xl italic text-white">
             <time datetime={gig.date}>
                 {formattedDate}
                 {
@@ -53,11 +53,11 @@ const skewClass = randomSkewClass();
         >
             <div class="space-y-1">
                 <div class="flex items-center gap-2">
-                    <p class="font-medium text-slate-900">{gig.venue}</p>
+                    <p class="font-medium text-white">{gig.venue}</p>
                     {
                         isPrivate && (
                             <span
-                                class="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+                                class="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-white"
                                 aria-label="Private event - venue details not disclosed"
                             >
                                 Private Event
@@ -67,19 +67,17 @@ const skewClass = randomSkewClass();
                 </div>
                 {
                     !isPrivate && gig.address && (
-                        <p class="text-sm text-slate-800">{gig.address}</p>
+                        <p class="text-sm text-white">{gig.address}</p>
                     )
                 }
                 {
                     gig.supporting && !isPrivate && (
-                        <p class="text-sm text-slate-800">
-                            With {gig.supporting}
-                        </p>
+                        <p class="text-sm text-white">With {gig.supporting}</p>
                     )
                 }
                 {
                     gig.notes && !isPrivate && (
-                        <p class="text-sm text-slate-800">{gig.notes}</p>
+                        <p class="text-sm text-white">{gig.notes}</p>
                     )
                 }
             </div>

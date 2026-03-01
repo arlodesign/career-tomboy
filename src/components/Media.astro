@@ -15,7 +15,7 @@ const videos: Video[] = videoData.videos;
 <Section id="media" headline="Watch & Listen" color="papaya">
     <!-- Featured Video -->
     <div class="mx-auto mb-12 max-w-4xl">
-        <div class="aspect-video overflow-hidden rounded-lg shadow-xl">
+        <div class="aspect-video overflow-hidden">
             <iframe
                 src={`https://www.youtube.com/embed/${featured.youtubeId}`}
                 title={featured.title}
@@ -24,10 +24,12 @@ const videos: Video[] = videoData.videos;
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
         </div>
-        <p class="mt-4 text-center text-lg">{featured.title}</p>
+        <p class="mt-4 font-heading text-lg italic text-center">
+            {featured.title}
+        </p>
         {
             featured.description && (
-                <p class="text-center text-white/70">{featured.description}</p>
+                <p class="text-center text-black">{featured.description}</p>
             )
         }
     </div>
@@ -41,7 +43,7 @@ const videos: Video[] = videoData.videos;
                 </h3>
                 <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {videos.map((video) => (
-                        <article class="overflow-hidden rounded-lg bg-white/10">
+                        <article class="overflow-hidden">
                             <div class="aspect-video">
                                 <iframe
                                     src={`https://www.youtube.com/embed/${video.youtubeId}`}
@@ -53,11 +55,11 @@ const videos: Video[] = videoData.videos;
                                 />
                             </div>
                             <div class="p-4">
-                                <h4 class="font-heading text-lg italic">
+                                <h4 class="font-heading text-lg italic text-center">
                                     {video.title}
                                 </h4>
                                 {video.description && (
-                                    <p class="text-sm text-white/70">
+                                    <p class="text-sm text-center text-black">
                                         {video.description}
                                     </p>
                                 )}

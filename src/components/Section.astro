@@ -1,5 +1,6 @@
 ---
 import Bg from "./Bg.astro";
+import { randomSkewClass } from "../lib/variants";
 
 export type SectionColor = "papaya" | "lime" | "plum" | "strawberry";
 
@@ -34,6 +35,8 @@ const sectionAriaLabel = ariaLabel ?? undefined;
 const sectionAriaLabelledby = sectionAriaLabel ? undefined : headingId;
 
 const HeadingTag = `h${level}` as "h2" | "h3";
+
+const skewClass = randomSkewClass();
 ---
 
 <section
@@ -43,12 +46,16 @@ const HeadingTag = `h${level}` as "h2" | "h3";
     aria-labelledby={sectionAriaLabelledby}
 >
     <Bg colorVar={colorVar} />
-    <div class="container mx-auto px-4 py-8 lg:px-5">
+    <div class="container mx-auto px-4 py-16 lg:px-5">
         <HeadingTag
             id={headingId}
-            class="mb-8 mt-0 text-center font-heading text-4xl italic"
+            class="mb-12 mt-0 text-center font-heading text-5xl italic text-black"
         >
-            {headline}
+            <span
+                class={`relative before:absolute before:-inset-4 before:block before:bg-white ${skewClass}`}
+            >
+                <span class="relative">{headline}</span>
+            </span>
         </HeadingTag>
         <slot />
     </div>
