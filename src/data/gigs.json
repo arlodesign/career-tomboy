@@ -107,6 +107,15 @@
             "supporting": null,
             "notes": null,
             "isPrivate": false
+        },
+        {
+            "date": "2026-05-13T19:00",
+            "venue": "The Wilmette Theatre",
+            "address": "22 Central Ave Wilmette, IL  60091",
+            "ticketUrl": "https://careertomboy.livelocal.music",
+            "supporting": null,
+            "notes": "$10 at the door",
+            "isPrivate": false
         }
     ]
 }
