@@ -1,6 +1,9 @@
 ---
 import Section from './Section.astro';
-import songs from '../data/songs.json';
+import { fetchSongs, fetchBookingPage } from '../lib/wordpress';
+import type { Song } from '../lib/wordpress';
+
+const [songs, booking] = await Promise.all([fetchSongs(), fetchBookingPage()]);
 
 function normalizeArtistForSort(artist?: string | null): string {
     const raw = (artist ?? '').trim();
@@ -12,7 +15,7 @@ function normalizeArtistForSort(artist?: string | null): string {
     return lower;
 }
 
-const sortedSongs = [...songs].sort((a, b) => {
+const sortedSongs = [...songs].sort((a: Song, b: Song) => {
     const artistA = normalizeArtistForSort(a.artist);
     const artistB = normalizeArtistForSort(b.artist);
     if (artistA !== artistB) return artistA.localeCompare(artistB);
@@ -24,28 +27,12 @@ const sortedSongs = [...songs].sort((a, b) => {
 
 <Section id="booking" headline="Book Us" color="lime">
     <div class="mx-auto max-w-3xl text-sm">
-        <h3 class="mt-4 font-heading text-xl italic pb-4">
-            Career Tomboy plays “alternative classics and deep cuts”
-        </h3>
-        <p class="mb-4">That means we play…</p>
-        <ul class="mb-4 pl-2 flex flex-col gap-2">
-            <li class="before:content-['…']">classics from the alternative era (1990s, 2000s)</li>
-            <li class="before:content-['…']">
-                alternative picks from the classic era (1960s, 1970s, 1980s)
-            </li>
-            <li class="before:content-['…']">
-                deep cuts from any era, including current bands you aren’t listening to… <em>yet</em
-                >
-            </li>
-        </ul>
-        <p class="mb-4">
-            Our sets are ecclectic, meaning everyone will hear something they love and something
-            they will love as soon as they hear it for the first time.
-        </p>
+        <div class="ct-booking-content" set:html={booking.contentBefore} />
+
         <details class="my-8 border-2 border-black open:bg-white">
             <summary
                 class="font-bold text-center px-3 py-2 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer"
-                >Here’s every song we’ve ever played…</summary
+                >Here's every song we've ever played…</summary
             >
             <div class="overflow-x-auto mt-4 p-4">
                 <dl class="text-sm grid grid-cols-2 gap-3" aria-label="Songs We've Played">
@@ -61,26 +48,42 @@ const sortedSongs = [...songs].sort((a, b) => {
             </div>
         </details>
 
-        <h3 class="mt-4 font-heading text-xl italic pb-4">
-            Career Tomboy is not your typical cover band
-        </h3>
-        <p class="mb-4">
-            When you need something a little different for your next live-music night at the bar,
-            outdoor festival, second or third wedding, corporate event, 45th+ birthday, or very
-            unconventional bris, contact us!
-        </p><p class="mb-4">
-            <strong>Fill out the form below.</strong> We take requests! We bring our own gear! We work
-            for beer! (But we also take Venmo and Zelle.)
-        </p>
+        <div class="ct-booking-content" set:html={booking.contentAfter} />
     </div>
-    <iframe
-        class="mx-auto w-full max-w-4xl h-screen"
-        src="https://docs.google.com/forms/d/e/1FAIpQLSdxeGcmSU8EvM2Vf48TR-MINphuPrhIaSk-to8nH_JfADP9KQ/viewform?embedded=true"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0">Loading…</iframe
-    >
+    {
+        booking.formUrl && (
+            <iframe class="mx-auto w-full max-w-4xl h-screen border-0" src={booking.formUrl}>
+                Loading…
+            </iframe>
+        )
+    }
 </Section>
+
+<style>
+    /* Style WordPress-rendered prose. Mirrors the original Tailwind utility
+       classes that were previously applied directly to the markup. */
+    .ct-booking-content :global(h3) {
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-style: italic;
+    }
+    .ct-booking-content :global(p) {
+        margin-bottom: 1rem;
+    }
+    .ct-booking-content :global(ul) {
+        margin-bottom: 1rem;
+        padding-left: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .ct-booking-content :global(li::before) {
+        content: '…';
+    }
+</style>
 
 <script>
     const songsDetails = document.querySelector('#booking details') as HTMLDetailsElement | null;

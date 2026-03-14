@@ -88,8 +88,8 @@ function gigToVEvent(gig: Gig, dtstamp: string): string {
     return lines.join('\r\n');
 }
 
-export const GET: APIRoute = () => {
-    const gigs = getGigs();
+export const GET: APIRoute = async () => {
+    const gigs = await getGigs();
 
     // Build DTSTAMP once for all events (build time, UTC)
     const now = new Date();

@@ -1,5 +1,5 @@
-import type { Gig, GigInput, GigsData } from './types';
-import gigsData from '../data/gigs.json';
+import type { Gig, GigInput } from './types';
+import { fetchGigInputs } from './wordpress';
 
 /**
  * Generate a Google Maps search URL from an address
@@ -12,9 +12,9 @@ export function generateMapsUrl(address: string): string {
 /**
  * Get all gigs, sorted by date (upcoming first)
  */
-export function getGigs(): Gig[] {
-    const data = gigsData as GigsData;
-    return data.gigs
+export async function getGigs(): Promise<Gig[]> {
+    const inputs = await fetchGigInputs();
+    return inputs
         .map(normalizeGig)
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
@@ -49,19 +49,17 @@ function normalizeGig(input: GigInput): Gig {
 /**
  * Get only upcoming gigs (today or later)
  */
-export function getUpcomingGigs(): Gig[] {
+export async function getUpcomingGigs(): Promise<Gig[]> {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    return getGigs().filter((gig) => new Date(gig.date) >= now);
+    return (await getGigs()).filter((gig) => new Date(gig.date) >= now);
 }
 
 /**
  * Get only past gigs
  */
-export function getPastGigs(): Gig[] {
+export async function getPastGigs(): Promise<Gig[]> {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    return getGigs()
-        .filter((gig) => new Date(gig.date) < now)
-        .reverse();
+    return (await getGigs()).filter((gig) => new Date(gig.date) < now).reverse();
 }
