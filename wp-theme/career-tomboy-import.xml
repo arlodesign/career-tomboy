@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WordPress eXtended RSS — import via Tools → Import → WordPress -->
+<rss version="2.0"
+    xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:wp="http://wordpress.org/export/1.2/">
+<channel>
+    <wp:wxr_version>1.2</wp:wxr_version>
+    <wp:base_site_url>https://your-wp-site.com</wp:base_site_url>
+    <wp:base_blog_url>https://your-wp-site.com</wp:base_blog_url>
+
+    <!-- ================================================================
+         GIGS (13)
+         ================================================================ -->
+
+    <item>
+        <title><![CDATA[Double Clutch Brewing Company]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>1</wp:post_id>
+        <wp:post_date>2025-04-17 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-04-17</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-04-17T19:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[2121 Ashland Ave, Evanston, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[https://www.doubleclutchbrewing.com/live-shows]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[The Neighborhood Kids]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[The Atlantic Bar & Grill]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>2</wp:post_id>
+        <wp:post_date>2025-06-21 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-06-21</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-06-21T19:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[5062 N Lincoln Ave, Chicago, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[https://www.theatlanticbarandgrill.com/chicago-the-atlantic-bar-and-grill-events]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[Chuck Patella]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[Cary's Lounge]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>3</wp:post_id>
+        <wp:post_date>2025-07-26 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-07-26</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-07-26T19:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[2251 W. Devon Ave, Chicago, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[https://caryslounge.com/caryslounge.com/events/]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[Odd Man Out]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[Montrose Saloon]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>4</wp:post_id>
+        <wp:post_date>2025-08-28 18:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-08-28</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-08-28T18:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[2933 W Montrose Ave, Chicago, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[https://montrosesaloon.com/event/matthew-rift-band-career-tomboy-shot-of-therapy-broken-thorn/]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[Matthew Rift Band, Shot of Therapy, Broken Thorn]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[Custer Oasis]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>5</wp:post_id>
+        <wp:post_date>2025-08-10 16:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-08-10</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-08-10T16:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[Custer Avenue between Main and Washington, Evanston, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[Dad or Alive and Alex Childs]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[Private Event – 2025-08-23]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>6</wp:post_id>
+        <wp:post_date>2025-08-23 00:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-08-23</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-08-23]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>1</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[Private Event – 2025-09-20]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>7</wp:post_id>
+        <wp:post_date>2025-09-20 00:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-09-20</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-09-20]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>1</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[Double Clutch Brewing Company]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>8</wp:post_id>
+        <wp:post_date>2026-02-19 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2026-02-19</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2026-02-19T19:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[2121 Ashland Ave, Evanston, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[https://www.doubleclutchbrewing.com/live-shows]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[Evanston Post 42]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>9</wp:post_id>
+        <wp:post_date>2025-10-29 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-10-29</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-10-29T19:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[1030 Central St, Evanston, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[Dad or Alive]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[The Atlantic Bar & Grill]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>10</wp:post_id>
+        <wp:post_date>2025-11-15 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2025-11-15</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2025-11-15T19:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[5062 N. Lincoln Ave, Chicago, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[https://www.theatlanticbarandgrill.com/chicago-the-atlantic-bar-and-grill-events]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[Dad or Alive]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[Evanston Post 42]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>11</wp:post_id>
+        <wp:post_date>2026-03-21 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2026-03-21</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2026-03-21T19:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[1030 Central St, Evanston, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[Dad or Alive]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[The Atlantic Bar & Grill]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>12</wp:post_id>
+        <wp:post_date>2026-04-24 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2026-04-24</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2026-04-24T19:00:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[5062 N Lincoln Ave, Chicago, IL]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA[The Wilmette Theatre]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>13</wp:post_id>
+        <wp:post_date>2026-05-13 19:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>gig</wp:post_type>
+        <wp:post_name>gig-2026-05-13</wp:post_name>
+        <wp:postmeta><wp:meta_key>gig_date</wp:meta_key><wp:meta_value><![CDATA[2026-05-13T19:00]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_address</wp:meta_key><wp:meta_value><![CDATA[1122 Central Ave, Wilmette, IL  60091]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_ticket_url</wp:meta_key><wp:meta_value><![CDATA[https://careertomboy.livelocal.music]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_supporting</wp:meta_key><wp:meta_value><![CDATA[]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_notes</wp:meta_key><wp:meta_value><![CDATA[$10 at the door]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>gig_is_private</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <!-- ================================================================
+         VIDEOS (4)
+         ================================================================ -->
+
+    <item>
+        <title><![CDATA[Live at Double Clutch]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>14</wp:post_id>
+        <wp:post_date>2026-02-19 00:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>video</wp:post_type>
+        <wp:post_name>live-at-double-clutch</wp:post_name>
+        <wp:postmeta><wp:meta_key>video_youtube_id</wp:meta_key><wp:meta_value><![CDATA[1HnjDS0fBRk]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>video_description</wp:meta_key><wp:meta_value><![CDATA[Full set from February 19, 2026]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>video_is_featured</wp:meta_key><wp:meta_value>1</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA["Panic Switch" by Silversun Pickups]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>15</wp:post_id>
+        <wp:post_date>2025-04-17 00:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>video</wp:post_type>
+        <wp:post_name>panic-switch-silversun-pickups</wp:post_name>
+        <wp:postmeta><wp:meta_key>video_youtube_id</wp:meta_key><wp:meta_value><![CDATA[UzNNTmiCLic]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>video_description</wp:meta_key><wp:meta_value><![CDATA[Double Clutch, April 17, 2025]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>video_is_featured</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA["Bang a Gong" by T. Rex]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>16</wp:post_id>
+        <wp:post_date>2025-10-29 00:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>video</wp:post_type>
+        <wp:post_name>bang-a-gong-t-rex</wp:post_name>
+        <wp:postmeta><wp:meta_key>video_youtube_id</wp:meta_key><wp:meta_value><![CDATA[-qIvspmNIyE]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>video_description</wp:meta_key><wp:meta_value><![CDATA[American Legion Post 42, October 29, 2025]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>video_is_featured</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <item>
+        <title><![CDATA["Possum Kingdom" by Toadies]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>17</wp:post_id>
+        <wp:post_date>2025-04-17 00:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>video</wp:post_type>
+        <wp:post_name>possum-kingdom-toadies</wp:post_name>
+        <wp:postmeta><wp:meta_key>video_youtube_id</wp:meta_key><wp:meta_value><![CDATA[eWlsymLwU4w]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>video_description</wp:meta_key><wp:meta_value><![CDATA[Double Clutch, April 17, 2025]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>video_is_featured</wp:meta_key><wp:meta_value>0</wp:meta_value></wp:postmeta>
+    </item>
+
+    <!-- ================================================================
+         SONGS (86)
+         ================================================================ -->
+
+    <item><title><![CDATA[Showbiz]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>18</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>showbiz-muse</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Muse]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Ex's & Oh's]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>19</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>exs-and-ohs-elle-king</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Elle King]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Archie, Marry Me]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>20</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>archie-marry-me-alvvays</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Alvvays]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[About a Girl]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>21</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>about-a-girl-nirvana</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Nirvana]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[House of Jealous Lovers]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>22</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>house-of-jealous-lovers-the-rapture</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Rapture]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Where Is My Mind?]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>23</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>where-is-my-mind-pixies</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Pixies]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Miss Misery]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>24</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>miss-misery-elliott-smith</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Elliott Smith]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[That Time]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>25</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>that-time-regina-spektor</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Regina Spektor]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Mother Mother]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>26</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>mother-mother-tracy-bonham</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Tracy Bonham]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Panic Switch]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>27</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>panic-switch-silversun-pickups</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Silversun Pickups]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Seether]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>28</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>seether-veruca-salt</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Veruca Salt]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Come As You Are]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>29</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>come-as-you-are-nirvana</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Nirvana]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Help I'm Alive]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>30</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>help-im-alive-metric</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Metric]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Wave of Mutilation]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>31</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>wave-of-mutilation-pixies</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Pixies]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Heart-Shaped Box]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>32</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>heart-shaped-box-nirvana</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Nirvana]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Plug In Baby]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>33</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>plug-in-baby-muse</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Muse]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Brass In Pocket]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>34</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>brass-in-pocket-pretenders</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Pretenders]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Halah]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>35</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>halah-mazzy-star</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Mazzy Star]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[The Story]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>36</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>the-story-brandi-carlile</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Brandi Carlile]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Breed]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>37</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>breed-nirvana</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Nirvana]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Dry the Rain]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>38</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>dry-the-rain-the-beta-band</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Beta Band]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Psycho]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>39</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>psycho-muse</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Muse]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Aneurysm]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>40</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>aneurysm-nirvana</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Nirvana]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Holiday]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>41</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>holiday-green-day</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Green Day]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Far Gone and Out]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>42</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>far-gone-and-out-the-jesus-and-mary-chain</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Jesus and Mary Chain]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Just Like Heaven]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>43</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>just-like-heaven-dinosaur-jr</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Dinosaur Jr.]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Celebrity Skin]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>44</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>celebrity-skin-hole</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Hole]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Ever Fallen in Love (with Someone You Shouldn't've?)]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>45</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>ever-fallen-in-love-buzzcocks</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Buzzcocks]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Blitzkrieg Bop]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>46</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>blitzkrieg-bop-ramones</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Ramones]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Wild Child]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>47</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>wild-child-the-black-keys</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Black Keys]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Vampire Empire]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>48</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>vampire-empire-big-thief</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Big Thief]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Possum Kingdom]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>49</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>possum-kingdom-toadies</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Toadies]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Fire]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>50</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>fire-the-jimi-hendrix-experience</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Jimi Hendrix Experience]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Waiting Room]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>51</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>waiting-room-fugazi</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Fugazi]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[New Rose]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>52</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>new-rose-the-damned</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Damned]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[You Got I Want]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>53</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>you-got-i-want-prism-bitch</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Prism Bitch]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Hate to Say I Told You So]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>54</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>hate-to-say-i-told-you-so-the-hives</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Hives]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Today]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>55</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>today-the-smashing-pumpkins</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Smashing Pumpkins]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Good Times Bad Times]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>56</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>good-times-bad-times-led-zeppelin</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Led Zeppelin]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Bang a Gong (Get It On)]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>57</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>bang-a-gong-t-rex</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[T. Rex]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[My Name Is Jonas]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>58</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>my-name-is-jonas-weezer</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Weezer]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Low]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>59</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>low-cracker</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Cracker]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Cannonball]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>60</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>cannonball-the-breeders</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Breeders]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Euro-Trash Girl]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>61</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>euro-trash-girl-cracker</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Cracker]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Rearview]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>62</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>rearview-beach-bunny</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Beach Bunny]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Feelin' Alright]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>63</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>feelin-alright-rare-earth</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Rare Earth]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Holland, 1945]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>64</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>holland-1945-neutral-milk-hotel</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Neutral Milk Hotel]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Everlong]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>65</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>everlong-foo-fighters</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Foo Fighters]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Combat Baby]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>66</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>combat-baby-metric</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Metric]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Chaise Longue]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>67</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>chaise-longue-wet-leg</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Wet Leg]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Saints]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>68</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>saints-the-breeders</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Breeders]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Never Been to Spain]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>69</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>never-been-to-spain-three-dog-night</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Three Dog Night]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Dogfight]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>70</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>dogfight-the-bloody-hollies</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Bloody Hollies]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Go Your Own Way]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>71</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>go-your-own-way-fleetwood-mac</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Fleetwood Mac]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Only Shallow]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>72</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>only-shallow-my-bloody-valentine</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[my bloody valentine]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Turn It On]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>73</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>turn-it-on-the-flaming-lips</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Flaming Lips]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Underwhelmed]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>74</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>underwhelmed-sloan</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Sloan]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Story of My Life]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>75</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>story-of-my-life-social-distortion</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Social Distortion]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Loud Bark]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>76</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>loud-bark-mannequin-pussy</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Mannequin Pussy]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Days Of Oblivion]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>77</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>days-of-oblivion-metric</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Metric]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Susanne]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>78</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>susanne-weezer</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Weezer]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Just]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>79</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>just-radiohead</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Radiohead]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Why'd You Only Call Me When You're High?]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>80</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>whyd-you-only-call-me-when-youre-high-arctic-monkeys</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Arctic Monkeys]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[No Roots]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>81</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>no-roots-alice-merton</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Alice Merton]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Only Happy When It Rains]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>82</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>only-happy-when-it-rains-garbage</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Garbage]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Anita]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>83</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>anita-pacifica</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Pacifica]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Head Over Feet]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>84</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>head-over-feet-alanis-morissette</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Alanis Morissette]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[I Wanna Be Adored]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>85</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>i-wanna-be-adored-the-stone-roses</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Stone Roses]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Connection]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>86</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>connection-elastica</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Elastica]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[In Between Days]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>87</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>in-between-days-the-cure</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Cure]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Just Like Heaven]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>88</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>just-like-heaven-the-cure</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Cure]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[The Man Who Sold the World]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>89</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>the-man-who-sold-the-world-david-bowie</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[David Bowie]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Throwing Things]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>90</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>throwing-things-superchunk</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Superchunk]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Fade into You]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>91</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>fade-into-you-mazzy-star</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Mazzy Star]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Great DJ]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>92</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>great-dj-the-ting-tings</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[The Ting Tings]]></wp:meta_value></wp:postmeta></item>
+    <item><title><![CDATA[Public Witness Program]]></title><dc:creator>admin</dc:creator><content:encoded><![CDATA[]]></content:encoded><wp:post_id>93</wp:post_id><wp:post_date>2026-01-01 00:00:00</wp:post_date><wp:post_status>publish</wp:post_status><wp:post_type>song</wp:post_type><wp:post_name>public-witness-program-fugazi</wp:post_name><wp:postmeta><wp:meta_key>song_artist</wp:meta_key><wp:meta_value><![CDATA[Fugazi]]></wp:meta_value></wp:postmeta></item>
+
+    <!-- ================================================================
+         BAND MEMBERS (1 — placeholder data; update before importing)
+         ================================================================ -->
+
+    <item>
+        <title><![CDATA[Member Name]]></title>
+        <dc:creator>admin</dc:creator>
+        <content:encoded><![CDATA[]]></content:encoded>
+        <wp:post_id>94</wp:post_id>
+        <wp:post_date>2026-01-01 00:00:00</wp:post_date>
+        <wp:post_status>publish</wp:post_status>
+        <wp:post_type>band_member</wp:post_type>
+        <wp:post_name>member-name</wp:post_name>
+        <wp:postmeta><wp:meta_key>member_role</wp:meta_key><wp:meta_value><![CDATA[Vocals/Guitar]]></wp:meta_value></wp:postmeta>
+        <wp:postmeta><wp:meta_key>member_bio</wp:meta_key><wp:meta_value><![CDATA[Short bio]]></wp:meta_value></wp:postmeta>
+    </item>
+
+</channel>
+</rss>
