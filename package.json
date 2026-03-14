@@ -43,11 +43,11 @@
         "url": "https://github.com/StartBootstrap/startbootstrap-creative.git"
     },
     "dependencies": {
-        "astro": "^5.18.0",
+        "astro": "^6.0.4",
         "sharp": "^0.34.5"
     },
     "devDependencies": {
-        "@astrojs/check": "^0.9.6",
+        "@astrojs/check": "^0.9.7",
         "@eslint/js": "^10.0.1",
         "@tailwindcss/vite": "^4.1.18",
         "ase-util": "^1.0.3",

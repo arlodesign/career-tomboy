@@ -1,6 +1,6 @@
 # Career Tomboy Website
 
-Career Tomboy is a Chicago cover band playing what they call "alternative classics and deep cuts". This repo contains the source for **careertomboy.com**, a single-page marketing site built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com).
+Career Tomboy is a Chicago cover band playing what they call "alternative classics and deep cuts". This repo contains the source for **careertomboy.com**, a single-page marketing site built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com). Content is managed via a WordPress headless CMS.
 
 ## Features
 
@@ -10,7 +10,7 @@ Career Tomboy is a Chicago cover band playing what they call "alternative classi
     - Media (featured video + gallery)
     - Booking (Google Form embed + songs dialog)
     - Contact & social links
-- **Upcoming gigs** are read from JSON and automatically split into upcoming vs. past based on date.
+- **Upcoming gigs** fetched from WordPress and automatically split into upcoming vs. past based on date.
 - **YouTube embeds** for videos with lazy loading.
 - **Accessible booking dialog** listing songs the band has played.
 - **Patterned background system** powered by CSS masks and color tokens.
@@ -18,13 +18,12 @@ Career Tomboy is a Chicago cover band playing what they call "alternative classi
 
 ## Tech stack
 
-- [Astro 5](https://docs.astro.build/) with static output
+- [Astro](https://docs.astro.build/) with static output
 - [Tailwind CSS 4](https://tailwindcss.com/) via `@tailwindcss/vite`
-- Node.js (see Astro docs for supported versions; Node 18+ is recommended)
-- Package manager: [`pnpm`](https://pnpm.io/) (examples below use `pnpm`, but `npm`/`yarn` also work)
-- Auxiliary tooling:
-    - `sharp` for image processing
-    - favicon generation script in `scripts/generate-favicons.mjs`
+- TypeScript
+- WordPress (headless CMS, REST API)
+- Package manager: [`pnpm`](https://pnpm.io/)
+- Hosting: Vercel
 
 ## Getting started
 
@@ -33,173 +32,100 @@ Career Tomboy is a Chicago cover band playing what they call "alternative classi
 ```bash
 git clone <repo-url>
 cd career-tomboy-website
-
-# using pnpm (recommended)
 pnpm install
-
-# or with npm
-# npm install
 ```
 
-### 2. Run the development server
+### 2. Set up environment
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set:
+
+```
+WP_API_BASE=https://<your-wp-domain>/wp-json/wp/v2
+```
+
+### 3. Run the development server
 
 ```bash
 pnpm dev
-# or: npm run dev
 ```
 
-Astro will start a dev server (by default at `http://localhost:4321`) with hot reload.
+Astro will start a dev server at `http://localhost:4321` with hot reload. All data is fetched live from WordPress on each request.
 
-### 3. Build for production
+### 4. Build for production
 
 ```bash
 pnpm build
-# or: npm run build
 ```
 
-This runs the favicon prebuild step and outputs a static site to `dist/`.
+Runs the favicon prebuild step, fetches all content from WordPress, and outputs a fully static site to `dist/`.
 
-### 4. Preview the production build
+### 5. Preview the production build
 
 ```bash
 pnpm preview
-# or: npm run preview
 ```
 
-This serves the contents of `dist/` locally so you can smoke-test the production build.
-
-### 5. Run the local CMS (optional)
-
-```bash
-pnpm cms
-```
-
-Opens a browser UI at `http://localhost:4322` for editing gigs, videos, songs, and members without touching JSON by hand. Use the **Publish** tab to commit and push changes — Vercel will auto-deploy.
+Serves the contents of `dist/` locally so you can smoke-test the production build.
 
 ## Project structure
 
-Only the most relevant pieces are listed here:
-
-- `astro.config.mjs` – Astro configuration (static output, Tailwind/Vite plugin, site URL).
-- `src/pages/index.astro` – main page that assembles all sections.
-- `src/layouts/Main.astro` – base layout, shared head, navigation, and footer.
-- `src/components/` – UI components such as:
+- `astro.config.mjs` – Astro configuration (static output, Tailwind/Vite plugin, site URL)
+- `src/pages/index.astro` – main page that assembles all sections
+- `src/lib/wordpress.ts` – WordPress REST API fetch layer (gigs, songs, videos, booking page)
+- `src/lib/gigs.ts` – gig sorting/filtering helpers
+- `src/components/` – UI components:
     - `Masthead.astro` – hero section
     - `GigsList.astro` + `Gig.astro` – upcoming gigs feed
     - `Media.astro` – featured + additional videos
     - `Booking.astro` – booking form embed and songs dialog
     - `Contact.astro` – email + social links
     - `Section.astro` / `Bg.astro` – colored, patterned background sections
-- `src/data/` – JSON data sources:
-    - `gigs.json`
-    - `videos.json`
-    - `songs.json`
-    - `members.json`
-- `src/styles/` – global styles and the patterned background CSS.
+- `src/styles/` – global styles and the patterned background CSS
+- `wp-theme/career-tomboy-headless/` – WordPress theme (see below)
 
-## Editing content
+## Content management (WordPress)
 
-Most band-specific content lives in JSON files under `src/data/`. The easiest way to edit them is via the local CMS (`pnpm cms`). You can also edit the JSON directly — both approaches are described below.
+All content is edited in the WordPress admin (URL not published in this repo — set `WP_API_BASE` in `.env`). Publishing or trashing any gig, song, video, band member, or the booking page automatically triggers a Vercel rebuild.
 
-### Gigs
+**Content types:**
+- **Gigs** – date, venue, address, ticket URL, supporting act, notes, private flag
+- **Songs** – title, artist
+- **Videos** – YouTube ID, description, featured flag
+- **Band Members** – name, role, bio, photo (featured image)
+- **Booking page** – rich text in the block editor; drag the Song List block to control where the song list appears on the page
 
-Upcoming and past shows are stored in `src/data/gigs.json` and typed via `src/lib/types.ts`.
+## WordPress theme
 
-A minimal example (the `id` will be generated automatically from the date if you omit it):
+The `wp-theme/career-tomboy-headless/` directory contains a minimal WordPress theme that powers the headless setup. To install, upload the folder to `/wp-content/themes/` on the WordPress server and activate it.
 
-```json
-{
-    "gigs": [
-        {
-            "date": "2026-03-21T19:00:00-05:00",
-            "venue": "Evanston Post 42",
-            "address": "1030 Central St, Evanston, IL",
-            "ticketUrl": null,
-            "supporting": "With Dad or Alive",
-            "notes": null,
-            "isPrivate": false
-        }
-    ]
-}
+The theme:
+- Registers all custom post types and meta fields exposed via the REST API
+- Registers the Song List custom Gutenberg block (no build step needed)
+- Redirects all front-end WordPress traffic to `careertomboy.com`
+- Triggers Vercel rebuilds on content changes
+
+To enable Vercel rebuilds, add the following to `wp-config.php`:
+
+```php
+define( 'CT_VERCEL_DEPLOY_HOOK', 'https://api.vercel.com/v1/integrations/deploy/YOUR_HOOK_URL' );
 ```
-
-- `date` should be an ISO-8601 string; the site uses it to sort gigs and to decide what counts as "upcoming".
-- Set `isPrivate` to `true` for shows where the exact location shouldn’t be displayed.
-
-### Videos
-
-`src/data/videos.json` drives the media section. It contains a single featured video and an array of additional videos:
-
-```json
-{
-    "featured": {
-        "youtubeId": "XXXXXXXXXXX",
-        "title": "Featured video title",
-        "description": "Short description (optional)"
-    },
-    "videos": [
-        {
-            "youtubeId": "YYYYYYYYYYY",
-            "title": "Another video",
-            "description": "Optional description"
-        }
-    ]
-}
-```
-
-### Songs (setlist)
-
-`src/data/songs.json` powers the “Songs We've Played” dialog opened from the booking section:
-
-```json
-[{ "title": "Song Title", "artist": "Artist Name" }]
-```
-
-### Members / other copy
-
-Any structured band member data or additional bios can live in `src/data/members.json` and be consumed by components as needed.
-
-For static text (e.g., headings, intro copy), edit the relevant `.astro` components in `src/components/`.
-
-## Local CMS
-
-`cms/server.js` is a small Express 5 server that exposes a REST API over `src/data/` and serves a self-contained browser UI (`cms/index.html`). Start it with `pnpm cms`.
-
-**Tabs:** Gigs · Videos · Songs · Members · Publish
-
-**Publish tab** runs `git add src/data && git commit -m "<message>" && git push` and streams the output live. Requires that the working directory has a git remote configured and the shell has push access (e.g., SSH key or credential helper).
-
-**CMS files:**
-
-- `cms/server.js` — Express server (port 4322)
-- `cms/index.html` — single-file UI, vanilla JS, no build step
-- `cms/package.json` — `{"type":"module"}` so ESM imports work
-
-## Accessibility
-
-The site is built with accessibility in mind:
-
-- Semantic headings and landmarks (header, main, footer, sections)
-- Visible focus states for interactive elements
-- Color choices intended to meet WCAG 2.2 AA contrast where text is involved
-- Dialog controls that remain keyboard-accessible
-
-When adding or changing UI, aim to preserve these guarantees:
-
-- Don’t remove focus outlines without providing an equally visible replacement.
-- Ensure text has sufficient contrast against its background.
-- Keep interactions accessible by keyboard and screen readers.
 
 ## Deployment
 
-The project builds to static HTML, CSS, and JS in `dist/`. You can deploy it to any static host or CDN. Currently, this site is hosted with Vercel.
+Vercel deploys automatically on push to `main`, or when the WordPress deploy hook fires. The build fetches all content from WordPress and produces a fully static site.
 
-Typical workflow:
+`WP_API_BASE` must be set as an environment variable in the Vercel project settings.
 
-1. `pnpm install`
-2. `pnpm build`
-3. Upload or point your host at the `dist/` directory. (Vercel does this automatically.)
+## Accessibility
+
+- Semantic headings and landmarks
+- Visible focus states for interactive elements
+- Color choices intended to meet WCAG 2.2 AA contrast
 
 ## License
 
-This project is published under the MIT license (see the `license` field in `package.json`). If you add a top-level `LICENSE` file, it should match the MIT terms.
+MIT
