@@ -406,12 +406,32 @@ add_filter( 'rest_prepare_band_member', function ( $response, $post ) {
 //   define( 'CT_VERCEL_DEPLOY_HOOK', 'https://api.vercel.com/v1/integrations/deploy/YOUR_HOOK_URL' );
 // =============================================================================
 
+// Hard limit: max deploys in a rolling 24-hour window. Vercel Hobby allows
+// 100/day; we cap at 90 to leave headroom for manual deploys.
+define( 'CT_DEPLOY_DAILY_LIMIT', 90 );
+
 function ct_trigger_vercel_deploy() {
     if ( ! defined( 'CT_VERCEL_DEPLOY_HOOK' ) || empty( CT_VERCEL_DEPLOY_HOOK ) ) {
         return;
     }
+    $count = (int) get_transient( 'ct_deploy_count' );
+    set_transient( 'ct_deploy_count', $count + 1, DAY_IN_SECONDS );
     wp_remote_post( CT_VERCEL_DEPLOY_HOOK, [ 'blocking' => false ] );
 }
+
+// Debounced version: schedules a deploy 5 minutes out. If one is already
+// scheduled, or the daily limit has been reached, does nothing — so rapid
+// saves collapse into a single build and runaway deploys are prevented.
+function ct_schedule_vercel_deploy() {
+    if ( (int) get_transient( 'ct_deploy_count' ) >= CT_DEPLOY_DAILY_LIMIT ) {
+        return;
+    }
+    if ( ! wp_next_scheduled( 'ct_vercel_deploy' ) ) {
+        wp_schedule_single_event( time() + 5 * MINUTE_IN_SECONDS, 'ct_vercel_deploy' );
+    }
+}
+
+add_action( 'ct_vercel_deploy', 'ct_trigger_vercel_deploy' );
 
 $ct_managed_types = [ 'gig', 'song', 'video', 'band_member', 'page' ];
 
@@ -422,12 +442,12 @@ add_action( 'save_post', function ( $post_id, $post ) use ( $ct_managed_types ) 
     if ( ! in_array( $post->post_type, $ct_managed_types ) ) return;
     if ( $post->post_status !== 'publish' ) return;
 
-    ct_trigger_vercel_deploy();
+    ct_schedule_vercel_deploy();
 }, 10, 2 );
 
 // Trigger on trash / delete
 add_action( 'trashed_post', function ( $post_id ) use ( $ct_managed_types ) {
     if ( in_array( get_post_type( $post_id ), $ct_managed_types ) ) {
-        ct_trigger_vercel_deploy();
+        ct_schedule_vercel_deploy();
     }
 } );
