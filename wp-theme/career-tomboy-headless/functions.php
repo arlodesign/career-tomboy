@@ -7,6 +7,10 @@
 // so the admin UI and REST API continue to work normally.
 // =============================================================================
 
+add_action( 'after_setup_theme', function () {
+    add_theme_support( 'post-thumbnails' );
+} );
+
 add_action( 'template_redirect', function () {
     wp_redirect( 'https://careertomboy.com', 301 );
     exit;
