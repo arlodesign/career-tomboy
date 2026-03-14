@@ -119,6 +119,22 @@ add_action( 'init', function () {
 } );
 
 // =============================================================================
+// Song List block — PHP registration
+//
+// Registering the block server-side gives it a render_callback, so WordPress
+// includes the marker in content.rendered (the REST API field). Without this,
+// do_blocks() would silently drop the block comment from rendered output.
+// =============================================================================
+
+add_action( 'init', function () {
+    register_block_type( 'career-tomboy/song-list', [
+        'render_callback' => function () {
+            return '<div data-ct-block="song-list"></div>';
+        },
+    ] );
+} );
+
+// =============================================================================
 // Block Editor Assets
 // =============================================================================
 

@@ -1,15 +1,8 @@
 ---
-import videoData from '../data/videos.json';
+import { fetchVideos } from '../lib/wordpress';
 import Section from './Section.astro';
 
-interface Video {
-    youtubeId: string;
-    title: string;
-    description?: string;
-}
-
-const featured: Video = videoData.featured;
-const videos: Video[] = videoData.videos;
+const { featured, videos } = await fetchVideos();
 ---
 
 <Section id="media" headline="Watch & Listen" color="papaya">

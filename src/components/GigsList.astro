@@ -3,7 +3,7 @@ import Gig from './Gig.astro';
 import { getUpcomingGigs } from '../lib/gigs';
 import Section from './Section.astro';
 
-const upcomingGigs = getUpcomingGigs();
+const upcomingGigs = await getUpcomingGigs();
 ---
 
 <Section id="gigs" headline="See us live!" color="strawberry">
