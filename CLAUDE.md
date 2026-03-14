@@ -12,20 +12,9 @@ Static marketing website for Career Tomboy, a Chicago-based alternative cover ba
 pnpm dev        # Start dev server at http://localhost:4321
 pnpm build      # Run favicon prebuild + compile to dist/
 pnpm preview    # Serve production build locally
-pnpm cms        # Start local CMS at http://localhost:4322
 ```
 
 No test suite exists. The prebuild step (`scripts/generate-favicons.mjs`) runs automatically before `pnpm build`.
-
-## Local CMS
-
-`cms/server.js` is an Express 5 server (port 4322) that provides a browser UI for editing content without touching JSON directly.
-
-**API:** `GET /api/:file` and `PUT /api/:file` read/write `src/data/{file}.json`. Allowed files: `gigs`, `videos`, `songs`, `members`. `POST /api/publish` runs `git add src/data && git commit && git push` and streams output via SSE.
-
-**UI:** `cms/index.html` — self-contained, no build step. Tabs: Gigs, Videos, Songs, Members, Publish.
-
-`cms/package.json` sets `"type": "module"` so the server's ESM imports work without affecting the root package.
 
 ## Architecture
 
