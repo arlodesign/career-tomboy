@@ -1,5 +1,6 @@
 {
     "name": "career-tomboy-website",
+    "type": "module",
     "version": "1.0.0",
     "description": "Static marketing site for Career Tomboy, a Chicago cover band.",
     "homepage": "https://careertomboy.com/",
