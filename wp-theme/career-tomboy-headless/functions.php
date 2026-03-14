@@ -12,6 +12,14 @@ add_action( 'template_redirect', function () {
     exit;
 } );
 
+add_action('admin_menu', 'hide_posts_from_non_admins');
+
+function hide_posts_from_non_admins() {
+    if (!current_user_can('manage_options')) {
+        remove_menu_page('edit.php');
+    }
+}
+
 // =============================================================================
 // Custom Post Types
 // =============================================================================
