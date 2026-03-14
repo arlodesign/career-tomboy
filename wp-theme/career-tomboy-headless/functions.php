@@ -106,6 +106,29 @@ add_action( 'init', function () {
         ] );
     }
 
+    // Booking page — Google Form URL stored as meta so it can be updated
+    // without touching the page body. The page content (headings, paragraphs)
+    // is edited directly in the WordPress block editor.
+    register_meta( 'post', 'booking_form_url', [
+        'object_subtype' => 'page',
+        'show_in_rest'   => true,
+        'single'         => true,
+        'type'           => 'string',
+    ] );
+
+} );
+
+// =============================================================================
+// Block Editor Assets
+// =============================================================================
+
+add_action( 'enqueue_block_editor_assets', function () {
+    wp_enqueue_script(
+        'ct-blocks',
+        get_stylesheet_directory_uri() . '/blocks.js',
+        [ 'wp-blocks', 'wp-element' ],
+        '1.0.0'
+    );
 } );
 
 // =============================================================================
@@ -122,7 +145,7 @@ function ct_trigger_vercel_deploy() {
     wp_remote_post( CT_VERCEL_DEPLOY_HOOK, [ 'blocking' => false ] );
 }
 
-$ct_managed_types = [ 'gig', 'song', 'video', 'band_member' ];
+$ct_managed_types = [ 'gig', 'song', 'video', 'band_member', 'page' ];
 
 // Trigger on publish / update
 add_action( 'save_post', function ( $post_id, $post ) use ( $ct_managed_types ) {
