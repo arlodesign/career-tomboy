@@ -346,6 +346,60 @@ add_action( 'enqueue_block_editor_assets', function () {
 } );
 
 // =============================================================================
+// REST API — inject meta into responses
+//
+// Older WordPress versions have a bug in WP_REST_Meta_Fields::get_registered_fields()
+// where calling get_registered_meta_keys('post') without a subtype returns a
+// nested array that the iterator can't process, so all subtype-specific meta
+// (registered via register_post_meta) is silently omitted from REST responses.
+// These filters inject the meta directly so the Astro build can read it.
+// =============================================================================
+
+add_filter( 'rest_prepare_gig', function ( $response, $post ) {
+    $data           = $response->get_data();
+    $data['meta']   = [
+        'gig_date'       => get_post_meta( $post->ID, 'gig_date', true ),
+        'gig_address'    => get_post_meta( $post->ID, 'gig_address', true ),
+        'gig_ticket_url' => get_post_meta( $post->ID, 'gig_ticket_url', true ),
+        'gig_supporting' => get_post_meta( $post->ID, 'gig_supporting', true ),
+        'gig_notes'      => get_post_meta( $post->ID, 'gig_notes', true ),
+        'gig_is_private' => (bool) get_post_meta( $post->ID, 'gig_is_private', true ),
+    ];
+    $response->set_data( $data );
+    return $response;
+}, 10, 2 );
+
+add_filter( 'rest_prepare_song', function ( $response, $post ) {
+    $data           = $response->get_data();
+    $data['meta']   = [
+        'song_artist' => get_post_meta( $post->ID, 'song_artist', true ),
+    ];
+    $response->set_data( $data );
+    return $response;
+}, 10, 2 );
+
+add_filter( 'rest_prepare_video', function ( $response, $post ) {
+    $data           = $response->get_data();
+    $data['meta']   = [
+        'video_youtube_id'  => get_post_meta( $post->ID, 'video_youtube_id', true ),
+        'video_description' => get_post_meta( $post->ID, 'video_description', true ),
+        'video_is_featured' => (bool) get_post_meta( $post->ID, 'video_is_featured', true ),
+    ];
+    $response->set_data( $data );
+    return $response;
+}, 10, 2 );
+
+add_filter( 'rest_prepare_band_member', function ( $response, $post ) {
+    $data           = $response->get_data();
+    $data['meta']   = [
+        'member_role' => get_post_meta( $post->ID, 'member_role', true ),
+        'member_bio'  => get_post_meta( $post->ID, 'member_bio', true ),
+    ];
+    $response->set_data( $data );
+    return $response;
+}, 10, 2 );
+
+// =============================================================================
 // Vercel Deploy Hook
 //
 // Add to wp-config.php:
