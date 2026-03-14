@@ -33,13 +33,14 @@ if [[ -z "${WP_SSH_USER:-}" || -z "${WP_SSH_HOST:-}" || -z "${WP_SSH_PATH:-}" ]]
 fi
 
 PORT="${WP_SSH_PORT:-22}"
-THEME_DIR="$ROOT_DIR/wp-theme/career-tomboy-headless/"
+THEME_DIR="$ROOT_DIR/wp-theme/career-tomboy-headless"
+COMMIT_HASH="$(git -C "$ROOT_DIR" rev-parse --short HEAD)"
 
-echo "→ Deploying WordPress theme to $WP_SSH_HOST…"
+echo "Deploying WordPress theme to $WP_SSH_HOST ($COMMIT_HASH)..."
 
 rsync -avz --delete \
     -e "ssh -p $PORT -o IdentitiesOnly=yes ${WP_SSH_KEY:+-i $WP_SSH_KEY}" \
-    "$THEME_DIR" \
+    "$THEME_DIR/" \
     "$WP_SSH_USER@$WP_SSH_HOST:$WP_SSH_PATH/"
 
-echo "✓ Theme deployed."
+echo "Theme deployed."

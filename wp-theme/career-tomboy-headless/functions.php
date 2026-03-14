@@ -58,19 +58,17 @@ add_action( 'init', function () {
     ] );
 
     foreach ( [ 'gig_date', 'gig_address', 'gig_ticket_url', 'gig_supporting', 'gig_notes' ] as $key ) {
-        register_meta( 'post', $key, [
-            'object_subtype' => 'gig',
-            'show_in_rest'   => true,
-            'single'         => true,
-            'type'           => 'string',
+        register_post_meta( 'gig', $key, [
+            'show_in_rest' => true,
+            'single'       => true,
+            'type'         => 'string',
         ] );
     }
 
-    register_meta( 'post', 'gig_is_private', [
-        'object_subtype' => 'gig',
-        'show_in_rest'   => true,
-        'single'         => true,
-        'type'           => 'boolean',
+    register_post_meta( 'gig', 'gig_is_private', [
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'boolean',
     ] );
 
     // Songs
@@ -94,11 +92,10 @@ add_action( 'init', function () {
         'menu_icon'    => 'dashicons-format-audio',
     ] );
 
-    register_meta( 'post', 'song_artist', [
-        'object_subtype' => 'song',
-        'show_in_rest'   => true,
-        'single'         => true,
-        'type'           => 'string',
+    register_post_meta( 'song', 'song_artist', [
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
     ] );
 
     // Videos
@@ -123,19 +120,17 @@ add_action( 'init', function () {
     ] );
 
     foreach ( [ 'video_youtube_id', 'video_description' ] as $key ) {
-        register_meta( 'post', $key, [
-            'object_subtype' => 'video',
-            'show_in_rest'   => true,
-            'single'         => true,
-            'type'           => 'string',
+        register_post_meta( 'video', $key, [
+            'show_in_rest' => true,
+            'single'       => true,
+            'type'         => 'string',
         ] );
     }
 
-    register_meta( 'post', 'video_is_featured', [
-        'object_subtype' => 'video',
-        'show_in_rest'   => true,
-        'single'         => true,
-        'type'           => 'boolean',
+    register_post_meta( 'video', 'video_is_featured', [
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'boolean',
     ] );
 
     // Band Members
@@ -160,22 +155,20 @@ add_action( 'init', function () {
     ] );
 
     foreach ( [ 'member_role', 'member_bio' ] as $key ) {
-        register_meta( 'post', $key, [
-            'object_subtype' => 'band_member',
-            'show_in_rest'   => true,
-            'single'         => true,
-            'type'           => 'string',
+        register_post_meta( 'band_member', $key, [
+            'show_in_rest' => true,
+            'single'       => true,
+            'type'         => 'string',
         ] );
     }
 
     // Booking page — Google Form URL stored as meta so it can be updated
     // without touching the page body. The page content (headings, paragraphs)
     // is edited directly in the WordPress block editor.
-    register_meta( 'post', 'booking_form_url', [
-        'object_subtype' => 'page',
-        'show_in_rest'   => true,
-        'single'         => true,
-        'type'           => 'string',
+    register_post_meta( 'page', 'booking_form_url', [
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'string',
     ] );
 
 } );
