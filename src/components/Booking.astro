@@ -52,13 +52,7 @@ const sortedSongs = [...songs].sort((a: Song, b: Song) => {
     </div>
     {
         booking.formUrl && (
-            <iframe
-                class="mx-auto w-full max-w-4xl h-screen"
-                src={booking.formUrl}
-                frameborder="0"
-                marginheight="0"
-                marginwidth="0"
-            >
+            <iframe class="mx-auto w-full max-w-4xl h-screen border-0" src={booking.formUrl}>
                 Loading…
             </iframe>
         )
