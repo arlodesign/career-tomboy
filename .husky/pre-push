@@ -1,1 +1,7 @@
 pnpm run typecheck
+
+# Deploy WordPress theme when pushing to main
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+if [[ "$BRANCH" == "main" ]]; then
+    bash "$(git rev-parse --show-toplevel)/scripts/deploy-theme.sh"
+fi
