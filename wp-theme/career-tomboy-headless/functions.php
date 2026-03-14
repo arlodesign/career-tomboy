@@ -1,26 +1,34 @@
 <?php
 // =============================================================================
+// Theme Setup
+// =============================================================================
+
+add_action( 'after_setup_theme', function () {
+    add_theme_support( 'post-thumbnails' );
+} );
+
+// =============================================================================
 // Redirect all front-end traffic to the live site.
 //
 // template_redirect fires before any template is loaded for public-facing
 // requests. It does NOT fire for /wp-admin/, /wp-login.php, or /wp-json/,
 // so the admin UI and REST API continue to work normally.
 // =============================================================================
+
 add_action( 'template_redirect', function () {
     wp_redirect( 'https://careertomboy.com', 301 );
     exit;
 } );
 
-add_action( 'after_setup_theme', function () {
-    add_theme_support( 'post-thumbnails' );
-} );
+// =============================================================================
+// Admin UI
+// =============================================================================
 
-add_action( 'admin_menu', 'hide_posts_from_non_admins' );
-function hide_posts_from_non_admins() {
+add_action( 'admin_menu', function () {
     if ( ! current_user_can( 'manage_options' ) ) {
         remove_menu_page( 'edit.php' );
     }
-}
+} );
 
 // =============================================================================
 // Custom Post Types
