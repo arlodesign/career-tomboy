@@ -53,12 +53,12 @@ export async function fetchGigInputs(): Promise<GigInput[]> {
     const items = (await res.json()) as WpPost[];
     return items.map((item) => ({
         venue: decodeEntities(item.title.rendered),
-        date: (item.meta.gig_date as string) ?? '',
-        address: (item.meta.gig_address as string) || null,
-        ticketUrl: (item.meta.gig_ticket_url as string) || null,
-        supporting: (item.meta.gig_supporting as string) || null,
-        notes: (item.meta.gig_notes as string) || null,
-        isPrivate: Boolean(item.meta.gig_is_private),
+        date: (item.meta?.gig_date as string) ?? '',
+        address: (item.meta?.gig_address as string) || null,
+        ticketUrl: (item.meta?.gig_ticket_url as string) || null,
+        supporting: (item.meta?.gig_supporting as string) || null,
+        notes: (item.meta?.gig_notes as string) || null,
+        isPrivate: Boolean(item.meta?.gig_is_private),
     }));
 }
 
@@ -77,7 +77,7 @@ export async function fetchSongs(): Promise<Song[]> {
     const items = (await res.json()) as WpPost[];
     return items.map((item) => ({
         title: decodeEntities(item.title.rendered),
-        artist: decodeEntities((item.meta.song_artist as string) ?? ''),
+        artist: decodeEntities((item.meta?.song_artist as string) ?? ''),
     }));
 }
 
@@ -101,10 +101,10 @@ export async function fetchVideos(): Promise<VideoData> {
     if (!res.ok) throw new Error(`WP videos fetch failed: ${res.status}`);
     const items = (await res.json()) as WpPost[];
     const all = items.map((item) => ({
-        youtubeId: (item.meta.video_youtube_id as string) ?? '',
+        youtubeId: (item.meta?.video_youtube_id as string) ?? '',
         title: decodeEntities(item.title.rendered),
-        description: (item.meta.video_description as string) || undefined,
-        isFeatured: Boolean(item.meta.video_is_featured),
+        description: (item.meta?.video_description as string) || undefined,
+        isFeatured: Boolean(item.meta?.video_is_featured),
     }));
     const featured = all.find((v) => v.isFeatured) ?? all[0];
     const videos = all.filter((v) => !v.isFeatured);
