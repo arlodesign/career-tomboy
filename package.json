@@ -1,7 +1,9 @@
 {
-    "title": "Career Tomboy Website",
     "name": "career-tomboy-website",
     "version": "1.0.0",
+    "description": "Static marketing site for Career Tomboy, a Chicago cover band.",
+    "homepage": "https://careertomboy.com/",
+    "license": "MIT",
     "scripts": {
         "dev": "astro dev",
         "prebuild": "node scripts/generate-favicons.mjs",
@@ -17,31 +19,6 @@
         "*.{astro,ts,js,mjs,cjs,json,css,html}": "prettier --write",
         "*.{astro,ts,js,mjs}": "eslint --fix"
     },
-    "description": "Career Tomboy is a band.",
-    "keywords": [
-        "css",
-        "sass",
-        "scss",
-        "html",
-        "pug",
-        "responsive",
-        "theme",
-        "template"
-    ],
-    "homepage": "https://careertomboy.com/",
-    "bugs": {
-        "url": "https://github.com/StartBootstrap/startbootstrap-creative/issues",
-        "email": "feedback@startbootstrap.com"
-    },
-    "license": "MIT",
-    "author": "Start Bootstrap",
-    "contributors": [
-        "David Miller (https://davidmiller.io/)"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/StartBootstrap/startbootstrap-creative.git"
-    },
     "dependencies": {
         "astro": "^6.0.4",
         "sharp": "^0.34.5"
@@ -50,20 +27,15 @@
         "@astrojs/check": "^0.9.7",
         "@eslint/js": "^10.0.1",
         "@tailwindcss/vite": "^4.1.18",
-        "ase-util": "^1.0.3",
-        "clean-css": "^5.3.3",
         "eslint": "^10.0.2",
         "eslint-plugin-astro": "^1.6.0",
         "favicons": "^7.2.0",
         "globals": "^17.4.0",
-        "html-minifier-terser": "^7.2.0",
         "husky": "^9.1.7",
         "lint-staged": "^16.3.1",
-        "postcss": "^8.4.38",
         "prettier": "^3.8.1",
         "prettier-plugin-astro": "^0.14.1",
         "tailwindcss": "^4.1.18",
-        "terser": "^5.39.0",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.56.1"
     },
