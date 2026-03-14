@@ -8,7 +8,7 @@ function getBase(): string {
             'WP_API_BASE is not set. Add it to .env (local) or Vercel environment variables.',
         );
     }
-    return BASE;
+    return BASE.replace(/\/$/, '');
 }
 
 /**
