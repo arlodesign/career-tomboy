@@ -1,3 +1,4 @@
+import { decode } from 'html-entities';
 import type { GigInput } from './types';
 
 const BASE = import.meta.env.WP_API_BASE as string | undefined;
@@ -9,24 +10,6 @@ function getBase(): string {
         );
     }
     return BASE.replace(/\/$/, '');
-}
-
-/**
- * Decode HTML entities that WordPress injects via wptexturize / esc_html.
- * Only needed for title.rendered — meta values and content.rendered are used as-is.
- */
-function decodeEntities(str: string): string {
-    return str
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#039;/g, "'")
-        .replace(/&#8216;/g, '\u2018')
-        .replace(/&#8217;/g, '\u2019')
-        .replace(/&#8220;/g, '\u201C')
-        .replace(/&#8221;/g, '\u201D')
-        .replace(/&#8230;/g, '\u2026');
 }
 
 // ---------------------------------------------------------------------------
@@ -52,7 +35,7 @@ export async function fetchGigInputs(): Promise<GigInput[]> {
     if (!res.ok) throw new Error(`WP gigs fetch failed: ${res.status}`);
     const items = (await res.json()) as WpPost[];
     return items.map((item) => ({
-        venue: decodeEntities(item.title.rendered),
+        venue: decode(item.title.rendered),
         date: (item.meta?.gig_date as string) ?? '',
         address: (item.meta?.gig_address as string) || null,
         ticketUrl: (item.meta?.gig_ticket_url as string) || null,
@@ -76,8 +59,8 @@ export async function fetchSongs(): Promise<Song[]> {
     if (!res.ok) throw new Error(`WP songs fetch failed: ${res.status}`);
     const items = (await res.json()) as WpPost[];
     return items.map((item) => ({
-        title: decodeEntities(item.title.rendered),
-        artist: decodeEntities((item.meta?.song_artist as string) ?? ''),
+        title: decode(item.title.rendered),
+        artist: decode((item.meta?.song_artist as string) ?? ''),
     }));
 }
 
@@ -102,7 +85,7 @@ export async function fetchVideos(): Promise<VideoData> {
     const items = (await res.json()) as WpPost[];
     const all = items.map((item) => ({
         youtubeId: (item.meta?.video_youtube_id as string) ?? '',
-        title: decodeEntities(item.title.rendered),
+        title: decode(item.title.rendered),
         description: (item.meta?.video_description as string) || undefined,
         isFeatured: Boolean(item.meta?.video_is_featured),
     }));
