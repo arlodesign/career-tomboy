@@ -410,28 +410,131 @@ add_filter( 'rest_prepare_band_member', function ( $response, $post ) {
 // 100/day; we cap at 90 to leave headroom for manual deploys.
 define( 'CT_DEPLOY_DAILY_LIMIT', 90 );
 
+// Minimum spacing between deploys derived from the daily limit, ensuring burst
+// edits can never exhaust the quota. 90 deploys/day → ~16 min cooldown.
+define( 'CT_DEPLOY_COOLDOWN', (int) ( DAY_IN_SECONDS / CT_DEPLOY_DAILY_LIMIT ) );
+
 function ct_trigger_vercel_deploy() {
     if ( ! defined( 'CT_VERCEL_DEPLOY_HOOK' ) || empty( CT_VERCEL_DEPLOY_HOOK ) ) {
         return;
     }
     $count = (int) get_transient( 'ct_deploy_count' );
+    if ( $count >= CT_DEPLOY_DAILY_LIMIT ) {
+        return;
+    }
     set_transient( 'ct_deploy_count', $count + 1, DAY_IN_SECONDS );
+    set_transient( 'ct_last_deploy_time', time(), DAY_IN_SECONDS );
     wp_remote_post( CT_VERCEL_DEPLOY_HOOK, [ 'blocking' => false ] );
 }
 
-// Debounced version: schedules a deploy 5 minutes out. If one is already
-// scheduled, or the daily limit has been reached, does nothing — so rapid
-// saves collapse into a single build and runaway deploys are prevented.
+// Fires immediately if outside the cooldown window (covers the common case of
+// one save at a time). If a recent deploy happened, schedules one deploy for
+// the end of the cooldown window so rapid saves still collapse into one build.
 function ct_schedule_vercel_deploy() {
-    if ( (int) get_transient( 'ct_deploy_count' ) >= CT_DEPLOY_DAILY_LIMIT ) {
-        return;
-    }
-    if ( ! wp_next_scheduled( 'ct_vercel_deploy' ) ) {
-        wp_schedule_single_event( time() + 5 * MINUTE_IN_SECONDS, 'ct_vercel_deploy' );
+    $last        = (int) get_transient( 'ct_last_deploy_time' );
+    $in_cooldown = $last && ( time() - $last ) < CT_DEPLOY_COOLDOWN;
+
+    if ( ! $in_cooldown ) {
+        ct_trigger_vercel_deploy();
+    } elseif ( ! wp_next_scheduled( 'ct_vercel_deploy' ) ) {
+        wp_schedule_single_event( $last + CT_DEPLOY_COOLDOWN, 'ct_vercel_deploy' );
     }
 }
 
 add_action( 'ct_vercel_deploy', 'ct_trigger_vercel_deploy' );
+
+// =============================================================================
+// Deploy Status Dashboard Widget
+// =============================================================================
+
+add_action( 'wp_dashboard_setup', function () {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+    wp_add_dashboard_widget(
+        'ct_deploy_status',
+        'Vercel Deploy Status',
+        'ct_render_deploy_widget'
+    );
+} );
+
+// Handle "Deploy Now" form submission before any output.
+add_action( 'admin_init', function () {
+    if (
+        ! isset( $_POST['ct_deploy_now'] ) ||
+        ! check_admin_referer( 'ct_deploy_now' ) ||
+        ! current_user_can( 'manage_options' )
+    ) {
+        return;
+    }
+    // Bypass cooldown and fire immediately.
+    delete_transient( 'ct_last_deploy_time' );
+    ct_trigger_vercel_deploy();
+    wp_redirect( add_query_arg( 'ct_deployed', '1', admin_url() ) );
+    exit;
+} );
+
+function ct_render_deploy_widget() {
+    $hook_configured = defined( 'CT_VERCEL_DEPLOY_HOOK' ) && ! empty( CT_VERCEL_DEPLOY_HOOK );
+    $last            = (int) get_transient( 'ct_last_deploy_time' );
+    $count           = (int) get_transient( 'ct_deploy_count' );
+    $scheduled_at    = wp_next_scheduled( 'ct_vercel_deploy' );
+    $now             = time();
+
+    if ( isset( $_GET['ct_deployed'] ) ) {
+        echo '<div class="notice notice-success inline"><p>Deploy triggered.</p></div>';
+    }
+
+    echo '<table class="widefat striped" style="margin-bottom:12px"><tbody>';
+
+    // Hook configured?
+    $hook_label = $hook_configured ? '<span style="color:#00a32a">&#10003; Configured</span>' : '<span style="color:#d63638">&#10007; Not configured</span>';
+    echo '<tr><td>Deploy hook</td><td>' . $hook_label . '</td></tr>';
+
+    // Last deploy
+    if ( $last ) {
+        $ago = human_time_diff( $last, $now ) . ' ago';
+        echo '<tr><td>Last deploy</td><td>' . esc_html( $ago ) . '</td></tr>';
+    } else {
+        echo '<tr><td>Last deploy</td><td>Never (this session)</td></tr>';
+    }
+
+    // Deploys today
+    $remaining = max( 0, CT_DEPLOY_DAILY_LIMIT - $count );
+    echo '<tr><td>Deploys today</td><td>' . esc_html( $count ) . ' / ' . CT_DEPLOY_DAILY_LIMIT . ' (' . esc_html( $remaining ) . ' remaining)</td></tr>';
+
+    // Next deploy / cooldown status
+    if ( $scheduled_at ) {
+        $secs_until = $scheduled_at - $now;
+        if ( $secs_until > 0 ) {
+            $mins = ceil( $secs_until / 60 );
+            $label = 'Pending &mdash; fires in ~' . $mins . ' min';
+        } else {
+            $label = 'Pending &mdash; waiting for next page load to fire';
+        }
+        echo '<tr><td>Status</td><td>' . $label . '</td></tr>';
+    } elseif ( $last && ( $now - $last ) < CT_DEPLOY_COOLDOWN ) {
+        $secs_left = ( $last + CT_DEPLOY_COOLDOWN ) - $now;
+        $mins      = ceil( $secs_left / 60 );
+        echo '<tr><td>Status</td><td>Cooldown &mdash; ready in ~' . $mins . ' min</td></tr>';
+    } else {
+        echo '<tr><td>Status</td><td><span style="color:#00a32a">Ready &mdash; next save deploys immediately</span></td></tr>';
+    }
+
+    echo '</tbody></table>';
+
+    if ( $hook_configured && $remaining > 0 ) {
+        echo '<form method="post">';
+        wp_nonce_field( 'ct_deploy_now' );
+        echo '<input type="hidden" name="ct_deploy_now" value="1">';
+        submit_button( 'Deploy Now', 'secondary', 'submit', false );
+        echo '</form>';
+    } elseif ( ! $hook_configured ) {
+        echo '<p style="color:#d63638">Add <code>CT_VERCEL_DEPLOY_HOOK</code> to wp-config.php to enable deploys.</p>';
+    } else {
+        echo '<p style="color:#d63638">Daily deploy limit reached.</p>';
+    }
+}
 
 $ct_managed_types = [ 'gig', 'song', 'video', 'band_member', 'page' ];
 
