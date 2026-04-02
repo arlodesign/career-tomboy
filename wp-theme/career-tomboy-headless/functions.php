@@ -423,7 +423,7 @@ function ct_trigger_vercel_deploy() {
         return;
     }
     set_transient( 'ct_deploy_count', $count + 1, DAY_IN_SECONDS );
-    set_transient( 'ct_last_deploy_time', time(), DAY_IN_SECONDS );
+    update_option( 'ct_last_deploy_time', time(), false );
     wp_remote_post( CT_VERCEL_DEPLOY_HOOK, [ 'blocking' => false ] );
 }
 
@@ -431,7 +431,7 @@ function ct_trigger_vercel_deploy() {
 // one save at a time). If a recent deploy happened, schedules one deploy for
 // the end of the cooldown window so rapid saves still collapse into one build.
 function ct_schedule_vercel_deploy() {
-    $last        = (int) get_transient( 'ct_last_deploy_time' );
+    $last        = (int) get_option( 'ct_last_deploy_time', 0 );
     $in_cooldown = $last && ( time() - $last ) < CT_DEPLOY_COOLDOWN;
 
     if ( ! $in_cooldown ) {
@@ -468,7 +468,7 @@ add_action( 'admin_init', function () {
         return;
     }
     // Bypass cooldown and fire immediately.
-    delete_transient( 'ct_last_deploy_time' );
+    delete_option( 'ct_last_deploy_time' );
     ct_trigger_vercel_deploy();
     wp_redirect( add_query_arg( 'ct_deployed', '1', admin_url() ) );
     exit;
@@ -476,7 +476,7 @@ add_action( 'admin_init', function () {
 
 function ct_render_deploy_widget() {
     $hook_configured = defined( 'CT_VERCEL_DEPLOY_HOOK' ) && ! empty( CT_VERCEL_DEPLOY_HOOK );
-    $last            = (int) get_transient( 'ct_last_deploy_time' );
+    $last            = (int) get_option( 'ct_last_deploy_time', 0 );
     $count           = (int) get_transient( 'ct_deploy_count' );
     $scheduled_at    = wp_next_scheduled( 'ct_vercel_deploy' );
     $now             = time();
@@ -496,7 +496,7 @@ function ct_render_deploy_widget() {
         $ago = human_time_diff( $last, $now ) . ' ago';
         echo '<tr><td>Last deploy</td><td>' . esc_html( $ago ) . '</td></tr>';
     } else {
-        echo '<tr><td>Last deploy</td><td>Never (this session)</td></tr>';
+        echo '<tr><td>Last deploy</td><td>Never recorded</td></tr>';
     }
 
     // Deploys today
