@@ -1,20 +1,25 @@
-pnpm run typecheck
-
-# Deploy WordPress theme when pushing to main, only if theme files changed
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-if [[ "$BRANCH" == "main" ]]; then
-    THEME_CHANGED=false
-    while read -r local_ref local_sha remote_ref remote_sha; do
-        # For a new branch, remote_sha is all zeros — compare against empty tree
-        if [[ "$remote_sha" == "0000000000000000000000000000000000000000" ]]; then
-            remote_sha="4b825dc642cb6eb9a060e54bf8d69288fbee4904"
-        fi
-        if git diff --name-only "$remote_sha" "$local_sha" | grep -q '^wp-theme/'; then
-            THEME_CHANGED=true
-            break
-        fi
-    done
-    if [[ "$THEME_CHANGED" == "true" ]]; then
-        bash "$(git rev-parse --show-toplevel)/scripts/deploy-theme.sh"
+THEME_CHANGED=false
+ASTRO_CHANGED=false
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+    # For a new branch, remote_sha is all zeros — compare against empty tree
+    if [[ "$remote_sha" == "0000000000000000000000000000000000000000" ]]; then
+        remote_sha="4b825dc642cb6eb9a060e54bf8d69288fbee4904"
     fi
+    CHANGED_FILES="$(git diff --name-only "$remote_sha" "$local_sha")"
+    if echo "$CHANGED_FILES" | grep -q '^wp-theme/'; then
+        THEME_CHANGED=true
+    fi
+    if echo "$CHANGED_FILES" | grep -qE '^(src/|tsconfig|package\.json|astro\.config)'; then
+        ASTRO_CHANGED=true
+    fi
+done
+
+if [[ "$ASTRO_CHANGED" == "true" ]]; then
+    pnpm run typecheck
+fi
+
+if [[ "$BRANCH" == "main" ]] && [[ "$THEME_CHANGED" == "true" ]]; then
+    bash "$(git rev-parse --show-toplevel)/scripts/deploy-theme.sh"
 fi
