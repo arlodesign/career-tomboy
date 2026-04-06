@@ -189,6 +189,28 @@ add_action( 'manage_gig_posts_custom_column', function ( $column, $post_id ) {
     }
 }, 10, 2 );
 
+add_filter( 'manage_edit-gig_sortable_columns', function ( $columns ) {
+    $columns['gig_date'] = 'gig_date';
+    return $columns;
+} );
+
+// Handle sorting by gig_date; also default the list to reverse chronological.
+add_action( 'pre_get_posts', function ( $query ) {
+    if ( ! is_admin() || ! $query->is_main_query() ) return;
+    if ( $query->get( 'post_type' ) !== 'gig' ) return;
+
+    $orderby = $query->get( 'orderby' );
+
+    if ( $orderby === 'gig_date' || ! $orderby ) {
+        $query->set( 'meta_key', 'gig_date' );
+        $query->set( 'orderby', 'meta_value' );
+        // Preserve explicit ASC click; default to DESC.
+        if ( ! $orderby ) {
+            $query->set( 'order', 'DESC' );
+        }
+    }
+} );
+
 add_filter( 'manage_song_posts_columns', function ( $columns ) {
     $columns['song_artist'] = 'Artist';
     return $columns;
