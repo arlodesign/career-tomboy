@@ -339,6 +339,107 @@ add_action( 'save_post', function ( $post_id ) {
 } );
 
 // =============================================================================
+// Song Bulk Import
+//
+// Adds a "Bulk Import" page under Songs so a setlist can be pasted in as
+// "Title, Artist" per line instead of creating songs one at a time.
+// =============================================================================
+
+add_action( 'admin_menu', function () {
+    add_submenu_page(
+        'edit.php?post_type=song',
+        'Bulk Import Songs',
+        'Bulk Import',
+        'publish_posts',
+        'ct-song-bulk-import',
+        'ct_render_song_bulk_import_page'
+    );
+} );
+
+add_action( 'admin_init', function () {
+    if (
+        ! isset( $_POST['ct_song_bulk_import'] ) ||
+        ! check_admin_referer( 'ct_song_bulk_import' ) ||
+        ! current_user_can( 'publish_posts' )
+    ) {
+        return;
+    }
+
+    $lines = preg_split( '/\r\n|\r|\n/', wp_unslash( $_POST['ct_song_bulk_import_text'] ?? '' ) );
+
+    // Key existing songs by "title|artist" (case-insensitive) so re-running an
+    // import (or one with overlapping lines) doesn't create duplicate posts.
+    $existing = [];
+    foreach ( get_posts( [ 'post_type' => 'song', 'post_status' => 'any', 'numberposts' => -1 ] ) as $song ) {
+        $existing_key = strtolower( trim( $song->post_title ) ) . '|' . strtolower( trim( get_post_meta( $song->ID, 'song_artist', true ) ) );
+        $existing[ $existing_key ] = true;
+    }
+
+    $added   = 0;
+    $skipped = 0;
+
+    foreach ( $lines as $line ) {
+        $line = trim( $line );
+        if ( $line === '' ) continue;
+
+        $parts  = explode( ',', $line, 2 );
+        $title  = trim( $parts[0] );
+        $artist = trim( $parts[1] ?? '' );
+
+        if ( $title === '' ) continue;
+
+        $key = strtolower( $title ) . '|' . strtolower( $artist );
+        if ( isset( $existing[ $key ] ) ) {
+            $skipped++;
+            continue;
+        }
+
+        $post_id = wp_insert_post( [
+            'post_type'   => 'song',
+            'post_title'  => sanitize_text_field( $title ),
+            'post_status' => 'publish',
+        ] );
+
+        if ( $post_id && ! is_wp_error( $post_id ) ) {
+            update_post_meta( $post_id, 'song_artist', sanitize_text_field( $artist ) );
+            $existing[ $key ] = true;
+            $added++;
+        }
+    }
+
+    wp_redirect( add_query_arg(
+        [ 'post_type' => 'song', 'page' => 'ct-song-bulk-import', 'ct_added' => $added, 'ct_skipped' => $skipped ],
+        admin_url( 'edit.php' )
+    ) );
+    exit;
+} );
+
+function ct_render_song_bulk_import_page() {
+    ?>
+    <div class="wrap">
+        <h1>Bulk Import Songs</h1>
+        <?php if ( isset( $_GET['ct_added'] ) ) : ?>
+            <div class="notice notice-success is-dismissible">
+                <p>
+                    <?php echo (int) $_GET['ct_added']; ?> song(s) added.
+                    <?php if ( ! empty( $_GET['ct_skipped'] ) ) : ?>
+                        <?php echo (int) $_GET['ct_skipped']; ?> duplicate(s) skipped.
+                    <?php endif; ?>
+                </p>
+            </div>
+        <?php endif; ?>
+        <p>Paste one song per line, as <code>Title, Artist</code>. Songs are published immediately; lines matching an existing title + artist are skipped.</p>
+        <form method="post">
+            <?php wp_nonce_field( 'ct_song_bulk_import' ); ?>
+            <input type="hidden" name="ct_song_bulk_import" value="1">
+            <textarea name="ct_song_bulk_import_text" rows="15" class="large-text code" placeholder="Livin' on a Prayer, Bon Jovi&#10;Mr. Brightside, The Killers"></textarea>
+            <?php submit_button( 'Import Songs' ); ?>
+        </form>
+    </div>
+    <?php
+}
+
+// =============================================================================
 // Song List block — PHP registration
 //
 // Registering the block server-side gives it a render_callback, so WordPress
