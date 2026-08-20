@@ -42,3 +42,19 @@ const socialImageURL = new URL(socialImage.src, Astro.site ?? Astro.url);
 <meta name="theme-color" content="#9fd96f" />
 <meta name="msapplication-TileColor" content="#9fd96f" />
 <meta name="msapplication-config" content="/browserconfig.xml" />
+
+<!-- Metricool tracking -->
+<script is:inline>
+    function loadScript(a) {
+        const b = document.getElementsByTagName('head')[0],
+        c = document.createElement('script');
+        c.type = 'text/javascript';
+        c.src = 'https://tracker.metricool.com/resources/be.js';
+        c.onreadystatechange = a;
+        c.onload = a;
+        b.appendChild(c);
+    }
+    loadScript(function () {
+        beTracker.t({ hash: '8301d12ed3d5f44bcd099097da7f4caf' });
+    });
+</script>
