@@ -26,7 +26,9 @@ const SOCIALS = [
     {
         url: 'https://www.tiktok.com/@careertomboy',
         label: 'TikTok',
+        frame: 'M1.5 1.5h45v45H1.5V1.5Zm5 5v35h35V6.5H6.5Z',
         d: 'M31.3008 0v2.18792c0 6.80176 5.5138 12.31568 12.3156 12.31568v6c-4.7418 0-9.063-1.80204-12.3156-4.75864v18.26224h-6v-34.0072zM9.42188 34.0076c0-4.385 3.55476-7.9398 7.93976-7.9398v-6c-7.69872 0-13.93976 6.241-13.93976 13.9398 0 7.6986 6.24104 13.9396 13.93976 13.9396 7.69876 0 13.93976-6.241 13.93976-13.9396h-6c0 4.385-3.5548 7.9396-7.93976 7.9396-4.385 0-7.93976-3.5546-7.93976-7.9396z',
+        glyphTransform: 'translate(11.24 11) scale(0.5423)',
     },
 ];
 
@@ -38,7 +40,7 @@ const skewClass = randomSkewClass();
         <div class="max-w-xl text-center">
             <ul class="mt-6 flex justify-center gap-4">
                 {
-                    SOCIALS.map(({ url: href, label, d }) => (
+                    SOCIALS.map(({ url: href, label, d, frame, glyphTransform }) => (
                         <li>
                             <a
                                 href={href}
@@ -56,12 +58,21 @@ const skewClass = randomSkewClass();
                                             height="48"
                                             width="48"
                                         >
+                                            {frame && (
+                                                <path
+                                                    fill="currentColor"
+                                                    fill-rule="evenodd"
+                                                    d={frame}
+                                                    clip-rule="evenodd"
+                                                />
+                                            )}
                                             <path
                                                 fill="currentColor"
                                                 fill-rule="evenodd"
                                                 d={d}
                                                 clip-rule="evenodd"
                                                 stroke-width="2"
+                                                transform={glyphTransform}
                                             />
                                         </svg>
                                     </span>
