@@ -172,10 +172,13 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
       hence no opacity dimming and no colour override here. Only the size is
       trimmed, and only to their own 10px default.
     */
-    .ct-signup :global(.mastfoot p) {
-        line-height: 20px;
-        font-size: 10px;
-    }
+    /*
+      Deliberately NOT restyling .mastfoot p. Their octopus mark is an absolutely
+      positioned ::before on the link — 14x18px at top:6px — sized to sit inside
+      their 32px line-height. Shrinking that line-height (a 20px override here
+      previously) squashes the link box and pushes the logo out of it. Their
+      font-size is already 10px, so there was nothing else to gain.
+    */
 
     /*
       Their `.mastfoot{margin-top:10px!important}` assumes the attribution sits
@@ -184,17 +187,6 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
     */
     .ct-signup :global(.mastfoot) {
         margin-top: 0 !important;
-    }
-
-    /*
-      The attribution <p> is inline-block inside a block .inner, so it rides a
-      24px line box and lands ~2px off centre. Making .inner a flex container
-      removes the line box from the equation entirely.
-    */
-    .ct-signup :global(.mastfoot .inner) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     /*
