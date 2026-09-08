@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Head from '../components/Head.astro';
+import EmailSignup from '../components/EmailSignup.astro';
 import { SITE_DESCRIPTION } from '../config/site.js';
 
 interface Props {
@@ -24,6 +25,7 @@ const { title, description = SITE_DESCRIPTION } = Astro.props as Props;
             Skip to main content
         </a>
         <slot />
+        <EmailSignup />
         <script>
             declare global {
                 interface Window {
