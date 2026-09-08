@@ -53,10 +53,10 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
         left: 0;
         right: 0;
         z-index: 60;
-        background: var(--color-ct-black);
-        color: var(--color-ct-white);
-        border-top: 2px solid var(--color-ct-lime);
-        box-shadow: 0 -4px 24px rgb(0 0 0 / 25%);
+        background: var(--color-ct-white);
+        color: var(--color-ct-black);
+        border-top: 2px solid var(--color-ct-black);
+        box-shadow: 0 -4px 24px rgb(31 7 96 / 15%);
     }
 
     .ct-signup[hidden] {
@@ -73,12 +73,13 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
         margin-inline: auto;
     }
 
+    /* Sized to match the Booking section's <h3> — same face, so same weight. */
     .ct-signup-headline {
         margin: 0;
         font-family: var(--font-heading);
         font-style: italic;
         font-size: 1.25rem;
-        line-height: 1.1;
+        line-height: 1.75rem;
         text-align: center;
     }
 
@@ -93,7 +94,7 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
         right: 0.75rem;
         display: flex;
         padding: 0.25rem;
-        color: var(--color-ct-white);
+        color: var(--color-ct-black);
         background: transparent;
         border: 0;
         border-radius: 0.25rem;
@@ -101,11 +102,11 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
     }
 
     .ct-signup-close:hover {
-        color: var(--color-ct-lime);
+        color: var(--color-ct-strawberry);
     }
 
     .ct-signup-close:focus-visible {
-        outline: 2px solid var(--color-ct-lime);
+        outline: 2px solid var(--color-ct-black);
         outline-offset: 2px;
     }
 
@@ -119,7 +120,6 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
         }
 
         .ct-signup-headline {
-            font-size: 1.75rem;
             text-align: right;
         }
     }
@@ -133,8 +133,8 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
     .ct-signup :global(.inline-container .emailoctopus-form) {
         --field-colour: var(--color-ct-white);
         --field-border-colour: var(--color-ct-black);
-        --label-colour: var(--color-ct-white);
-        --text-colour: var(--color-ct-white);
+        --label-colour: var(--color-ct-black);
+        --text-colour: var(--color-ct-black);
         --button-colour: var(--color-ct-lime);
         --button-text-colour: var(--color-ct-black);
     }
@@ -149,9 +149,15 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
         margin-top: 0;
     }
 
-    /* Their .mb-2 on the field row and button double up inside a compact bar. */
+    /*
+      Their .mb-2 puts 0.5rem under the field row and button, which inside a
+      compact bar is dead space that also knocks the form 4px out of vertical
+      alignment with the attribution beside it. Their declaration carries
+      !important, so matching it is the only way to win — specificity alone
+      can't override an !important.
+    */
     .ct-signup :global(.emailoctopus-form .mb-2) {
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
     }
 
     .ct-signup :global(.emailoctopus-form .btn) {
@@ -159,14 +165,36 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
         cursor: pointer;
     }
 
-    /* Keep EmailOctopus attribution (plan requirement) but make it unobtrusive. */
-    .ct-signup :global(.mastfoot) {
-        opacity: 0.55;
-    }
-
+    /*
+      EmailOctopus attribution is a plan requirement, so it has to stay readable.
+      Their theme renders the pill with `no-bg` (transparent) and their brand
+      purple #3c2668 for the text, which needs a light ground to read against —
+      hence no opacity dimming and no colour override here. Only the size is
+      trimmed, and only to their own 10px default.
+    */
     .ct-signup :global(.mastfoot p) {
         line-height: 20px;
-        font-size: 9px;
+        font-size: 10px;
+    }
+
+    /*
+      Their `.mastfoot{margin-top:10px!important}` assumes the attribution sits
+      below a form, not beside one. In the bar it just pushes the text out of
+      vertical alignment, and the !important means matching it is the only option.
+    */
+    .ct-signup :global(.mastfoot) {
+        margin-top: 0 !important;
+    }
+
+    /*
+      The attribution <p> is inline-block inside a block .inner, so it rides a
+      24px line box and lands ~2px off centre. Making .inner a flex container
+      removes the line box from the equation entirely.
+    */
+    .ct-signup :global(.mastfoot .inner) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /*
@@ -175,20 +203,46 @@ const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
       div is EmailOctopus's own wrapper, hence the generic selector.
     */
     @media (min-width: 48rem) {
+        /*
+          Deliberately no `gap` here. EmailOctopus emits placeholder
+          [eo-block-container] divs around the form for optional content blocks.
+          They render 0px wide but are still flex items, so a `gap` would grant
+          each one its own spacing and shove the attribution away from the form —
+          the visible symptom being a detached "Powered by" off to the side.
+
+          They can't be hidden with :empty either: their markup is
+          `<div eo-block-container="">\n    </div>`, and the whitespace text node
+          counts as content, so :empty never matches. Spacing the real items with
+          a margin sidesteps both problems without depending on a selector
+          matching third-party whitespace exactly.
+        */
         .ct-signup :global(.inline-container > div) {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
         }
 
+        /* Sized to content: growing would push the attribution to the far edge. */
         .ct-signup :global(.inline-container .form-container) {
-            flex: 1 1 auto;
+            flex: 0 1 auto;
             min-width: 0;
         }
 
-        .ct-signup :global(.inline-container .text-center) {
+        /*
+          Direct child only. EmailOctopus's attribution div carries BOTH classes
+          — `mastfoot text-center no-bg` — so a descendant `.text-center` selector
+          also matches the inner element, applying the margin twice and forcing an
+          unwanted flex context on it.
+
+          display:flex on the real wrapper is load-bearing rather than cosmetic:
+          .mastfoot is inline-block, so as a block child it would sit on a line
+          box whose descender space knocks it below the field and button.
+        */
+        .ct-signup :global(.inline-container > div > .text-center) {
             flex: 0 0 auto;
+            margin-left: 0.75rem;
+            display: flex;
+            align-items: center;
         }
     }
 
