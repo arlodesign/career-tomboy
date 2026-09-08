@@ -1,0 +1,287 @@
+---
+// Floating email-list signup bar (EmailOctopus embedded form).
+//
+// PLACEHOLDER COPY — swap HEADLINE for the real line when it's written.
+const HEADLINE = 'Never miss a gig';
+
+const EO_FORM_ID = 'eba00212-a945-11f1-ac6a-6566c0d51ddc';
+---
+
+<aside id="ct-signup" class="ct-signup" aria-label="Email list signup" data-ct-signup hidden>
+    <div class="ct-signup-inner">
+        <p class="ct-signup-headline">{HEADLINE}</p>
+
+        <div class="ct-signup-form">
+            {
+                /*
+              is:inline is REQUIRED. The embed finds itself via
+              querySelector('script[data-form="..."]') and inserts the form as its
+              own nextSibling, then removes the tag. If Astro hoisted this script it
+              would strip data-form, the query would return null, and the embed would
+              throw on .parentNode. Inline also means the form renders right here.
+            */
+            }
+            <script
+                is:inline
+                async
+                src={`https://eocampaign1.com/form/${EO_FORM_ID}.js`}
+                data-form={EO_FORM_ID}></script>
+        </div>
+
+        <button
+            type="button"
+            class="ct-signup-close"
+            data-ct-signup-close
+            aria-label="Dismiss signup"
+        >
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                <path
+                    d="M6 6l12 12M18 6L6 18"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    fill="none"></path>
+            </svg>
+        </button>
+    </div>
+</aside>
+
+<style>
+    .ct-signup {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        background: var(--color-ct-black);
+        color: var(--color-ct-white);
+        border-top: 2px solid var(--color-ct-lime);
+        box-shadow: 0 -4px 24px rgb(0 0 0 / 25%);
+    }
+
+    .ct-signup[hidden] {
+        display: none;
+    }
+
+    .ct-signup-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.125rem;
+        padding: 0.4rem 2.75rem 0.4rem 1rem;
+        max-width: 80rem;
+        margin-inline: auto;
+    }
+
+    .ct-signup-headline {
+        margin: 0;
+        font-family: var(--font-heading);
+        font-style: italic;
+        font-size: 1.25rem;
+        line-height: 1.1;
+        text-align: center;
+    }
+
+    .ct-signup-form {
+        width: 100%;
+        max-width: 34rem;
+    }
+
+    .ct-signup-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.75rem;
+        display: flex;
+        padding: 0.25rem;
+        color: var(--color-ct-white);
+        background: transparent;
+        border: 0;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+
+    .ct-signup-close:hover {
+        color: var(--color-ct-lime);
+    }
+
+    .ct-signup-close:focus-visible {
+        outline: 2px solid var(--color-ct-lime);
+        outline-offset: 2px;
+    }
+
+    /* Side-by-side once there's room for it. */
+    @media (min-width: 48rem) {
+        .ct-signup-inner {
+            flex-direction: row;
+            justify-content: center;
+            gap: 1.5rem;
+            padding-block: 0.75rem;
+        }
+
+        .ct-signup-headline {
+            font-size: 1.75rem;
+            text-align: right;
+        }
+    }
+
+    /*
+      Theme the injected EmailOctopus form via its own custom properties.
+      Their stylesheet sets these ON .emailoctopus-form and is injected into the
+      body (after Astro's head styles), so an ancestor definition or an equal
+      0,2,0 selector would lose. This is 0,3,0 and wins on specificity alone.
+    */
+    .ct-signup :global(.inline-container .emailoctopus-form) {
+        --field-colour: var(--color-ct-white);
+        --field-border-colour: var(--color-ct-black);
+        --label-colour: var(--color-ct-white);
+        --text-colour: var(--color-ct-white);
+        --button-colour: var(--color-ct-lime);
+        --button-text-colour: var(--color-ct-black);
+    }
+
+    /* Their .inline-container caps width at 600px !important — match it here. */
+    .ct-signup :global(.inline-container) {
+        max-width: 100% !important;
+    }
+
+    /* The wrapper ships a 1rem top margin that the bar doesn't need. */
+    .ct-signup :global(.emailoctopus-form-wrapper) {
+        margin-top: 0;
+    }
+
+    /* Their .mb-2 on the field row and button double up inside a compact bar. */
+    .ct-signup :global(.emailoctopus-form .mb-2) {
+        margin-bottom: 0;
+    }
+
+    .ct-signup :global(.emailoctopus-form .btn) {
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    /* Keep EmailOctopus attribution (plan requirement) but make it unobtrusive. */
+    .ct-signup :global(.mastfoot) {
+        opacity: 0.55;
+    }
+
+    .ct-signup :global(.mastfoot p) {
+        line-height: 20px;
+        font-size: 9px;
+    }
+
+    /*
+      Their markup stacks the attribution under the form, which pushed the bar to
+      ~107px. Once there's width, sit them side by side instead. The direct-child
+      div is EmailOctopus's own wrapper, hence the generic selector.
+    */
+    @media (min-width: 48rem) {
+        .ct-signup :global(.inline-container > div) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .ct-signup :global(.inline-container .form-container) {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .ct-signup :global(.inline-container .text-center) {
+            flex: 0 0 auto;
+        }
+    }
+
+    /*
+      Slide-in is a transition off a transient .is-entering class, deliberately
+      NOT a CSS animation and NOT an off-screen resting state.
+
+      Two traps this avoids:
+      1. Animations don't run on display:none elements, and the bar ships
+         `hidden`. A CSS animation here freezes at its `from` keyframe and, with
+         fill-mode both, holds the bar off-screen permanently.
+      2. If the off-screen position were the DEFAULT, any failure to flip a
+         class (JS error, no frames) would leave the bar invisible — a silent
+         total failure. Resting on-screen means the worst case is a missing
+         animation, not a missing form.
+    */
+    .ct-signup.is-entering {
+        transform: translateY(100%);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .ct-signup {
+            transition: transform 0.35s ease-out;
+        }
+    }
+</style>
+
+<script>
+    const STORAGE_KEY = 'ct-signup-dismissed';
+    const bar = document.querySelector<HTMLElement>('[data-ct-signup]');
+
+    if (bar) {
+        // localStorage throws in some privacy modes — never let that hide the bar.
+        const dismissed = (() => {
+            try {
+                return localStorage.getItem(STORAGE_KEY) === '1';
+            } catch {
+                return false;
+            }
+        })();
+
+        /*
+         * Only opt into the slide-in when the page can actually paint it. A hidden
+         * or background tab produces no frames, so a transition started there would
+         * sit at its start value — parking the bar off-screen indefinitely. Skipping
+         * the transform in that case means the bar is simply already in place, so
+         * the worst case is a missing animation rather than a missing form.
+         */
+        const canAnimate = () =>
+            document.visibilityState === 'visible' &&
+            window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+
+        if (!dismissed) {
+            const animate = canAnimate();
+            if (animate) bar.classList.add('is-entering');
+            bar.hidden = false;
+            if (animate) {
+                // Force a synchronous reflow so the browser commits the off-screen
+                // state, giving the transition a start value to animate from.
+                void bar.offsetHeight;
+                bar.classList.remove('is-entering');
+            }
+        }
+
+        const dismiss = () => {
+            if (canAnimate()) {
+                bar.classList.add('is-entering');
+                setTimeout(() => {
+                    bar.hidden = true;
+                }, 350);
+            } else {
+                bar.hidden = true;
+            }
+            try {
+                localStorage.setItem(STORAGE_KEY, '1');
+            } catch {
+                /* Non-persistent dismissal is still better than ignoring the click. */
+            }
+        };
+
+        bar.querySelector('[data-ct-signup-close]')?.addEventListener('click', dismiss);
+
+        // The embed loads async, so the success message doesn't exist yet. Watch the
+        // whole bar: this fires on injection and on every later text change, so one
+        // observer covers both "form arrived" and "someone subscribed".
+        let done = false;
+        new MutationObserver(() => {
+            if (done) return;
+            const text = bar.querySelector('.emailoctopus-success-message')?.textContent?.trim();
+            if (text) {
+                done = true;
+                setTimeout(dismiss, 4000);
+            }
+        }).observe(bar, { childList: true, characterData: true, subtree: true });
+    }
+</script>
