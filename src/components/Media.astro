@@ -1,8 +1,13 @@
 ---
-import { fetchVideos } from '../lib/wordpress';
+import { fetchPhotos, fetchVideos } from '../lib/wordpress';
 import Section from './Section.astro';
 
-const { featured, videos } = await fetchVideos();
+const [{ featured, videos }, photos] = await Promise.all([fetchVideos(), fetchPhotos()]);
+
+// A lone photo gets the featured-video width; more than one becomes a grid.
+// `sizes` mirrors those layouts so the browser picks the right WP size.
+const single = photos.length === 1;
+const photoSizes = single ? '(min-width: 56rem) 56rem, 100vw' : '(min-width: 48rem) 50vw, 100vw';
 ---
 
 <Section id="media" headline="Watch & Listen" color="papaya">
@@ -52,6 +57,38 @@ const { featured, videos } = await fetchVideos();
                                 )}
                             </div>
                         </article>
+                    ))}
+                </div>
+            </>
+        )
+    }
+
+    <!-- Photos -->
+    {
+        photos.length > 0 && (
+            <>
+                <h3 class="mt-12 mb-6 text-center font-heading text-2xl italic">Photos</h3>
+                <div class={single ? 'mx-auto max-w-4xl' : 'grid gap-6 md:grid-cols-2'}>
+                    {photos.map((photo) => (
+                        <figure>
+                            <img
+                                src={photo.src}
+                                srcset={photo.srcset}
+                                sizes={photoSizes}
+                                width={photo.width}
+                                height={photo.height}
+                                alt={photo.alt}
+                                loading="lazy"
+                                decoding="async"
+                                class="h-auto w-full"
+                            />
+                            {photo.caption && (
+                                <figcaption
+                                    class="mt-4 text-center text-sm text-black"
+                                    set:html={photo.caption}
+                                />
+                            )}
+                        </figure>
                     ))}
                 </div>
             </>

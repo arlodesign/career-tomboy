@@ -34,12 +34,13 @@ Content is managed in a WordPress instance (URL in `.env`, not committed). The A
 - `video` — fields: `video_youtube_id`, `video_description`, `video_is_featured`
 - `band_member` — fields: `member_role`, `member_bio`
 - `page` (standard) — `booking` page with `booking_form_url` meta and Song List block
+- `attachment` (Media Library) — images opt in to the site via a "Show on website" checkbox (`ct_show_on_site` meta); alt text and caption come from the standard media fields
 
 **Theme:** `wp-theme/career-tomboy-headless/` — upload to `/wp-content/themes/` on the WP server. Contains `functions.php` (CPT/meta registration, Song List block PHP registration, deploy hook), `blocks.js` (custom Gutenberg block, no build step), `style.css` (theme header), `index.php` (fallback redirect).
 
 **Song List block:** A custom Gutenberg block (`career-tomboy/song-list`) that band members can drag to position the song list within the Booking page content. Registered in both `blocks.js` (editor tile) and `functions.php` (`render_callback` outputs `<div data-ct-block="song-list"></div>`). The PHP registration is required so `content.rendered` contains the marker — without it, WordPress silently drops the block comment.
 
-**Vercel deploy hook:** Add `define( 'CT_VERCEL_DEPLOY_HOOK', 'YOUR_URL' )` to `wp-config.php`. The theme triggers a rebuild whenever a gig, song, video, band_member, or page is published or trashed.
+**Vercel deploy hook:** Add `define( 'CT_VERCEL_DEPLOY_HOOK', 'YOUR_URL' )` to `wp-config.php`. The theme triggers a rebuild whenever a gig, song, video, band_member, or page is published or trashed, and whenever a "Show on website" photo is edited, un-flagged, or deleted.
 
 **Adding content:** Edit posts/pages in the WordPress admin. Save/publish triggers an automatic Vercel rebuild.
 
@@ -52,6 +53,7 @@ Single-page site (`src/pages/index.astro`) composed of sequential sections. All 
 - WP REST API (`/gigs`) → `fetchGigInputs()` in `wordpress.ts` → `src/lib/gigs.ts` (sort, filter upcoming/past, auto-generate IDs, build Maps URLs) → `GigsList.astro` / `Gig.astro`
 - WP REST API (`/videos`) → `fetchVideos()` → `Media.astro`
 - WP REST API (`/songs`) → `fetchSongs()` → sorted by artist (ignoring "The" prefix) then title → shown in `Booking.astro`
+- WP REST API (`/media?ct_photo=1`) → `fetchPhotos()` → `Media.astro` (below the videos). Images are hotlinked from WordPress, not processed by Astro; `srcset` is built from WP's generated sizes, dropping crops whose aspect ratio differs from the original (e.g. the 150×150 thumbnail). `ct_photo` is a custom query param handled by the theme's `rest_attachment_query` filter — without the theme deployed, WP ignores it and returns every image
 - WP REST API (`/pages?slug=booking`) → `fetchBookingPage()` → `Booking.astro` (`content.rendered` split on Song List marker, `booking_form_url` meta)
 
 **Adding content:** Edit in WordPress admin and publish. Gig IDs auto-generate as `gig-YYYY-MM-DD` if not specified.

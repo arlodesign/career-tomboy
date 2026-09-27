@@ -95,6 +95,77 @@ export async function fetchVideos(): Promise<VideoData> {
 }
 
 // ---------------------------------------------------------------------------
+// Photos
+//
+// Images are served straight from WordPress. The srcset is assembled from the
+// sizes WordPress generated on upload, so the browser picks the file and Astro
+// never touches the image.
+// ---------------------------------------------------------------------------
+
+interface WpImageSize {
+    width: number;
+    height: number;
+    source_url: string;
+}
+
+interface WpMedia {
+    id: number;
+    alt_text: string;
+    caption: { rendered: string };
+    source_url: string;
+    media_details: {
+        width: number;
+        height: number;
+        sizes?: Record<string, WpImageSize>;
+    };
+}
+
+export interface Photo {
+    id: number;
+    src: string;
+    srcset: string;
+    width: number;
+    height: number;
+    alt: string;
+    caption: string;
+}
+
+// Cropped sizes (e.g. the 150×150 "thumbnail") share the list with scaled
+// ones. srcset candidates must all have the original's aspect ratio or the
+// browser would swap in a crop, so anything off by more than a rounding
+// pixel is dropped.
+function srcsetFor(media: WpMedia): string {
+    const { width, height, sizes = {} } = media.media_details;
+    const byWidth = new Map<number, string>();
+    for (const size of Object.values(sizes)) {
+        if (Math.abs(size.height - (size.width * height) / width) > 1) continue;
+        byWidth.set(size.width, size.source_url);
+    }
+    byWidth.set(width, media.source_url);
+    return [...byWidth]
+        .sort(([a], [b]) => a - b)
+        .map(([w, url]) => `${url} ${w}w`)
+        .join(', ');
+}
+
+export async function fetchPhotos(): Promise<Photo[]> {
+    const res = await fetch(
+        `${getBase()}/media?ct_photo=1&media_type=image&per_page=100&_fields=id,alt_text,caption,source_url,media_details`,
+    );
+    if (!res.ok) throw new Error(`WP photos fetch failed: ${res.status}`);
+    const items = (await res.json()) as WpMedia[];
+    return items.map((item) => ({
+        id: item.id,
+        src: item.media_details.sizes?.large?.source_url ?? item.source_url,
+        srcset: srcsetFor(item),
+        width: item.media_details.width,
+        height: item.media_details.height,
+        alt: item.alt_text,
+        caption: item.caption.rendered.trim(),
+    }));
+}
+
+// ---------------------------------------------------------------------------
 // Booking page
 //
 // The Song List block's PHP render_callback outputs this marker, which

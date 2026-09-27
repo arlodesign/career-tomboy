@@ -677,3 +677,67 @@ add_action( 'trashed_post', function ( $post_id ) use ( $ct_managed_types ) {
         ct_schedule_vercel_deploy();
     }
 } );
+
+// =============================================================================
+// Website Photos
+//
+// Media items opt in to the Media section via a "Show on website" checkbox in
+// the media modal / attachment edit screen, so posters and logos in the same
+// library stay off the site. The Astro build requests only opted-in photos
+// with /media?ct_photo=1 and builds srcset from WordPress's generated sizes.
+// =============================================================================
+
+add_filter( 'attachment_fields_to_edit', function ( $fields, $post ) {
+    if ( ! wp_attachment_is_image( $post ) ) return $fields;
+
+    $name    = "attachments[{$post->ID}][ct_show_on_site]";
+    $checked = checked( (bool) get_post_meta( $post->ID, 'ct_show_on_site', true ), true, false );
+
+    $fields['ct_show_on_site'] = [
+        'label' => 'Show on website',
+        'input' => 'html',
+        'html'  => '<input type="checkbox" id="' . esc_attr( $name ) . '" name="' . esc_attr( $name ) . '" value="1"' . $checked . '>',
+        'helps' => 'Adds this photo to the Media section. Alt text and caption are shown too.',
+    ];
+    return $fields;
+}, 10, 2 );
+
+// An unchecked checkbox is simply absent from the submitted fields, so absence
+// means "off". Un-flagging deploys here because edit_attachment (below) only
+// sees the new, unflagged state.
+add_filter( 'attachment_fields_to_save', function ( $post, $attachment ) {
+    $was = (bool) get_post_meta( $post['ID'], 'ct_show_on_site', true );
+    $now = ! empty( $attachment['ct_show_on_site'] );
+
+    if ( $now ) {
+        update_post_meta( $post['ID'], 'ct_show_on_site', 1 );
+    } else {
+        delete_post_meta( $post['ID'], 'ct_show_on_site' );
+    }
+    if ( $was && ! $now ) {
+        ct_schedule_vercel_deploy();
+    }
+    return $post;
+}, 10, 2 );
+
+add_filter( 'rest_attachment_query', function ( $args, $request ) {
+    if ( $request->get_param( 'ct_photo' ) ) {
+        $args['meta_query'] = [ [ 'key' => 'ct_show_on_site', 'value' => '1' ] ];
+    }
+    return $args;
+}, 10, 2 );
+
+// Attachments don't go through save_post's publish check above, so edits to a
+// flagged photo (alt text, caption, newly checked box) deploy from here.
+add_action( 'edit_attachment', function ( $post_id ) {
+    if ( get_post_meta( $post_id, 'ct_show_on_site', true ) ) {
+        ct_schedule_vercel_deploy();
+    }
+} );
+
+// Attachments skip the trash by default, so this is the only removal signal.
+add_action( 'delete_attachment', function ( $post_id ) {
+    if ( get_post_meta( $post_id, 'ct_show_on_site', true ) ) {
+        ct_schedule_vercel_deploy();
+    }
+} );
