@@ -55,7 +55,7 @@ body {
     */
 
 :root {
-    --ct-pattern-size: 100vw 100vw;
+    --ct-pattern-size: 100vw auto;
 }
 
 /* Container used by Bg.astro for the masked pattern background */
