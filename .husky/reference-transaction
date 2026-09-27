@@ -1,0 +1,29 @@
+# Git has no post-push hook. After a successful push, git moves the local
+# origin/main tracking ref to the pushed commit, which fires this hook — so
+# this is where the theme deploys, once the push is known to have landed.
+#
+# The hook runs for every ref update (commits, checkouts, fetches), so it
+# exits fast unless origin/main moved to exactly local main's commit. A
+# fetch/pull moves origin/main before local main catches up, so it won't
+# match and won't deploy.
+#
+# Theme changes are measured against the last commit that deployed
+# successfully (recorded by deploy-theme.sh), not the previous origin/main:
+# git reports the tracking ref's old value as all zeros here, and a failed
+# deploy should be retried on the next push rather than forgotten.
+
+[ "$1" = "committed" ] || { cat >/dev/null; exit 0; }
+
+while read -r old new ref; do
+    [ "$ref" = "refs/remotes/origin/main" ] || continue
+    [ "$new" = "$(git rev-parse -q --verify refs/heads/main)" ] || continue
+
+    DEPLOYED="$(cat "$(git rev-parse --git-path ct-theme-deployed)" 2>/dev/null || true)"
+    git rev-parse -q --verify "${DEPLOYED:-x}^{commit}" >/dev/null \
+        || DEPLOYED="4b825dc642cb6eb9a060e54bf8d69288fbee4904" # empty tree
+    if git diff --quiet "$DEPLOYED" "$new" -- wp-theme/; then
+        continue
+    fi
+    bash "$(git rev-parse --show-toplevel)/scripts/deploy-theme.sh" "$new" \
+        || echo "⚠  Theme deploy failed — the push succeeded. Retry with: bash scripts/deploy-theme.sh"
+done

@@ -10,7 +10,7 @@
         "prebuild": "node scripts/generate-favicons.mjs",
         "build": "astro build",
         "preview": "astro preview",
-        "prepare": "husky",
+        "prepare": "husky && cp .husky/_/pre-push .husky/_/reference-transaction",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "lint": "eslint .",

@@ -40,6 +40,8 @@ Content is managed in a WordPress instance (URL in `.env`, not committed). The A
 
 **Song List block:** A custom Gutenberg block (`career-tomboy/song-list`) that band members can drag to position the song list within the Booking page content. Registered in both `blocks.js` (editor tile) and `functions.php` (`render_callback` outputs `<div data-ct-block="song-list"></div>`). The PHP registration is required so `content.rendered` contains the marker — without it, WordPress silently drops the block comment.
 
+**Theme deploy:** Pushing `main` with changes under `wp-theme/` rsyncs the theme to the WP server via `scripts/deploy-theme.sh` (settings in `.env`; `WP_SSH_HOST` is a `~/.ssh/config` alias so no server details live in this public repo). It runs from the `reference-transaction` hook after the push lands, since git has no post-push hook, and ships the pushed commit via `git archive` rather than the working tree. `.git/ct-theme-deployed` records the last deployed commit, so a failed deploy retries on the next push. Husky doesn't generate a `reference-transaction` wrapper, so the `prepare` script copies one in. Manual deploy: `bash scripts/deploy-theme.sh [<commit>]`.
+
 **Vercel deploy hook:** Add `define( 'CT_VERCEL_DEPLOY_HOOK', 'YOUR_URL' )` to `wp-config.php`. The theme triggers a rebuild whenever a gig, song, video, band_member, or page is published or trashed, and whenever a "Show on website" photo is edited, un-flagged, or deleted.
 
 **Adding content:** Edit posts/pages in the WordPress admin. Save/publish triggers an automatic Vercel rebuild.
