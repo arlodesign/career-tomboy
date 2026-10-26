@@ -14,19 +14,14 @@ const upcomingGigs = await getUpcomingGigs();
             aria-label="Upcoming shows"
             class="mt-4 flex flex-col gap-4"
         >
-            {
-                upcomingGigs.length > 0 ? (
-                    <>
-                        {upcomingGigs.map((gig) => (
-                            <Gig gig={gig} />
-                        ))}
-                    </>
-                ) : (
-                    <p class="py-8 text-center text-lg text-slate-700">
-                        No upcoming shows scheduled. Check back soon!
-                    </p>
-                )
-            }
+            {upcomingGigs.map((gig) => <Gig gig={gig} />)}
+            <p
+                id="gigs-empty"
+                class="py-8 text-center text-lg text-slate-700"
+                hidden={upcomingGigs.length > 0}
+            >
+                No upcoming shows scheduled. Check back soon!
+            </p>
         </div>
         <p class="mt-8 text-center text-sm">
             <a
@@ -55,4 +50,25 @@ const upcomingGigs = await getUpcomingGigs();
             </a>
         </p>
     </div>
+    <script is:inline>
+        // The gig list is built at deploy time, so gigs that have passed since the last
+        // deploy are hidden here. Dates are Chicago-local, so compare against today there.
+        (function () {
+            const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago' }).format(
+        new Date(),
+    );
+            const gigs = document.querySelectorAll('#gigs-list article[data-gig-id]');
+            let remaining = 0;
+            gigs.forEach(function (gig) {
+                const time = gig.querySelector('time');
+                const date = time && time.getAttribute('datetime');
+                if (date && date.slice(0, 10) < today) {
+                    gig.hidden = true;
+                } else {
+                    remaining++;
+                }
+            });
+            if (remaining === 0) document.getElementById('gigs-empty').hidden = false;
+        })();
+    </script>
 </Section>
