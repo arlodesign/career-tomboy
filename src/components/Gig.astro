@@ -1,6 +1,7 @@
 ---
 import type { Gig as GigType } from '../lib/types';
 import { generateMapsUrl } from '../lib/gigs';
+import { googleCalendarUrl, gigIcsPath } from '../lib/calendar';
 import { randomSkewClass } from '../lib/variants';
 import ActionLink from './ActionLink.astro';
 
@@ -70,7 +71,7 @@ const skewClass = randomSkewClass();
                 {gig.notes && !isPrivate && <p class="text-sm text-white">{gig.notes}</p>}
             </div>
             {
-                !isPrivate && (mapUrl || gig.ticketUrl) && (
+                !isPrivate && (
                     <div class="mt-3 flex flex-wrap gap-2 md:mt-0 md:justify-end">
                         {mapUrl && (
                             <ActionLink
@@ -122,6 +123,17 @@ const skewClass = randomSkewClass();
                                 </svg>
                             </ActionLink>
                         )}
+                        <ActionLink
+                            href={googleCalendarUrl(gig)}
+                            label="Google Cal"
+                            ariaLabel={`Add ${gig.venue} to Google Calendar`}
+                        />
+                        <ActionLink
+                            href={gigIcsPath(gig)}
+                            label="Apple / Outlook"
+                            ariaLabel={`Download ${gig.venue} as a calendar file for Apple Calendar or Outlook`}
+                            target="_self"
+                        />
                     </div>
                 )
             }

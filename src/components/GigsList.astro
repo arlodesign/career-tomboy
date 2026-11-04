@@ -4,6 +4,11 @@ import { getUpcomingGigs } from '../lib/gigs';
 import Section from './Section.astro';
 
 const upcomingGigs = await getUpcomingGigs();
+// webcal:// makes calendar apps subscribe to the feed (and re-poll it) instead of
+// downloading a one-off copy. It must be an absolute URL, so build it from the site host.
+const webcalUrl = `webcal://${Astro.site!.host}/calendar.ics`;
+// Google Calendar's "From URL" box rejects webcal://, so it gets the https form.
+const feedUrl = new URL('/calendar.ics', Astro.site).href;
 ---
 
 <Section id="gigs" headline="See us live!" color="strawberry">
@@ -23,11 +28,9 @@ const upcomingGigs = await getUpcomingGigs();
                 No upcoming shows scheduled. Check back soon!
             </p>
         </div>
-        <p class="mt-8 text-center text-sm">
+        <div class="mt-8 flex flex-col items-center gap-2 text-center text-sm">
             <a
-                href="/calendar.ics"
-                target="_blank"
-                rel="noopener"
+                href={webcalUrl}
                 class="inline-flex items-center gap-1.5 underline underline-offset-2 hover:no-underline"
             >
                 <svg
@@ -48,15 +51,69 @@ const upcomingGigs = await getUpcomingGigs();
                 </svg>
                 Subscribe to our calendar
             </a>
-        </p>
+            <button
+                type="button"
+                id="gcal-open"
+                class="cursor-pointer underline underline-offset-2 hover:no-underline"
+            >
+                Google Calendar? Copy the link
+            </button>
+        </div>
+        <dialog
+            id="gcal-dialog"
+            aria-labelledby="gcal-title"
+            class="m-auto w-[min(92vw,28rem)] border-2 border-black bg-ct-white p-6 text-left text-ct-black backdrop:bg-black/60"
+        >
+            <h3 id="gcal-title" class="font-heading text-xl italic">
+                Subscribe in Google Calendar
+            </h3>
+            <p id="gcal-status" class="mt-2 text-sm font-bold" role="status" aria-live="polite"></p>
+            <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm">
+                <li>Open Google Calendar on a computer. The phone app can't add by link.</li>
+                <li>
+                    In the left sidebar, click <strong>+</strong> next to <strong
+                        >Other calendars</strong
+                    >, then choose <strong>From URL</strong>.
+                </li>
+                <li>Paste the link below and click <strong>Add calendar</strong>.</li>
+            </ol>
+            <label class="mt-4 block text-sm font-bold" for="gcal-url">Calendar link</label>
+            <input
+                id="gcal-url"
+                type="text"
+                readonly
+                value={feedUrl}
+                class="mt-1 w-full border-2 border-black bg-white px-2 py-1 text-sm"
+            />
+            <p class="mt-3 text-xs">
+                Google checks subscribed calendars only every so often, so new shows can take up to
+                a day to appear.
+            </p>
+            <div class="mt-4 flex justify-end gap-2">
+                <button
+                    type="button"
+                    id="gcal-copy"
+                    class="cursor-pointer border-2 border-black px-3 py-1 text-sm font-medium hover:bg-black hover:text-white"
+                >
+                    Copy again
+                </button>
+                <button
+                    type="button"
+                    id="gcal-close"
+                    class="cursor-pointer border-2 border-black bg-black px-3 py-1 text-sm font-medium text-white hover:bg-transparent hover:text-black"
+                >
+                    Close
+                </button>
+            </div>
+        </dialog>
     </div>
     <script is:inline>
         // The gig list is built at deploy time, so gigs that have passed since the last
         // deploy are hidden here. Dates are Chicago-local, so compare against today there.
         (function () {
             const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago' }).format(
-        new Date(),
-    );
+                new Date(),
+            );
             const gigs = document.querySelectorAll('#gigs-list article[data-gig-id]');
             let remaining = 0;
             gigs.forEach(function (gig) {
@@ -69,6 +126,47 @@ const upcomingGigs = await getUpcomingGigs();
                 }
             });
             if (remaining === 0) document.getElementById('gigs-empty').hidden = false;
+        })();
+
+        // Google Calendar can't subscribe via a link, so copy the feed URL and show how to paste it.
+        (function () {
+            const dialog = document.getElementById('gcal-dialog');
+            const input = document.getElementById('gcal-url');
+            const status = document.getElementById('gcal-status');
+
+            function copy() {
+                const done = function (ok) {
+                    status.textContent = ok
+                        ? 'Link copied to your clipboard!'
+                        : "Couldn't copy automatically. Select the link below and copy it.";
+                    if (!ok) input.select();
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(input.value).then(
+                        function () {
+                            done(true);
+                        },
+                        function () {
+                            done(false);
+                        },
+                    );
+                } else {
+                    done(false);
+                }
+            }
+
+            document.getElementById('gcal-open').addEventListener('click', function () {
+                dialog.showModal();
+                copy();
+            });
+            document.getElementById('gcal-copy').addEventListener('click', copy);
+            document.getElementById('gcal-close').addEventListener('click', function () {
+                dialog.close();
+            });
+            // Clicking the backdrop (the dialog element itself, outside its content) closes it.
+            dialog.addEventListener('click', function (e) {
+                if (e.target === dialog) dialog.close();
+            });
         })();
     </script>
 </Section>
