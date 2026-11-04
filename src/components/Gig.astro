@@ -1,9 +1,9 @@
 ---
 import type { Gig as GigType } from '../lib/types';
 import { generateMapsUrl } from '../lib/gigs';
-import { googleCalendarUrl, gigIcsPath } from '../lib/calendar';
 import { randomSkewClass } from '../lib/variants';
 import ActionLink from './ActionLink.astro';
+import AddToCalendar from './AddToCalendar.astro';
 
 interface Props {
     gig: GigType;
@@ -32,7 +32,7 @@ const skewClass = randomSkewClass();
 ---
 
 <article
-    class="group p-4 text-left text-white md:text-base relative"
+    class="group p-4 text-left text-white md:text-base relative has-[details[open]]:z-30"
     data-gig-id={gig.id}
     data-private={isPrivate ? 'true' : undefined}
 >
@@ -123,17 +123,7 @@ const skewClass = randomSkewClass();
                                 </svg>
                             </ActionLink>
                         )}
-                        <ActionLink
-                            href={googleCalendarUrl(gig)}
-                            label="Google Cal"
-                            ariaLabel={`Add ${gig.venue} to Google Calendar`}
-                        />
-                        <ActionLink
-                            href={gigIcsPath(gig)}
-                            label="Apple / Outlook"
-                            ariaLabel={`Download ${gig.venue} as a calendar file for Apple Calendar or Outlook`}
-                            target="_self"
-                        />
+                        <AddToCalendar gig={gig} />
                     </div>
                 )
             }

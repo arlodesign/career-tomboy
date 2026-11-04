@@ -29,9 +29,10 @@ const feedUrl = new URL('/calendar.ics', Astro.site).href;
             </p>
         </div>
         <div class="mt-8 flex flex-col items-center gap-2 text-center text-sm">
-            <a
-                href={webcalUrl}
-                class="inline-flex items-center gap-1.5 underline underline-offset-2 hover:no-underline"
+            <button
+                type="button"
+                id="sub-open"
+                class="inline-flex cursor-pointer items-center gap-1.5 border-2 border-black bg-black px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -50,57 +51,76 @@ const feedUrl = new URL('/calendar.ics', Astro.site).href;
                     </g>
                 </svg>
                 Subscribe to our calendar
-            </a>
-            <button
-                type="button"
-                id="gcal-open"
-                class="cursor-pointer underline underline-offset-2 hover:no-underline"
-            >
-                Google Calendar? Copy the link
             </button>
         </div>
         <dialog
-            id="gcal-dialog"
-            aria-labelledby="gcal-title"
-            class="m-auto w-[min(92vw,28rem)] border-2 border-black bg-ct-white p-6 text-left text-ct-black backdrop:bg-black/60"
+            id="sub-dialog"
+            aria-labelledby="sub-title"
+            class="m-auto w-[min(92vw,30rem)] border-2 border-black bg-ct-white p-6 text-left text-ct-black backdrop:bg-black/60"
         >
-            <h3 id="gcal-title" class="font-heading text-xl italic">
-                Subscribe in Google Calendar
-            </h3>
-            <p id="gcal-status" class="mt-2 text-sm font-bold" role="status" aria-live="polite"></p>
-            <ol class="mt-3 list-decimal space-y-1 pl-5 text-sm">
-                <li>Open Google Calendar on a computer. The phone app can't add by link.</li>
-                <li>
-                    In the left sidebar, click <strong>+</strong> next to <strong
-                        >Other calendars</strong
-                    >, then choose <strong>From URL</strong>.
-                </li>
-                <li>Paste the link below and click <strong>Add calendar</strong>.</li>
-            </ol>
-            <label class="mt-4 block text-sm font-bold" for="gcal-url">Calendar link</label>
-            <input
-                id="gcal-url"
-                type="text"
-                readonly
-                value={feedUrl}
-                class="mt-1 w-full border-2 border-black bg-white px-2 py-1 text-sm"
-            />
-            <p class="mt-3 text-xs">
-                Google checks subscribed calendars only every so often, so new shows can take up to
-                a day to appear.
+            <h3 id="sub-title" class="font-heading text-xl italic">Subscribe to our calendar</h3>
+            <p class="mt-1 text-sm">
+                New shows show up in your calendar automatically. Pick your app:
             </p>
-            <div class="mt-4 flex justify-end gap-2">
-                <button
-                    type="button"
-                    id="gcal-copy"
-                    class="cursor-pointer border-2 border-black px-3 py-1 text-sm font-medium hover:bg-black hover:text-white"
+
+            <section class="mt-4" aria-labelledby="sub-apple">
+                <h4 id="sub-apple" class="text-sm font-bold">Apple Calendar or Outlook</h4>
+                <p class="mt-1 text-sm">This opens your calendar app and asks to subscribe.</p>
+                <a
+                    href={webcalUrl}
+                    class="mt-2 inline-block border-2 border-black bg-black px-3 py-1 text-sm font-medium text-white hover:bg-transparent hover:text-black"
                 >
-                    Copy again
-                </button>
+                    Subscribe
+                </a>
+            </section>
+
+            <section class="mt-5 border-t-2 border-black pt-4" aria-labelledby="sub-google">
+                <h4 id="sub-google" class="text-sm font-bold">Google Calendar</h4>
+                <p class="mt-1 text-sm">Google can't subscribe from a link, so add it by hand:</p>
+                <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                    <li>Open Google Calendar on a computer. The phone app can't add by link.</li>
+                    <li>
+                        In the left sidebar, click <strong>+</strong> next to <strong
+                            >Other calendars</strong
+                        >, then choose <strong>From URL</strong>.
+                    </li>
+                    <li>Paste the link below and click <strong>Add calendar</strong>.</li>
+                </ol>
+                <label class="mt-3 block text-sm font-bold" for="sub-url">Calendar link</label>
+                <div class="mt-1 flex gap-2">
+                    <input
+                        id="sub-url"
+                        type="text"
+                        readonly
+                        value={feedUrl}
+                        class="min-w-0 flex-1 border-2 border-black bg-white px-2 py-1 text-sm"
+                    />
+                    <button
+                        type="button"
+                        id="sub-copy"
+                        class="cursor-pointer border-2 border-black px-3 py-1 text-sm font-medium hover:bg-black hover:text-white"
+                    >
+                        Copy
+                    </button>
+                </div>
+                <p
+                    id="sub-status"
+                    class="mt-1 min-h-5 text-sm font-bold"
+                    role="status"
+                    aria-live="polite"
+                >
+                </p>
+                <p class="text-xs">
+                    Google checks subscribed calendars only every so often, so new shows can take up
+                    to a day to appear.
+                </p>
+            </section>
+
+            <div class="mt-5 flex justify-end">
                 <button
                     type="button"
-                    id="gcal-close"
-                    class="cursor-pointer border-2 border-black bg-black px-3 py-1 text-sm font-medium text-white hover:bg-transparent hover:text-black"
+                    id="sub-close"
+                    class="cursor-pointer border-2 border-black px-3 py-1 text-sm font-medium hover:bg-black hover:text-white"
                 >
                     Close
                 </button>
@@ -128,17 +148,18 @@ const feedUrl = new URL('/calendar.ics', Astro.site).href;
             if (remaining === 0) document.getElementById('gigs-empty').hidden = false;
         })();
 
-        // Google Calendar can't subscribe via a link, so copy the feed URL and show how to paste it.
+        // Subscribe dialog: Apple/Outlook use the webcal:// link; Google needs the https feed URL
+        // pasted by hand, so offer a copy button.
         (function () {
-            const dialog = document.getElementById('gcal-dialog');
-            const input = document.getElementById('gcal-url');
-            const status = document.getElementById('gcal-status');
+            const dialog = document.getElementById('sub-dialog');
+            const input = document.getElementById('sub-url');
+            const status = document.getElementById('sub-status');
 
             function copy() {
                 const done = function (ok) {
                     status.textContent = ok
                         ? 'Link copied to your clipboard!'
-                        : "Couldn't copy automatically. Select the link below and copy it.";
+                        : "Couldn't copy automatically. Select the link and copy it.";
                     if (!ok) input.select();
                 };
                 if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -155,12 +176,12 @@ const feedUrl = new URL('/calendar.ics', Astro.site).href;
                 }
             }
 
-            document.getElementById('gcal-open').addEventListener('click', function () {
+            document.getElementById('sub-open').addEventListener('click', function () {
+                status.textContent = '';
                 dialog.showModal();
-                copy();
             });
-            document.getElementById('gcal-copy').addEventListener('click', copy);
-            document.getElementById('gcal-close').addEventListener('click', function () {
+            document.getElementById('sub-copy').addEventListener('click', copy);
+            document.getElementById('sub-close').addEventListener('click', function () {
                 dialog.close();
             });
             // Clicking the backdrop (the dialog element itself, outside its content) closes it.
