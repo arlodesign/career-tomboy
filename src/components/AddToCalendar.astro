@@ -1,0 +1,102 @@
+---
+import type { Gig } from '../lib/types';
+import { googleCalendarUrl, gigIcsPath } from '../lib/calendar';
+
+interface Props {
+    gig: Gig;
+}
+
+const { gig } = Astro.props as Props;
+
+const itemClass =
+    'block whitespace-nowrap px-3 py-2 text-sm font-medium text-white hover:bg-white hover:text-black focus-visible:bg-white focus-visible:text-black focus-visible:outline-none';
+---
+
+<!-- A native <details> gives us open/close state and keyboard toggling for free. -->
+<details class="ct-add-to-cal relative">
+    <summary
+        class="inline-flex cursor-pointer list-none items-center gap-1 border-2 border-white px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden"
+        aria-label={`Add ${gig.venue} to your calendar`}
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 15 15"
+            height="16"
+            width="16"
+            aria-hidden="true"
+        >
+            <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M2.667 0v1.5H0V15h15V1.5h-2.667V0h-1.666v1.5H4.333V0H2.667ZM1.667 5.667v7.666h11.666V5.667H1.667Z"
+                clip-rule="evenodd"></path>
+        </svg>
+        <span>Add to calendar</span>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 10 6"
+            height="6"
+            width="10"
+            fill="none"
+            aria-hidden="true"
+            class="ml-0.5"
+        >
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5"></path>
+        </svg>
+    </summary>
+    <ul
+        class="absolute left-0 z-20 mt-1 min-w-full border-2 border-white bg-black md:left-auto md:right-0"
+    >
+        <li>
+            <a
+                href={googleCalendarUrl(gig)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={itemClass}
+                aria-label={`Add ${gig.venue} to Google Calendar`}>Google Calendar</a
+            >
+        </li>
+        <li>
+            <a
+                href={gigIcsPath(gig)}
+                class={itemClass}
+                aria-label={`Download ${gig.venue} as a calendar file for Apple Calendar or Outlook`}
+                >Apple / Outlook</a
+            >
+        </li>
+    </ul>
+</details>
+
+<script>
+    // Close the dropdown on outside click or Escape, and keep only one open at a time.
+    const menus = () =>
+        document.querySelectorAll<HTMLDetailsElement>('details.ct-add-to-cal[open]');
+
+    document.addEventListener('click', (event) => {
+        const target = event.target as Node;
+        menus().forEach((menu) => {
+            if (!menu.contains(target)) menu.open = false;
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        menus().forEach((menu) => {
+            menu.open = false;
+            menu.querySelector('summary')?.focus();
+        });
+    });
+
+    document.addEventListener(
+        'toggle',
+        (event) => {
+            const opened = event.target as HTMLElement;
+            if (!opened.matches('details.ct-add-to-cal[open]')) return;
+            menus().forEach((menu) => {
+                if (menu !== opened) menu.open = false;
+            });
+        },
+        true,
+    );
+</script>

@@ -3,6 +3,7 @@ import type { Gig as GigType } from '../lib/types';
 import { generateMapsUrl } from '../lib/gigs';
 import { randomSkewClass } from '../lib/variants';
 import ActionLink from './ActionLink.astro';
+import AddToCalendar from './AddToCalendar.astro';
 
 interface Props {
     gig: GigType;
@@ -31,7 +32,7 @@ const skewClass = randomSkewClass();
 ---
 
 <article
-    class="group p-4 text-left text-white md:text-base relative"
+    class="group p-4 text-left text-white md:text-base relative has-[details[open]]:z-30"
     data-gig-id={gig.id}
     data-private={isPrivate ? 'true' : undefined}
 >
@@ -70,7 +71,7 @@ const skewClass = randomSkewClass();
                 {gig.notes && !isPrivate && <p class="text-sm text-white">{gig.notes}</p>}
             </div>
             {
-                !isPrivate && (mapUrl || gig.ticketUrl) && (
+                !isPrivate && (
                     <div class="mt-3 flex flex-wrap gap-2 md:mt-0 md:justify-end">
                         {mapUrl && (
                             <ActionLink
@@ -122,6 +123,7 @@ const skewClass = randomSkewClass();
                                 </svg>
                             </ActionLink>
                         )}
+                        <AddToCalendar gig={gig} />
                     </div>
                 )
             }
